@@ -1,0 +1,82 @@
+% Reusable commands and semantic helpers for the NABTA report.
+
+\newcommand{\nabta}{\textsc{NABTA}\xspace}
+\newcommand{\nabtafull}{NABTA: Plant Disease Analysis System Using End-to-End Artificial Intelligence\xspace}
+\newcommand{\yolo}{YOLOv8\xspace}
+\newcommand{\unet}{U-Net\xspace}
+\newcommand{\cnn}{CNN\xspace}
+\newcommand{\gradcam}{Grad-CAM\xspace}
+\newcommand{\rag}{RAG\xspace}
+\newcommand{\fastapi}{FastAPI\xspace}
+\newcommand{\accuracy}[1]{\textbf{#1\%}}
+\newcommand{\metric}[2]{\textbf{#1}: \textit{#2}}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\figref}[1]{Figure~\ref{#1}}
+\newcommand{\tabref}[1]{Table~\ref{#1}}
+\newcommand{\chapref}[1]{Chapter~\ref{#1}}
+\newcommand{\secref}[1]{Section~\ref{#1}}
+\newcommand{\eqnref}[1]{Equation~(\ref{#1})}
+\newcommand{\docversion}{1.0}
+\newcommand{\submissiondate}{June 2026}
+
+% Cover logo with an automatic placeholder when the image is not yet present.
+\newcommand{\coverlogo}[3][2.1cm]{%
+  \IfFileExists{#2}{%
+    \includegraphics[width=#1,height=#1,keepaspectratio]{#2}%
+  }{%
+    \begingroup\setlength{\fboxsep}{0pt}%
+    \color{NabtaLine}\fbox{\parbox[c][#1][c]{#1}{\centering\scriptsize\color{NabtaMuted}#3}}%
+    \endgroup
+  }%
+}
+
+% Drop an asset at #2 and this command replaces its placeholder automatically.
+% #1 width, #2 file, #3 maximum height, #4 caption, #5 label.
+\newcommand{\projectfigure}[5][0.9\textwidth]{%
+  \begin{figure}[H]
+    \centering
+    \IfFileExists{#2}{%
+      \includegraphics[width=#1,height=#3,keepaspectratio]{#2}%
+    }{%
+      \begin{tikzpicture}
+        \draw[NabtaLine,fill=NabtaSoft] (0,0) rectangle (#1,#3);
+        \node[align=center,text width=0.7\textwidth,text=NabtaDark,font=\bfseries\small]
+          at (#1/2,#3/2) {#4};
+      \end{tikzpicture}%
+    }
+    \caption{#4}
+    \label{#5}
+  \end{figure}%
+}
+
+\newcommand{\placeholderfig}[4][0.92]{%
+  \begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+      \draw[NabtaLine, fill=NabtaSoft, rounded corners=3pt]
+        (0,0) rectangle (#1\textwidth, #2);
+      \node[align=center, text width=0.72\textwidth, text=NabtaDark,
+        font=\sffamily\bfseries\small] at (#1\textwidth/2, #2/2) {#3};
+    \end{tikzpicture}
+    \caption{#3}
+    \label{#4}
+  \end{figure}
+}
+
+\newenvironment{nabtanote}[1][Note]{%
+  \begin{tcolorbox}[nabtabox,title=#1]
+}{%
+  \end{tcolorbox}
+}
+
+\newcommand{\chapterquote}[2]{%
+  % Intentionally hidden to match the reference chapter-opening structure.
+}
+
+\newcommand{\leafglyph}{%
+  \begin{tikzpicture}[baseline=-0.6ex]
+    \fill[NabtaGreen] (0,0) to[out=70,in=180] (0.18,0.22)
+      to[out=0,in=110] (0.36,0) to[out=250,in=20] (0.18,-0.06) to[out=160,in=290] (0,0);
+    \draw[NabtaDark, line width=0.3pt] (0.02,0.01) -- (0.32,0.02);
+  \end{tikzpicture}%
+}

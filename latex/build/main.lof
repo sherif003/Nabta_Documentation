@@ -1,0 +1,29 @@
+\babel@toc {english}{}\relax 
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces High-Level Three-Tier System Architecture of NABTA}}{32}{figure.caption.27}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces System Workflow Diagram}}{33}{figure.caption.28}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Model and Inference Pipeline}}{33}{figure.caption.29}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Database Schema Diagram}}{34}{figure.caption.30}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces NABTA Main Analysis Dashboard Interface}}{35}{figure.caption.31}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces NABTA Smart Analysis Center Dashboard}}{36}{figure.caption.32}%
+\contentsline {figure}{\numberline {4.7}{\ignorespaces NABTA AI Chat Assistant Interface}}{36}{figure.caption.33}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Image Upload Screen with File Type and Size Indicators}}{50}{figure.caption.41}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Analysis Results Screen with Detection, Segmentation, and Grad-CAM Panels}}{51}{figure.caption.42}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Subscription Tier Selection Screen}}{51}{figure.caption.43}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {6.1}{\ignorespaces CNN Training and Validation Accuracy and Loss over 100 Epochs}}{55}{figure.caption.46}%
+\contentsline {figure}{\numberline {6.2}{\ignorespaces YOLOv8 Precision-Recall Curve on the PlantDoc Test Set}}{56}{figure.caption.48}%
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Evaluation Results Summary}}{59}{figure.caption.54}%
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Model Performance Comparison}}{60}{figure.caption.55}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {A.1}{\ignorespaces Distribution of Images Across Crop Categories in the Combined Training Corpus}}{71}{figure.caption.60}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {B.1}{\ignorespaces Database Schema Diagram}}{72}{figure.caption.61}%
+\contentsline {figure}{\numberline {B.2}{\ignorespaces User Interface Screenshot Set}}{73}{figure.caption.62}%
+\contentsline {figure}{\numberline {B.3}{\ignorespaces Model Performance Comparison}}{73}{figure.caption.63}%
+\contentsfinish 

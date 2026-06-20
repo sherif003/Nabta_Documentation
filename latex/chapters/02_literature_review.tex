@@ -1,0 +1,342 @@
+%==============================================================================
+% CHAPTER 2 -- LITERATURE REVIEW AND SYSTEM ANALYSIS
+%==============================================================================
+
+\chapter{Literature Review and System Analysis}
+\label{chap:literature_review}
+
+\chapterquote{Good software, like good writing, requires understanding the audience before writing the first line.}{Anonymous}
+
+\section{Related Work}
+\label{sec:related_work}
+
+Plant disease diagnosis has evolved from manual visual inspection toward computer vision systems that can classify disease symptoms from leaf images. Early deep learning studies, including Mohanty et al.~\cite{mohanty2016}, demonstrated the feasibility of convolutional neural networks on controlled datasets such as PlantVillage. Later work introduced stronger backbones, object detection models, segmentation networks, and explainability techniques to improve robustness under field conditions.
+
+The \nabta project builds on this body of work by combining object detection, segmentation, classification, and retrieval-augmented consultation in one deployable workflow. Unlike single-stage classifiers that process the whole image directly, the proposed pipeline progressively isolates the leaf region, removes background noise, classifies the disease, and explains the decision through \gradcam.
+
+\section{Overview}
+\label{sec:analysis_overview}
+
+System analysis constitutes the foundational phase in which the problem domain is formally examined and translated into a structured set of requirements that guide all subsequent design and implementation activities. This chapter presents a comprehensive requirements analysis for the \nabta system, encompassing both functional and non-functional specifications, a characterisation of the system's stakeholder groups and user roles, and a structured inventory of use cases and test scenarios.
+
+The analysis was conducted through a combination of literature review, user-centric need identification, and iterative refinement by the development team in consultation with the project supervisor. The resulting requirements document served as the primary contract specification governing system development.
+
+\section{Stakeholder Analysis}
+\label{sec:analysis_stakeholders}
+
+The \nabta system serves a heterogeneous community of stakeholders with distinct interests and interaction modalities:
+
+\begin{table}[H]
+  \centering
+  \caption{Stakeholder Groups and Their Primary Interests}
+  \label{tab:stakeholders}
+  \renewcommand{\arraystretch}{1.4}
+  \begin{tabularx}{\textwidth}{>{\bfseries}l X X}
+    \toprule
+    Stakeholder & Role & Primary Interest \\
+    \midrule
+    Field Farmers & Primary end-users & Rapid, reliable disease identification for crop protection \\
+    Agronomists & Domain experts and validators & Verifiable, evidence-based diagnostic output \\
+    Agricultural Researchers & Secondary users & Access to aggregated disease distribution data \\
+    System Administrators & Technical operators & System uptime, security, and performance monitoring \\
+    Project Supervisors & Academic oversight & Research quality and documentation standards \\
+    Helwan University & Institutional sponsor & Demonstrable academic and practical contribution \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\section{User Roles}
+\label{sec:analysis_roles}
+
+The system defines three distinct user roles with differentiated access privileges:
+
+\subsection{Free-Tier User}
+\label{subsec:free_user}
+The free-tier user represents the baseline access level, available to all registered accounts at no cost. Free-tier users may upload plant images for sequential pipeline analysis, view the resulting detection bounding boxes, segmentation masks, classification labels, confidence scores, and \gradcam heatmaps. Access to the AI chatbot consultation interface is provided with daily usage limitations. Historical analysis records are retained for a defined rolling window period.
+
+\subsection{Pro-Tier User}
+\label{subsec:pro_user}
+Pro-tier users ($\$20$/month) access the full feature set without usage restrictions. Additional capabilities exclusive to pro-tier accounts include unrestricted daily analysis submissions, the ability to upload custom datasets for personalised model fine-tuning, access to the comprehensive Nabta Smart Analysis Center dashboard with detailed farm-level infection timeline visualisations, and the export of analytical reports in PDF format.
+
+\subsection{System Administrator}
+\label{subsec:admin_user}
+System administrators possess elevated privileges for user management, system health monitoring, model version management, and content moderation within the knowledge base used by the RAG consultation module.
+
+\section{Functional Requirements}
+\label{sec:functional_requirements}
+
+Functional requirements specify the behavioural capabilities that the \nabta system must provide. Each requirement is assigned a unique identifier for traceability.
+
+\subsection{Authentication and Account Management}
+\label{subsec:fr_auth}
+
+\begin{table}[H]
+  \centering
+  \caption{Functional Requirements: Authentication and Account Management}
+  \label{tab:fr_auth}
+  \renewcommand{\arraystretch}{1.4}
+  \begin{tabularx}{\textwidth}{l l X}
+    \toprule
+    \textbf{ID} & \textbf{Priority} & \textbf{Requirement Description} \\
+    \midrule
+    FR-01 & High & The system shall allow new users to register accounts via an email and password mechanism facilitated by Firebase Authentication. \\
+    FR-02 & High & The system shall authenticate registered users via secure login and maintain authenticated session state. \\
+    FR-03 & High & The system shall provide a password reset workflow via a registered email address. \\
+    FR-04 & Medium & The system shall send a welcome email to newly registered users upon successful account creation. \\
+    FR-05 & Medium & The system shall maintain differentiated access controls between free-tier and pro-tier user accounts. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection{Plant Image Analysis}
+\label{subsec:fr_analysis}
+
+\begin{table}[H]
+  \centering
+  \caption{Functional Requirements: Plant Image Analysis}
+  \label{tab:fr_analysis}
+  \renewcommand{\arraystretch}{1.4}
+  \begin{tabularx}{\textwidth}{l l X}
+    \toprule
+    \textbf{ID} & \textbf{Priority} & \textbf{Requirement Description} \\
+    \midrule
+    FR-06 & High & The system shall accept plant leaf images in JPEG and PNG formats up to a maximum file size of 5 MB. \\
+    FR-07 & High & The system shall perform object detection on uploaded images using the YOLOv8 model to identify and bound infected leaf regions. \\
+    FR-08 & High & The system shall perform semantic segmentation on extracted ROI crops using the U-Net model with EfficientNet-B0 encoder. \\
+    FR-09 & High & The system shall classify the segmented and refined leaf image into one of 102 target disease/healthy classes using the custom CNN. \\
+    FR-10 & High & The system shall generate Grad-CAM gradient heatmaps overlaid on the classification input image. \\
+    FR-11 & High & The system shall return the plant name, disease name, confidence score, infection severity percentage, and Grad-CAM overlay image to the client. \\
+    FR-12 & High & The system shall store all analysis results associated with the authenticated user's account. \\
+    FR-13 & Medium & The system shall generate and allow download of a PDF report summarising the diagnosis. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection{AI Consultation Chatbot}
+\label{subsec:fr_chatbot}
+
+\begin{table}[H]
+  \centering
+  \caption{Functional Requirements: AI Consultation Chatbot}
+  \label{tab:fr_chatbot}
+  \renewcommand{\arraystretch}{1.4}
+  \begin{tabularx}{\textwidth}{l l X}
+    \toprule
+    \textbf{ID} & \textbf{Priority} & \textbf{Requirement Description} \\
+    \midrule
+    FR-14 & High & The system shall provide a conversational AI interface for agricultural queries powered by the Cohere LLM and RAG pipeline. \\
+    FR-15 & High & The system shall restrict chatbot responses to agricultural domain queries, rejecting off-topic prompts with a polite refusal message. \\
+    FR-16 & High & The system shall support both Arabic and English input and response languages. \\
+    FR-17 & High & The chatbot shall provide structured responses covering overview, cause, infection analysis, severity status, organic treatment, chemical treatment, prevention guidelines, and warning signs. \\
+    FR-18 & Medium & The chatbot shall generate a final health score and priority action list at the conclusion of each consultation session. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection{Analytics Dashboard}
+\label{subsec:fr_dashboard}
+
+\begin{table}[H]
+  \centering
+  \caption{Functional Requirements: Analytics Dashboard}
+  \label{tab:fr_dashboard}
+  \renewcommand{\arraystretch}{1.4}
+  \begin{tabularx}{\textwidth}{l l X}
+    \toprule
+    \textbf{ID} & \textbf{Priority} & \textbf{Requirement Description} \\
+    \midrule
+    FR-19 & High & The system shall display a disease distribution chart summarising historical analysis counts by disease type. \\
+    FR-20 & High & The system shall display an infection timeline chart enabling users to observe seasonal and temporal infection trends. \\
+    FR-21 & Medium & The system shall display a ranking of the most frequently analysed plant species. \\
+    FR-22 & Medium & The system shall maintain and display a paginated log of recent analyses with timestamps, species, and disease tags. \\
+    FR-23 & Low & Pro-tier users shall be able to export dashboard data in standard tabular formats. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\section{Non-Functional Requirements}
+\label{sec:nonfunctional_requirements}
+
+\begin{table}[H]
+  \centering
+  \caption{Non-Functional Requirements}
+  \label{tab:nfr}
+  \renewcommand{\arraystretch}{1.5}
+  \begin{tabularx}{\textwidth}{l l X}
+    \toprule
+    \textbf{ID} & \textbf{Category} & \textbf{Requirement} \\
+    \midrule
+    NFR-01 & Performance   & The end-to-end inference pipeline shall complete within 0.4 seconds for standard resolution inputs under nominal server load. \\
+    NFR-02 & Scalability   & The backend shall support concurrent multi-user inference requests through asynchronous processing. \\
+    NFR-03 & Accuracy      & The CNN classifier shall achieve a minimum accuracy of 95\% on the held-out validation set at release. \\
+    NFR-04 & Reliability   & The system shall maintain an uptime target of at least 99.5\% during active deployment. \\
+    NFR-05 & Security      & All client-server communication shall be encrypted via HTTPS. User authentication shall be managed through Firebase, and API keys shall be stored securely using environment variable vaults. \\
+    NFR-06 & Usability     & The web interface shall be fully functional on modern desktop and mobile browsers with no additional plugin installation required. \\
+    NFR-07 & Maintainability & System components shall be modularly decoupled such that individual model nodes can be upgraded independently without requiring refactoring of frontend or unrelated backend modules. \\
+    NFR-08 & Accessibility & The interface shall support bilingual (Arabic and English) content rendering. \\
+    NFR-09 & Portability   & The backend shall be containerisable via Docker for cloud-agnostic deployment. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\section{Use Cases}
+\label{sec:use_cases}
+
+\subsection{UC-01: User Registration}
+\label{subsec:uc01}
+
+\begin{table}[H]
+  \centering
+  \caption{Use Case: User Registration}
+  \label{tab:uc01}
+  \renewcommand{\arraystretch}{1.4}
+  \begin{tabularx}{\textwidth}{l X}
+    \toprule
+    \textbf{Field}           & \textbf{Details} \\
+    \midrule
+    Use Case ID              & UC-01 \\
+    Name                     & User Registration \\
+    Actor(s)                 & New User \\
+    Preconditions            & User has not previously registered an account \\
+    Main Success Scenario    & User submits registration form $\rightarrow$ Firebase Auth validates credentials $\rightarrow$ Account created $\rightarrow$ Welcome email dispatched \\
+    Alternative Scenario     & Email already in use $\rightarrow$ System displays error; user prompted to log in or reset password \\
+    Postconditions           & Authenticated user session established; user redirected to dashboard \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection{UC-02: Plant Image Upload and Analysis}
+\label{subsec:uc02}
+
+\begin{table}[H]
+  \centering
+  \caption{Use Case: Plant Image Upload and Analysis}
+  \label{tab:uc02}
+  \renewcommand{\arraystretch}{1.4}
+  \begin{tabularx}{\textwidth}{l X}
+    \toprule
+    \textbf{Field}           & \textbf{Details} \\
+    \midrule
+    Use Case ID              & UC-02 \\
+    Name                     & Plant Image Upload and Analysis \\
+    Actor(s)                 & Authenticated User (Free or Pro Tier) \\
+    Preconditions            & User is logged in; image file meets format and size requirements \\
+    Main Success Scenario    & User uploads image $\rightarrow$ Backend preprocesses image $\rightarrow$ YOLOv8 detects ROI $\rightarrow$ U-Net segments leaf $\rightarrow$ CNN classifies disease $\rightarrow$ Grad-CAM generated $\rightarrow$ Results returned to frontend $\rightarrow$ Results stored in database \\
+    Alternative Scenario A   & No leaf detected by YOLO $\rightarrow$ System returns informative error advising improved image quality \\
+    Alternative Scenario B   & File exceeds 5MB limit $\rightarrow$ Upload rejected with size-limit notification \\
+    Postconditions           & Analysis result persisted; user viewing diagnosis report \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection{UC-03: AI Chatbot Consultation}
+\label{subsec:uc03}
+
+\begin{table}[H]
+  \centering
+  \caption{Use Case: AI Chatbot Consultation}
+  \label{tab:uc03}
+  \renewcommand{\arraystretch}{1.4}
+  \begin{tabularx}{\textwidth}{l X}
+    \toprule
+    \textbf{Field}           & \textbf{Details} \\
+    \midrule
+    Use Case ID              & UC-03 \\
+    Name                     & AI Chatbot Consultation \\
+    Actor(s)                 & Authenticated User \\
+    Preconditions            & User is logged in; daily query limit not exceeded \\
+    Main Success Scenario    & User submits agricultural query $\rightarrow$ Query processed by RAG pipeline $\rightarrow$ Relevant documents retrieved from vector DB $\rightarrow$ Cohere LLM generates structured response $\rightarrow$ Response rendered in chat panel \\
+    Alternative Scenario     & Non-agricultural query submitted $\rightarrow$ Domain restriction filter activates; polite refusal returned \\
+    Postconditions           & Response displayed; conversation history maintained in session \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection{UC-04: PDF Report Generation}
+\label{subsec:uc04}
+
+\begin{table}[H]
+  \centering
+  \caption{Use Case: PDF Report Generation}
+  \label{tab:uc04}
+  \renewcommand{\arraystretch}{1.4}
+  \begin{tabularx}{\textwidth}{l X}
+    \toprule
+    \textbf{Field}           & \textbf{Details} \\
+    \midrule
+    Use Case ID              & UC-04 \\
+    Name                     & PDF Report Generation \\
+    Actor(s)                 & Authenticated User \\
+    Preconditions            & At least one analysis result exists for the user \\
+    Main Success Scenario    & User requests PDF report $\rightarrow$ Backend compiles diagnosis, images, and treatment information $\rightarrow$ PDF generated and returned as download \\
+    Postconditions           & PDF file downloaded to user's device \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection{UC-05: Subscription Upgrade}
+\label{subsec:uc05}
+
+\begin{table}[H]
+  \centering
+  \caption{Use Case: Subscription Upgrade}
+  \label{tab:uc05}
+  \renewcommand{\arraystretch}{1.4}
+  \begin{tabularx}{\textwidth}{l X}
+    \toprule
+    \textbf{Field}           & \textbf{Details} \\
+    \midrule
+    Use Case ID              & UC-05 \\
+    Name                     & Pro-Tier Subscription Upgrade \\
+    Actor(s)                 & Free-Tier User \\
+    Preconditions            & User is logged in with a free-tier account \\
+    Main Success Scenario    & User navigates to upgrade page $\rightarrow$ Payment processed $\rightarrow$ Account tier updated in Firebase $\rightarrow$ Pro features unlocked \\
+    Extended Feature         & Unlocks custom dataset upload for personalised model training \\
+    Postconditions           & User account upgraded; pro-tier dashboard features accessible \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\section{Test Cases}
+\label{sec:test_cases}
+
+\begin{table}[H]
+  \centering
+  \caption{System Test Case Inventory (Part 1 of 2)}
+  \label{tab:test_cases}
+  \small
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabularx}{\textwidth}{@{}L{1.25cm} L{1.45cm} Y Y@{}}
+    \toprule
+    \textbf{TC ID} & \textbf{Linked UC} & \textbf{Test Description} & \textbf{Expected Outcome} \\
+    \midrule
+    \textbf{TC-01} & UC-01 & Submit registration with a valid email and strong password & Account created; welcome email received \\
+    \textbf{TC-02} & UC-01 & Submit registration with an existing email & Error displayed; no duplicate account created \\
+    \textbf{TC-03} & UC-02 & Upload a clear tomato leaf image with visible blight lesions & Early blight classified with $\geq 90\%$ confidence \\
+    \textbf{TC-04} & UC-02 & Upload an image exceeding 5 MB & Upload rejected with an appropriate message \\
+    \textbf{TC-05} & UC-02 & Upload an image without visible leaf content & No ROI returned; user prompted to retry \\
+    \textbf{TC-06} & UC-02 & Upload a healthy leaf image & Healthy class label returned \\
+    \textbf{TC-07} & UC-02 & Verify that the Grad-CAM overlay accompanies the result & Heatmap returned and rendered by the frontend \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\begin{table}[H]
+  \centering
+  \caption{System Test Case Inventory (Part 2 of 2)}
+  \small
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabularx}{\textwidth}{@{}L{1.25cm} L{1.45cm} Y Y@{}}
+    \toprule
+    \textbf{TC ID} & \textbf{Linked UC} & \textbf{Test Description} & \textbf{Expected Outcome} \\
+    \midrule
+    \textbf{TC-08} & UC-03 & Ask about treatment for a tomato fungal disease & Organic and chemical treatment sections returned \\
+    \textbf{TC-09} & UC-03 & Submit a non-agricultural query & Polite domain-restriction response returned \\
+    \textbf{TC-10} & UC-03 & Submit a query in Arabic & Response returned in Arabic \\
+    \textbf{TC-11} & UC-04 & Request a PDF report after an analysis & Report downloaded with the diagnosis summary \\
+    \textbf{TC-12} & UC-05 & Upgrade a free account through the payment flow & Pro features enabled; usage limits updated \\
+    \textbf{TC-13} & NFR-01 & Measure total pipeline latency for a standard image & Response time $\leq 400$ ms \\
+    \textbf{TC-14} & NFR-05 & Inspect network traffic during authentication & HTTPS used; no plaintext credentials observed \\
+    \bottomrule
+  \end{tabularx}
+\end{table}

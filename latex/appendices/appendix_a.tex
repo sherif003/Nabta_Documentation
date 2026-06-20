@@ -1,0 +1,202 @@
+%==============================================================================
+% APPENDIX A --- DATASET DETAILS AND CLASS LISTING
+%==============================================================================
+
+\chapter{Dataset Details and Class Taxonomy}
+\label{app:datasets}
+
+\section{Complete List of 102 Target Classes}
+\label{sec:app_classes}
+
+The following table enumerates all 102 target classes in the \nabta classification model, organised by host crop species. The prefix \textit{Healthy} denotes a non-diseased class label for the corresponding crop species.
+
+\begin{table}[p]
+  \centering
+  \caption{Complete 102-Class Label Taxonomy (Part 1 of 4)}
+  \label{tab:class_list}
+  \footnotesize
+  \begin{tabularx}{\textwidth}{@{}L{1.7cm} L{3.0cm} Y@{}}
+  \toprule
+  \textbf{Class ID} & \textbf{Plant Species} & \textbf{Disease / Condition} \\
+  \midrule
+
+  C-001  & Tomato      & Early Blight (\textit{Alternaria solani}) \\
+  C-002  & Tomato      & Late Blight (\textit{Phytophthora infestans}) \\
+  C-003  & Tomato      & Leaf Miner \\
+  C-004  & Tomato      & Leaf Mold (\textit{Cladosporium fulvum}) \\
+  C-005  & Tomato      & Mosaic Virus \\
+  C-006  & Tomato      & Septoria Leaf Spot \\
+  C-007  & Tomato      & Spider Mite (Two-Spotted Spider Mite) \\
+  C-008  & Tomato      & Target Spot \\
+  C-009  & Tomato      & Yellow Leaf Curl Virus \\
+  C-010  & Tomato      & Healthy \\
+  C-011  & Potato      & Early Blight (\textit{Alternaria solani}) \\
+  C-012  & Potato      & Late Blight (\textit{Phytophthora infestans}) \\
+  C-013  & Potato      & Healthy \\
+  C-014  & Pepper Bell & Bacterial Spot (\textit{Xanthomonas campestris}) \\
+  C-015  & Pepper Bell & Healthy \\
+  C-016  & Apple       & Apple Scab (\textit{Venturia inaequalis}) \\
+  C-017  & Apple       & Black Rot (\textit{Botryosphaeria obtusa}) \\
+  C-018  & Apple       & Cedar Apple Rust (\textit{Gymnosporangium juniperi-virginianae}) \\
+  C-019  & Apple       & Healthy \\
+  C-020  & Grape       & Black Rot (\textit{Guignardia bidwellii}) \\
+  C-021  & Grape       & Esca (Black Measles) \\
+  C-022  & Grape       & Leaf Blight (Isariopsis Leaf Spot) \\
+  C-023  & Grape       & Healthy \\
+  C-024  & Corn (Maize) & Cercospora Leaf Spot (Grey Leaf Spot) \\
+  C-025  & Corn (Maize) & Common Rust (\textit{Puccinia sorghi}) \\
+  \bottomrule
+  \end{tabularx}
+\end{table}
+\clearpage
+
+\begin{table}[p]
+  \centering
+  \caption{Complete 102-Class Label Taxonomy (Part 2 of 4)}
+  \footnotesize
+  \begin{tabularx}{\textwidth}{@{}L{1.7cm} L{3.0cm} Y@{}}
+  \toprule
+  \textbf{Class ID} & \textbf{Plant Species} & \textbf{Disease / Condition} \\
+  \midrule
+  C-026  & Corn (Maize) & Northern Leaf Blight (\textit{Exserohilum turcicum}) \\
+  C-027  & Corn (Maize) & Healthy \\
+  C-028  & Strawberry  & Leaf Scorch (\textit{Diplocarpon earliana}) \\
+  C-029  & Strawberry  & Healthy \\
+  C-030  & Orange      & Huanglongbing / Citrus Greening (\textit{Candidatus Liberibacter}) \\
+  C-031  & Orange      & Healthy \\
+  C-032  & Peach       & Bacterial Spot (\textit{Xanthomonas arboricola}) \\
+  C-033  & Peach       & Healthy \\
+  C-034  & Cherry      & Powdery Mildew (\textit{Podosphaera clandestina}) \\
+  C-035  & Cherry      & Healthy \\
+  C-036  & Soybean     & Frogeye Leaf Spot (\textit{Cercospora sojina}) \\
+  C-037  & Soybean     & Healthy \\
+  C-038  & Squash      & Powdery Mildew (\textit{Podosphaera xanthii}) \\
+  C-039  & Blueberry   & Healthy \\
+  C-040  & Raspberry   & Healthy \\
+  C-041  & Rice        & Bacterial Blight (\textit{Xanthomonas oryzae}) \\
+  C-042  & Rice        & Blast (\textit{Magnaporthe oryzae}) \\
+  C-043  & Rice        & Brown Spot (\textit{Cochliobolus miyabeanus}) \\
+  C-044  & Rice        & Tungro Virus \\
+  C-045  & Rice        & Healthy \\
+  C-046  & Cotton      & Bacterial Blight (\textit{Xanthomonas citri subsp. malvacearum}) \\
+  C-047  & Cotton      & Leaf Curl Virus \\
+  C-048  & Cotton      & Target Spot \\
+  C-049  & Cotton      & Healthy \\
+  C-050  & Mango       & Anthracnose (\textit{Colletotrichum gloeosporioides}) \\
+  C-051  & Mango       & Bacterial Canker (\textit{Xanthomonas campestris}) \\
+  \bottomrule
+  \end{tabularx}
+\end{table}
+\clearpage
+
+\begin{table}[p]
+  \centering
+  \caption{Complete 102-Class Label Taxonomy (Part 3 of 4)}
+  \footnotesize
+  \begin{tabularx}{\textwidth}{@{}L{1.7cm} L{3.0cm} Y@{}}
+  \toprule
+  \textbf{Class ID} & \textbf{Plant Species} & \textbf{Disease / Condition} \\
+  \midrule
+  C-052  & Mango       & Gall Midge \\
+  C-053  & Mango       & Powdery Mildew (\textit{Oidium mangiferae}) \\
+  C-054  & Mango       & Sooty Mould \\
+  C-055  & Mango       & Healthy \\
+  C-056  & Eggplant    & Cercospora Leaf Spot \\
+  C-057  & Eggplant    & Phomopsis Blight (\textit{Phomopsis vexans}) \\
+  C-058  & Eggplant    & Phytophthora Blight \\
+  C-059  & Eggplant    & Healthy \\
+  C-060  & Cucumber    & Downy Mildew (\textit{Pseudoperonospora cubensis}) \\
+  C-061  & Cucumber    & Powdery Mildew (\textit{Sphaerotheca fuliginea}) \\
+  C-062  & Cucumber    & Target Spot \\
+  C-063  & Cucumber    & Healthy \\
+  C-064  & Cauliflower & Bacterial Spot \\
+  C-065  & Cauliflower & Black Rot (\textit{Xanthomonas campestris}) \\
+  C-066  & Cauliflower & Downy Mildew \\
+  C-067  & Cauliflower & Healthy \\
+  C-068  & Jute        & Stem Rot (\textit{Macrophomina phaseolina}) \\
+  C-069  & Jute        & Healthy \\
+  C-070  & Wheat       & Leaf Rust (\textit{Puccinia triticina}) \\
+  C-071  & Wheat       & Stem Rust (\textit{Puccinia graminis}) \\
+  C-072  & Wheat       & Yellow Rust (Stripe Rust, \textit{Puccinia striiformis}) \\
+  C-073  & Wheat       & Powdery Mildew (\textit{Blumeria graminis}) \\
+  C-074  & Wheat       & Healthy \\
+  C-075  & Garlic      & Downy Mildew (\textit{Peronospora destructor}) \\
+  C-076  & Garlic      & Healthy \\
+  C-077  & Onion       & Botrytis Leaf Blight (\textit{Botrytis squamosa}) \\
+  \bottomrule
+  \end{tabularx}
+\end{table}
+\clearpage
+
+\begin{table}[p]
+  \centering
+  \caption{Complete 102-Class Label Taxonomy (Part 4 of 4)}
+  \footnotesize
+  \begin{tabularx}{\textwidth}{@{}L{1.7cm} L{3.0cm} Y@{}}
+  \toprule
+  \textbf{Class ID} & \textbf{Plant Species} & \textbf{Disease / Condition} \\
+  \midrule
+  C-078  & Onion       & Purple Blotch (\textit{Alternaria porri}) \\
+  C-079  & Onion       & Healthy \\
+  C-080  & Lemon       & Canker (\textit{Xanthomonas axonopodis}) \\
+  C-081  & Lemon       & Greening (Huanglongbing) \\
+  C-082  & Lemon       & Healthy \\
+  C-083  & Pomegranate & Anthracnose (\textit{Colletotrichum gloeosporioides}) \\
+  C-084  & Pomegranate & Bacterial Blight (\textit{Xanthomonas axonopodis}) \\
+  C-085  & Pomegranate & Healthy \\
+  C-086  & Banana      & Black Sigatoka (\textit{Mycosphaerella fijiensis}) \\
+  C-087  & Banana      & Panama Disease (\textit{Fusarium oxysporum}) \\
+  C-088  & Banana      & Healthy \\
+  C-089  & Sugarcane   & Red Rot (\textit{Colletotrichum falcatum}) \\
+  C-090  & Sugarcane   & Rust (\textit{Puccinia melanocephala}) \\
+  C-091  & Sugarcane   & Yellow Leaf Disease \\
+  C-092  & Sugarcane   & Healthy \\
+  C-093  & Guava       & Anthracnose \\
+  C-094  & Guava       & Fruit Canker \\
+  C-095  & Guava       & Healthy \\
+  C-096  & Papaya      & Ring Spot Virus \\
+  C-097  & Papaya      & Powdery Mildew \\
+  C-098  & Papaya      & Healthy \\
+  C-099  & Cassava     & Brown Streak Disease \\
+  C-100  & Cassava     & Mosaic Disease \\
+  C-101  & Cassava     & Healthy \\
+  C-102  & General     & Unknown / Out-of-Distribution (flagged for expert review) \\
+  \bottomrule
+  \end{tabularx}
+\end{table}
+\clearpage
+
+\section{Dataset Class Distribution}
+\label{sec:app_distribution}
+
+\figref{fig:class_dist} illustrates the class frequency distribution across the combined training corpus. Class imbalance was addressed through stratified sampling during dataset splitting and through class-weighted loss computation during training.
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}
+    \begin{axis}[
+      xbar,
+      width=0.84\textwidth,
+      height=12cm,
+      xlabel={Number of Images},
+      ylabel={Crop Category},
+      ytick={1,...,12},
+      yticklabels={Cassava, Papaya, Guava, Sugarcane, Banana, Pomegranate,
+                   Lemon, Onion, Wheat, Rice, Tomato, Multi-Crop},
+      xmin=0, xmax=24000,
+      bar width=0.4cm,
+      grid=major, grid style=dashed,
+      nodes near coords,
+      nodes near coords align={horizontal},
+      every node near coord/.append style={font=\footnotesize},
+      title={Training Corpus Image Count by Crop Category}
+    ]
+      \addplot[fill=NabtaGreen!70] coordinates {
+        (4200,1)(3800,2)(2900,3)(5100,4)(4600,5)(3200,6)
+        (4000,7)(3500,8)(6800,9)(9400,10)(18500,11)(14800,12)
+      };
+    \end{axis}
+  \end{tikzpicture}
+  \caption{Distribution of Images Across Crop Categories in the Combined Training Corpus}
+  \label{fig:class_dist}
+\end{figure}

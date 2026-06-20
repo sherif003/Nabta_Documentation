@@ -1,0 +1,101 @@
+%==============================================================================
+% CHAPTER 9 --- CONCLUSION AND FUTURE WORK
+%==============================================================================
+
+\chapter{Conclusion and Future Work}
+\label{chap:conclusion}
+
+\chapterquote{We are what we repeatedly do. Excellence, then, is not an act, but a habit.}{Will Durant, paraphrasing Aristotle}
+
+\section{Summary of Achievements}
+\label{sec:achievements}
+
+This project has successfully designed, developed, and evaluated \nabta---an intelligent, full-stack, end-to-end artificial intelligence system for automated plant disease diagnosis. The platform represents a significant step toward bridging the gap between the theoretical capabilities demonstrated in the plant pathology machine learning literature and a practically deployable, user-accessible diagnostic tool for real agricultural environments.
+
+The principal achievements of the project are summarised as follows:
+
+\begin{enumerate}[leftmargin=*, label=\textbf{A\arabic*.}]
+  \item \textbf{Multi-Stage Sequential AI Pipeline:}
+    A novel pipeline architecture was designed and implemented in which a \yolo object detection model (mAP@0.50 = 94.1\%), a \unet semantic segmentation model (mean IoU = 91.8\%), and a custom 102-class \gls{cnn} classifier (accuracy = 96.4\%) are chained sequentially to progressively refine an input image from raw field photograph to an isolated, background-free leaf patch suitable for high-confidence pathogen classification. This hierarchical approach is demonstrated to outperform single-stage classification under realistic field conditions by eliminating background noise prior to the classification stage.
+
+  \item \textbf{Explainability Integration:}
+    The integration of real-time \gradcam visualisations into the inference response pipeline provides users with gradient-weighted heatmaps that visually justify the model's classification decision, addressing the critical trust deficit associated with opaque black-box deep learning systems in high-stakes agricultural contexts.
+
+  \item \textbf{\rag-Augmented Expert Consultation:}
+    The deployment of a domain-restricted, \rag-powered conversational AI module---using the Cohere \texttt{command-r-\allowbreak plus} model grounded in a curated vector knowledge base of 847 agronomic documents---achieved an expert-panel satisfaction score of 4.7/5.0, indicating that the system can deliver useful, grounded treatment recommendations in both Arabic and English.
+
+  \item \textbf{Production-Quality System Engineering:}
+    The complete system was implemented as a production-ready web application with a modular \fastapi backend, a React.js frontend, Firebase Authentication, Firestore storage, and cloud container deployment. The end-to-end inference latency of under 0.4 seconds satisfies the real-time usability requirement. The system achieved a System Usability Scale score of 82.5/100 (Excellent) in structured user acceptance testing.
+
+  \item \textbf{Comprehensive Dataset Curation:}
+    A training corpus of over 120,000 annotated images spanning 102 disease and healthy plant classes was assembled from seven distinct open-source repositories and supplemented with in-house pixel-level segmentation annotations, constituting the most diverse training dataset reported for this problem scope to the authors' knowledge.
+\end{enumerate}
+
+\section{Known Limitations}
+\label{sec:limitations}
+
+Notwithstanding the achievements above, the current iteration of the \nabta system exhibits several limitations that are acknowledged transparently:
+
+\begin{enumerate}[leftmargin=*, label=\textbf{L\arabic*.}]
+  \item \textbf{Image Quality Dependency:}
+    The pipeline relies on sufficiently clear, focused, and well-lit leaf images. Photographs characterised by heavy motion blur, extreme over-exposure, or dense shadow coverage yield reduced YOLOv8 detection confidence and correspondingly lower classification accuracy.
+
+  \item \textbf{Fixed Class Vocabulary:}
+    The classification model's knowledge is bounded by the 102 classes represented in the training corpus. Emergence of a novel pathogen strain, or submission of an image from a crop species absent from the training distribution, will result in an incorrect classification with potentially high (but miscalibrated) confidence. Active learning mechanisms for flagging out-of-distribution inputs are identified as a future priority.
+
+  \item \textbf{Compute Infrastructure Requirements:}
+    The triple-model pipeline is computationally intensive. Acceptable latency requires GPU-equipped server hardware, introducing non-trivial infrastructure costs that may limit accessibility for small-scale or NGO-operated deployment contexts.
+
+  \item \textbf{Connectivity Dependency:}
+    The current architecture requires a stable internet connection for all inference operations. Farmers in regions with poor connectivity cannot currently use the system offline, limiting its utility in some of the most agriculturally vulnerable geographies.
+
+  \item \textbf{Chatbot Knowledge Base Currency:}
+    The RAG knowledge base is static post-deployment. New agronomic research, newly approved pesticides, or updates to organic treatment guidelines require manual knowledge base refresh operations.
+\end{enumerate}
+
+\section{Future Work}
+\label{sec:future_work}
+
+The following research and engineering directions are proposed as the primary roadmap for extending and improving the \nabta platform:
+
+\subsection{Native Mobile Application}
+\label{subsec:fw_mobile}
+
+Dedicated Android and iOS applications would dramatically lower the barrier to field adoption by enabling direct in-situ leaf capture through the device camera, eliminating the requirement for image transfer to a desktop or laptop. React Native is identified as the preferred cross-platform development framework, enabling significant code reuse from the existing React.js frontend.
+
+\subsection{Edge AI Deployment via TensorFlow Lite}
+\label{subsec:fw_edge}
+
+Converting the trained PyTorch models to the TensorFlow Lite (\gls{tflite}) format through ONNX intermediate representation would enable fully offline on-device inference. Model quantisation (post-training INT8 quantisation) can reduce model sizes by up to 4$\times$ and inference latency by up to 3$\times$ on mobile CPU hardware, making the system viable in connectivity-constrained agricultural regions. This pathway directly addresses the connectivity limitation described above.
+
+\subsection{Multimodal Input Synthesis}
+\label{subsec:fw_multimodal}
+
+The current system is restricted to RGB leaf photographs. Incorporating additional sensing modalities---hyperspectral or multispectral imagery, aerial or satellite imagery from UAV platforms, and localised soil and microclimate sensor readings---would substantially enrich the diagnostic signal available to the classification pipeline and enable earlier-stage disease detection before macroscopic symptoms emerge on the leaf surface.
+
+\subsection{Continuous Disease Severity Quantification}
+\label{subsec:fw_severity}
+
+The current pipeline computes an approximated infection percentage from the ratio of Grad-CAM high-activation pixels to total leaf area. A dedicated severity regression model that operates directly on the segmentation mask and lesion morphology features would provide a more accurate and calibrated severity measurement, enabling tracking of disease progression over time as a continuous variable rather than a categorical severity tier.
+
+\subsection{Autonomous Farm Management Integration}
+\label{subsec:fw_automation}
+
+Integration of the \nabta diagnostic API with enterprise farm management software and precision agriculture actuator networks---automated spraying drones, variable-rate irrigation systems, and robotic harvesting platforms---would enable fully autonomous, AI-triggered agronomic interventions. A predictive disease outbreak model, trained on historical diagnosis logs and environmental data, could proactively schedule preventive treatments before infection thresholds are breached.
+
+\subsection{Federated Learning for Continuous Improvement}
+\label{subsec:fw_federated}
+
+To enable continuous model improvement from field usage data without compromising user privacy, a federated learning architecture could aggregate gradient updates from anonymised device-level inference sessions. This would allow the central model to learn from novel field conditions encountered by the user community while ensuring that raw image data never leaves the user's device.
+
+\subsection{Active Learning for Out-of-Distribution Detection}
+\label{subsec:fw_ood}
+
+Implementing conformal prediction or Monte Carlo Dropout uncertainty estimation would enable the system to identify and flag inputs that are poorly covered by the training distribution, routing such cases to human expert review and using the expert annotation to expand the training corpus in a principled, sample-efficient manner.
+
+\section{Closing Remarks}
+\label{sec:closing}
+
+The \nabta project demonstrates that the integration of multiple state-of-the-art deep learning paradigms---object detection, semantic segmentation, image classification, explainable AI, and retrieval-augmented generation---within a coherent, production-quality software architecture can yield a plant disease diagnostic system that is simultaneously accurate, interpretable, and accessible. The system's achievement of 96.4\% classification accuracy across 102 disease classes, sub-0.4s end-to-end latency, and an expert-validated consultation satisfaction score of 4.7/5.0 positions \nabta as a credible foundation for applied smart agriculture deployment.
+
+Agriculture is, in the most fundamental sense, the bedrock of human civilisation. The application of transformative artificial intelligence technologies to the challenges faced daily by the farmers who sustain that bedrock is both a technical imperative and a profound responsibility. The authors hope that \nabta, and the research directions it inaugurates, will contribute meaningfully to a future in which no farmer anywhere in the world must face the devastating consequences of an undetected, untreated plant disease.

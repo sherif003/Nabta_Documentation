@@ -1,0 +1,114 @@
+%==============================================================================
+% GLOSSARY DEFINITIONS
+%==============================================================================
+
+\newglossaryentry{ai_definition}{
+  name={Artificial Intelligence},
+  description={The simulation of human cognitive processes---including reasoning,
+    learning, and self-correction---by computer systems. In the context of \nabta,
+    AI encompasses the deep learning models and language model components that
+    drive automated plant disease diagnosis and consultation}
+}
+
+\newglossaryentry{deeplearning}{
+  name={Deep Learning},
+  description={A subfield of machine learning based on artificial neural networks
+    with multiple representation-learning layers. Deep learning is the core
+    enabling technology for the convolutional and segmentation models deployed
+    in the \nabta pipeline}
+}
+
+\newglossaryentry{cnn_def}{
+  name={Convolutional Neural Network},
+  description={A class of deep learning architecture specifically designed for
+    processing grid-structured data such as images. CNNs employ learnable spatial
+    filters to extract hierarchical feature representations from input images}
+}
+
+\newglossaryentry{segmentation}{
+  name={Semantic Segmentation},
+  description={A computer vision task in which every pixel of an input image is
+    assigned a class label. In \nabta, semantic segmentation is performed by the
+    U-Net model to isolate the leaf foreground from background content}
+}
+
+\newglossaryentry{objectdetection}{
+  name={Object Detection},
+  description={A computer vision task that simultaneously localises and classifies
+    objects within an image, typically by producing bounding boxes accompanied by
+    class labels and confidence scores}
+}
+
+\newglossaryentry{explainableai}{
+  name={Explainable Artificial Intelligence},
+  description={A collection of methods and techniques that enable the outputs
+    of AI systems to be understood and interpreted by human observers. \nabta
+    employs Grad-CAM as its primary explainability mechanism}
+}
+
+\newglossaryentry{transferlearning}{
+  name={Transfer Learning},
+  description={A machine learning technique in which a model pre-trained on a
+    large dataset is adapted to a related task with a smaller domain-specific
+    dataset. The U-Net in \nabta uses an EfficientNet-B0 backbone pre-trained
+    on ImageNet}
+}
+
+\newglossaryentry{vectordb}{
+  name={Vector Database},
+  description={A specialised database designed to store and retrieve large
+    numerical vectors efficiently, typically using approximate nearest-neighbour
+    algorithms. \nabta uses a vector database to index knowledge base embeddings
+    for the RAG consultation module}
+}
+
+\newglossaryentry{pathogen}{
+  name={Pathogen},
+  description={A biological agent capable of causing disease in a host organism.
+    In an agricultural context, plant pathogens include fungi, bacteria, viruses,
+    and parasitic organisms responsible for crop diseases}
+}
+
+\newglossaryentry{roi_def}{
+  name={Region of Interest},
+  description={A spatially bounded sub-region of an image selected for further
+    analysis. In the \nabta pipeline, the YOLOv8 detection model identifies the
+    infected leaf region as the region of interest for downstream processing}
+}
+
+\newglossaryentry{augmentation_def}{
+  name={Data Augmentation},
+  description={A set of image transformation techniques applied during model
+    training to artificially increase dataset diversity and reduce overfitting.
+    \nabta applies rotations, flips, colour jitter, and random erasing among
+    other augmentation operations}
+}
+
+\newglossaryentry{inference}{
+  name={Inference},
+  description={The process of applying a trained machine learning model to new
+    input data to generate predictions. In \nabta, inference refers to the
+    sequential execution of the YOLOv8, U-Net, and CNN models on a submitted
+    leaf image}
+}
+
+\newglossaryentry{precision}{
+  name={Precision},
+  description={A classification metric defined as the ratio of true positive
+    predictions to all positive predictions made by the model:
+    $\text{Precision} = \text{TP} / (\text{TP} + \text{FP})$}
+}
+
+\newglossaryentry{recall_def}{
+  name={Recall},
+  description={A classification metric defined as the ratio of true positive
+    predictions to all actual positive instances in the dataset:
+    $\text{Recall} = \text{TP} / (\text{TP} + \text{FN})$}
+}
+
+\newglossaryentry{sus_def}{
+  name={System Usability Scale},
+  description={A standardised ten-item questionnaire used to assess the perceived
+    usability of a software system. Scores range from 0 to 100, with scores above
+    80.3 classified as Excellent}
+}

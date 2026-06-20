@@ -1,0 +1,275 @@
+%==============================================================================
+% CHAPTER 5 --- SYSTEM DESIGN
+%==============================================================================
+
+\chapter{System Design}
+\label{chap:design}
+
+\chapterquote{The architecture of a system is inseparable from the architecture of the team that produced it.}{Melvin Conway}
+
+\section{Overview}
+\label{sec:design_overview}
+
+This chapter presents the complete architectural specification of the \nabta system. The design is decomposed across three primary layers---frontend, backend, and AI/database---and documented through architectural diagrams, component descriptions, database schema specifications, and API endpoint definitions. The overarching design philosophy prioritises modularity, enabling independent evolution of individual components; performance, particularly sub-second inference latency; and security, through defence-in-depth mechanisms at every layer.
+
+\section{System Architecture}
+\label{sec:system_architecture}
+
+\nabta adopts a three-tier client-server architecture with a clear separation of concerns between the presentation layer, the application logic layer, and the data/model layer. \figref{fig:system_arch} illustrates the high-level structural relationships between these components.
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[
+    box/.style={draw, rectangle, rounded corners=5pt, minimum width=5.5cm,
+                minimum height=1.2cm, align=center, font=\small\bfseries},
+    subbox/.style={draw, rectangle, rounded corners=3pt, minimum width=4.8cm,
+                   minimum height=0.7cm, align=center, font=\footnotesize,
+                   fill=white},
+    layer/.style={draw, rectangle, rounded corners=6pt, dashed,
+                  minimum width=6.5cm, align=center},
+    >=stealth, node distance=0.4cm
+  ]
+    % Frontend Layer
+    \node[box, fill=NabtaBlue!15]  (fe)  at (0,   0)     {Frontend Layer (React.js)};
+    \node[subbox] (fe1) at (0, -1.2) {Upload \& Analysis Dashboard};
+    \node[subbox] (fe2) at (0, -2.0) {AI Chat Panel};
+    \node[subbox] (fe3) at (0, -2.8) {Analytics Center};
+    \node[subbox] (fe4) at (0, -3.6) {Auth / User Management UI};
+
+    % Arrow
+    \draw[<->, thick] (0, -4.2) -- (0, -5.2)
+      node[midway, right, font=\small]{HTTPS / REST};
+
+    % Backend Layer
+    \node[box, fill=NabtaGreen!15] (be)  at (0, -5.8)   {Backend Layer (FastAPI)};
+    \node[subbox] (be1) at (0, -7.0) {Image Preprocessing Module};
+    \node[subbox] (be2) at (0, -7.8) {ML Pipeline Router (MLManager)};
+    \node[subbox] (be3) at (0, -8.6) {RAG Chatbot Engine};
+    \node[subbox] (be4) at (0, -9.4) {Auth Middleware (Firebase SDK)};
+    \node[subbox] (be5) at (0,-10.2) {PDF Report Generator};
+
+    % Arrow
+    \draw[<->, thick] (0,-10.8) -- (0,-11.8)
+      node[midway, right, font=\small]{Internal API / ORM};
+
+    % AI + DB Layer
+    \node[box, fill=orange!12]     (ai)  at (0,-12.4)   {AI \& Data Layer};
+    \node[subbox] (ai1) at (0,-13.6) {YOLOv8 Detection Model};
+    \node[subbox] (ai2) at (0,-14.4) {U-Net Segmentation Model};
+    \node[subbox] (ai3) at (0,-15.2) {Custom CNN Classifier + Grad-CAM};
+    \node[subbox] (ai4) at (0,-16.0) {Vector Database (Knowledge Base)};
+    \node[subbox] (ai5) at (0,-16.8) {Firebase Auth + Firestore};
+
+    % External Services
+    \node[box, fill=gray!12, minimum width=3.5cm] (ext1) at (7.5, -7.0)  {Cohere API\\(LLM)};
+    \node[box, fill=gray!12, minimum width=3.5cm] (ext2) at (7.5,-10.2) {Firebase\\(Auth)};
+    \node[box, fill=gray!12, minimum width=3.5cm] (ext3) at (7.5,-14.4) {Hugging Face\\(Model Hub)};
+
+    \draw[->] (be3) -- (ext1) node[midway,above,font=\tiny]{Cohere API};
+    \draw[->] (be4) -- (ext2) node[midway,above,font=\tiny]{SDK};
+    \draw[->] (ai2) -- (ext3) node[midway,above,font=\tiny]{Weights};
+
+  \end{tikzpicture}
+  \caption{High-Level Three-Tier System Architecture of NABTA}
+  \label{fig:system_arch}
+\end{figure}
+
+\section{Design Artefact Placeholders}
+\label{sec:design_placeholders}
+
+The following placeholders reserve space for final exported diagrams that should be inserted before submission.
+
+% TODO: Replace this placeholder with the final workflow diagram.
+\projectfigure{assets/diagrams/workflow_diagram.png}{8cm}{System Workflow Diagram}{fig:workflow_placeholder}
+
+% TODO: Replace this placeholder with the final model/pipeline diagram.
+\projectfigure{assets/diagrams/model_pipeline.png}{8cm}{Model and Inference Pipeline}{fig:model_pipeline_placeholder}
+
+% TODO: Replace this placeholder with the final database schema diagram.
+\projectfigure{assets/diagrams/database_schema.png}{8cm}{Database Schema Diagram}{fig:database_schema_placeholder}
+
+\section{Frontend Design}
+\label{sec:frontend_design}
+
+\subsection{Technology Stack}
+\label{subsec:fe_stack}
+
+The \nabta frontend is implemented as a single-page application (\gls{spa}) using \textbf{React.js} with functional components and the React Hooks API. State management is handled through a combination of component-local \code{useState}/\code{useReducer} hooks and a lightweight context-based global store for authenticated user state. HTTP communication with the backend is handled via the \textbf{Axios} library with request interceptors that inject the Firebase \gls{jwt} authentication token into the \code{Authorization} header of every protected request.
+
+\subsection{Key Interface Screens}
+\label{subsec:fe_screens}
+
+\subsubsection{Main Analysis Dashboard}
+\label{subsubsec:main_dashboard}
+
+The primary user interface screen presents a drag-and-drop image upload widget supporting \texttt{.jpg} and \texttt{.png} files up to 5MB. Upon successful upload, the interface transitions to a three-panel results layout:
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Detection Panel:} Renders the uploaded image with bounding box overlays indicating the detected infected leaf regions, annotated with the YOLOv8 confidence score.
+  \item \textbf{Classification + Grad-CAM Panel:} Displays the predicted plant species, disease name, and confidence percentage alongside the Grad-CAM heatmap overlay image.
+  \item \textbf{Segmentation Panel:} Renders the binary segmentation mask with the leaf foreground highlighted in the system's primary colour.
+\end{itemize}
+
+% TODO: Replace this placeholder with the final main dashboard screenshot.
+\projectfigure{assets/screenshots/main_dashboard.png}{8cm}{NABTA Main Analysis Dashboard Interface}{fig:ui_main}
+
+\subsubsection{Smart Analysis Center}
+\label{subsubsec:analytics}
+
+The analytics dashboard provides farm-level aggregate visualisations:
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Disease Distribution Chart:} A horizontal bar chart displaying the cumulative count of each diagnosed disease across the user's historical submissions.
+  \item \textbf{Infection Timeline:} A time-series line chart mapping infection event counts across calendar months, enabling seasonal trend identification.
+  \item \textbf{Top Plant Species Panel:} A ranked list of the most frequently analysed crop types.
+  \item \textbf{Recent Analyses Log:} A paginated table presenting the most recent diagnoses with timestamp, plant species, disease label, and confidence score.
+\end{itemize}
+
+% TODO: Replace this placeholder with the final analytics dashboard screenshot.
+\projectfigure{assets/screenshots/analytics_dashboard.png}{8cm}{NABTA Smart Analysis Center Dashboard}{fig:ui_analytics}
+
+\subsubsection{AI Chat Assistant}
+\label{subsubsec:chat_ui}
+
+The chat interface occupies a dedicated panel and renders conversation history in a standard message-bubble format with right-aligned user messages and left-aligned assistant responses. A language toggle allows users to switch between Arabic and English input modes. The response is rendered in structured sections with clear typographic hierarchies for each consultation category.
+
+% TODO: Replace this placeholder with the final AI chat assistant screenshot.
+\projectfigure{assets/screenshots/ai_chat.png}{8cm}{NABTA AI Chat Assistant Interface}{fig:ui_chat}
+
+\section{Backend Design}
+\label{sec:backend_design}
+
+\subsection{Technology Stack}
+\label{subsec:be_stack}
+
+The backend is implemented in \textbf{Python 3.11} using the \textbf{FastAPI} framework~\cite{fastapi2023}. FastAPI was selected for its native support for asynchronous request handling via Python's \code{asyncio} runtime, its automatic OpenAPI schema generation, and its high throughput benchmarks relative to synchronous WSGI alternatives. Serving is managed by a \textbf{Uvicorn} ASGI server, with \textbf{Gunicorn} as the process manager for multi-worker production deployments.
+
+\subsection{API Router Structure}
+\label{subsec:api_routers}
+
+The backend is organised into independent FastAPI routers, each encapsulating a logical domain of functionality:
+
+\begin{table}[H]
+  \centering
+  \caption{FastAPI Router Structure}
+  \label{tab:routers}
+  \renewcommand{\arraystretch}{1.4}
+  \begin{tabularx}{\textwidth}{l l X}
+    \toprule
+    \textbf{Router Module} & \textbf{Prefix} & \textbf{Responsibilities} \\
+    \midrule
+    \code{auth\_router}     & \texttt{/auth}     & Token validation middleware; user profile fetch \\
+    \code{analysis\_router} & \texttt{/analyze}  & Image upload, pipeline orchestration, result retrieval \\
+    \code{chat\_router}     & \texttt{/chat}     & Query intake, RAG pipeline invocation, response delivery \\
+    \code{history\_router}  & \texttt{/history}  & User historical analysis log retrieval with pagination \\
+    \code{report\_router}   & \texttt{/report}   & PDF report generation and download \\
+    \code{admin\_router}    & \texttt{/admin}    & User management, system health monitoring (admin only) \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection{Image Preprocessing Module}
+\label{subsec:preproc_module}
+
+The \code{ImageProcessor} class encapsulates all preprocessing logic applied to incoming images prior to model inference. Upon receiving a multipart upload, the module:
+
+\begin{enumerate}[leftmargin=*, label=\arabic*.]
+  \item Decodes the binary payload using \code{Pillow} and validates the MIME type and file size.
+  \item Resizes the image to the required resolution for each model stage using Lanczos resampling.
+  \item Converts to a normalised \code{NumPy} array and constructs a batched \code{PyTorch} tensor.
+  \item Returns separate tensor copies prepared for YOLOv8 (640px), U-Net (256px), and CNN (224px) input dimensions.
+\end{enumerate}
+
+\subsection{ML Pipeline Router (MLManager)}
+\label{subsec:mlmanager}
+
+The \code{MLManager} class implements the sequential orchestration logic connecting the three inference models. Each model is loaded into GPU memory at server startup using a singleton pattern to eliminate per-request loading overhead. The sequential dispatch proceeds as follows:
+
+\begin{enumerate}[leftmargin=*, label=\textbf{Step \arabic*.}]
+  \item \textbf{Detection:} The 640px tensor is passed to the YOLOv8 engine. If no bounding box exceeds the confidence threshold ($\geq 0.25$), an early-exit response is returned.
+  \item \textbf{ROI Crop:} The highest-confidence bounding box coordinates are used to crop the original image. If multiple boxes are returned, the largest-area box is selected.
+  \item \textbf{Segmentation:} The cropped image is resized to 256px and passed to the U-Net engine, returning a binary probability mask. The mask is thresholded at 0.5 and applied to the crop.
+  \item \textbf{Classification:} The masked crop is resized to 224px and passed to the CNN classifier, yielding the softmax probability distribution across 102 classes.
+  \item \textbf{Grad-CAM:} Gradients are computed with respect to the final convolutional layer of the CNN for the predicted class, and the heatmap is composited onto the 224px crop.
+  \item \textbf{Result Assembly:} A \code{PredictionResult} object is constructed and serialised to JSON.
+\end{enumerate}
+
+\section{Database Design}
+\label{sec:db_design}
+
+\subsection{Firestore Document Schema}
+\label{subsec:firestore}
+
+\nabta uses \textbf{Google Cloud Firestore} as its primary operational database, leveraging its real-time synchronisation capabilities and serverless scalability. The Firestore schema is organised into the following top-level collections:
+
+\begin{table}[H]
+  \centering
+  \caption{Firestore Collection Schema}
+  \label{tab:firestore}
+  \renewcommand{\arraystretch}{1.5}
+  \begin{tabularx}{\textwidth}{l X l}
+    \toprule
+    \textbf{Collection} & \textbf{Key Fields} & \textbf{Subcollections} \\
+    \midrule
+    \texttt{users}          & \code{uid}, \code{email}, \code{displayName}, \code{tier}, \code{createdAt} & \texttt{analyses}, \texttt{chatHistory} \\
+    \texttt{analyses}       & \code{analysisId}, \code{userId}, \code{imageUrl}, \code{classLabel}, \code{confidence}, \code{gradcamUrl}, \code{maskUrl}, \code{timestamp} & --- \\
+    \texttt{chatHistory}    & \code{messageId}, \code{userId}, \code{role}, \code{content}, \code{timestamp} & --- \\
+    \texttt{subscriptions}  & \code{userId}, \code{tier}, \code{startDate}, \code{expiryDate}, \code{paymentRef} & --- \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection{Vector Database Schema}
+\label{subsec:vector_db}
+
+The \gls{rag} knowledge base is indexed in a vector database. Each document record contains the following fields: \code{doc\_id} (unique identifier), \code{content} (raw text of the agronomic document), \code{embedding} (1024-dimensional float array produced by the Cohere embed model), \code{category} (disease class or topic tag), and \code{source} (citation reference for traceability).
+
+\section{API Specification}
+\label{sec:api_spec}
+
+\begin{table}[H]
+  \centering
+  \caption{NABTA REST API Endpoint Reference}
+  \label{tab:api_endpoints}
+  \small
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabularx}{\textwidth}{@{}L{1.55cm} L{3.7cm} L{1.7cm} Y@{}}
+    \toprule
+    \textbf{Method} & \textbf{Endpoint} & \textbf{Auth} & \textbf{Description} \\
+    \midrule
+    POST & \texttt{/analyze/upload} & JWT & Accepts an image and returns the pipeline result as JSON \\
+    GET & \texttt{/analyze/\{id\}} & JWT & Retrieves an analysis by identifier \\
+    POST & \texttt{/chat/query} & JWT & Returns a RAG-augmented response to a user query \\
+    GET & \texttt{/history/} & JWT & Returns the user's paginated analysis history \\
+    GET & \texttt{/report/\{id\}} & JWT & Generates and streams a PDF analysis report \\
+    POST & \texttt{/auth/verify} & JWT & Validates a Firebase token and returns the user profile \\
+    POST & \texttt{/admin/user/\{uid\}} & Admin JWT & Updates a user's tier or account status \\
+    GET & \texttt{/admin/health} & Admin JWT & Returns CPU, GPU-memory, and model-health metrics \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\section{Security Architecture}
+\label{sec:security}
+
+The \nabta security posture is implemented through a defence-in-depth strategy comprising multiple independent layers:
+
+\subsection{Authentication and Authorisation}
+\label{subsec:auth_sec}
+
+All user identity management is delegated to \textbf{Firebase Authentication}, which provides industry-standard OAuth 2.0 flows, encrypted credential storage, and brute-force protection. Upon successful authentication, Firebase issues a signed \gls{jwt} with a one-hour expiry. This token is transmitted in the \code{Authorization: Bearer} header of all API requests and verified by the FastAPI middleware layer using the Firebase Admin SDK before any protected handler is invoked.
+
+\subsection{Transport Security}
+\label{subsec:transport_sec}
+
+All client-server communication is mandated to occur over \textbf{HTTPS} with TLS 1.2 or higher. HTTP-to-HTTPS redirection is enforced at the reverse proxy layer (Nginx). \gls{hsts} headers are set to prevent protocol downgrade attacks.
+
+\subsection{API Key Management}
+\label{subsec:key_sec}
+
+Third-party API keys (Cohere API key, Firebase service account credentials) are stored exclusively as environment variables injected at deployment time. No API keys are committed to version control or transmitted to the frontend. The \code{python-dotenv} library is used for local development environment management.
+
+\subsection{Input Validation}
+\label{subsec:input_sec}
+
+All incoming file uploads are validated for MIME type, file extension, and size before processing. Pydantic model validation enforces strict schema conformance on all JSON request bodies, rejecting malformed or unexpected fields with structured error responses.

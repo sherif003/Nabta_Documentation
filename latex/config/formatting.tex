@@ -1,0 +1,130 @@
+% Global typography, page layout, headings, captions, tables, and code styling.
+
+% XCharter closely matches the Charter BT typography used by the reference.
+\defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+
+\setstretch{1.55}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+\setlength{\emergencystretch}{2em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\scriptsize\itshape\color{NabtaBlue}\nouppercase{\leftmark}}
+\fancyhead[R]{\scriptsize\bfseries\color{NabtaGold}\nabta}
+\fancyfoot[C]{\scriptsize\color{NabtaBlue}\thepage}
+\renewcommand{\headrulewidth}{0.35pt}
+\renewcommand{\footrulewidth}{0pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{NabtaLine}\leaders\hrule height \headrulewidth\hfill}}
+
+\fancypagestyle{plain}{%
+  \fancyhf{}
+  \fancyfoot[C]{\scriptsize\color{NabtaBlue}\thepage}
+  \renewcommand{\headrulewidth}{0pt}
+}
+
+\titleformat{\chapter}[display]
+  {\normalfont\bfseries\color{NabtaDark}}
+  {{\color{NabtaLine}\titlerule[0.45pt]}\vspace{1.7cm}\small\color{NabtaGold}\MakeUppercase{\chaptertitlename}\ \thechapter}
+  {0.55em}
+  {\LARGE}
+  [\vspace{1.15em}{\color{NabtaGold}\titlerule[0.8pt]}]
+\titleformat{name=\chapter,numberless}[display]
+  {\normalfont\bfseries\color{NabtaDark}}
+  {{\color{NabtaLine}\titlerule[0.45pt]}\vspace{1.7cm}}
+  {0pt}
+  {\LARGE}
+  [\vspace{1.15em}{\color{NabtaGold}\titlerule[0.8pt]}]
+\titlespacing*{\chapter}{0pt}{1pt}{40pt}
+\titlespacing*{name=\chapter,numberless}{0pt}{-13pt}{30pt}
+
+\titleformat{\section}
+  {\normalfont\large\bfseries\color{NabtaDark}}
+  {\color{NabtaGold}\thesection}{0.7em}{}
+\titleformat{\subsection}
+  {\normalfont\normalsize\bfseries\color{NabtaDark}}
+  {\color{NabtaGold}\thesubsection}{0.7em}{}
+\titleformat{\subsubsection}
+  {\normalfont\normalsize\bfseries\color{NabtaDark}}
+  {\color{NabtaGold}\thesubsubsection}{0.7em}{}
+\titlespacing*{\section}{0pt}{1.8em}{0.8em}
+\titlespacing*{\subsection}{0pt}{1.45em}{0.55em}
+\titlespacing*{\subsubsection}{0pt}{1.2em}{0.45em}
+
+\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{3}
+
+\titlecontents{chapter}[1.5em]
+  {\vspace{6pt}\bfseries\color{NabtaDark}}
+  {\contentslabel{1.5em}}
+  {\hspace*{-1.5em}}
+  {\titlerule*[0.5pc]{.}\contentspage}
+\titlecontents{section}[3.8em]
+  {\color{NabtaBlue}}
+  {\contentslabel{2.3em}}
+  {\hspace*{-2.3em}}
+  {\titlerule*[0.5pc]{.}\contentspage}
+\titlecontents{subsection}[6.1em]
+  {\small\color{NabtaBlue}}
+  {\contentslabel{3.2em}}
+  {\hspace*{-3.2em}}
+  {\titlerule*[0.5pc]{.}\contentspage}
+
+\captionsetup{font=small,labelfont={bf,color=NabtaDark},textfont={color=NabtaInk}}
+\captionsetup[figure]{name=Figure,justification=centering,position=bottom}
+\captionsetup[table]{name=Table,justification=centering,position=top}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=NabtaDark,
+  citecolor=NabtaBlue,
+  urlcolor=LinkBlue,
+  filecolor=LinkBlue
+}
+
+\renewcommand{\arraystretch}{1.25}
+\setlength{\tabcolsep}{6pt}
+\arrayrulecolor{NabtaLine}
+\setlength{\aboverulesep}{0pt}
+\setlength{\belowrulesep}{0pt}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+\AtBeginEnvironment{tabularx}{\rowcolors{1}{NabtaSoft}{white}}
+
+\lstset{
+  basicstyle=\ttfamily\footnotesize,
+  breaklines=true,
+  frame=single,
+  backgroundcolor=\color{CodeGray},
+  rulecolor=\color{RuleGray},
+  keywordstyle=\color{NabtaBlue}\bfseries,
+  commentstyle=\color{NabtaMuted},
+  stringstyle=\color{NabtaGreen},
+  numbers=left,
+  numberstyle=\tiny\color{NabtaMuted},
+  numbersep=8pt,
+  tabsize=2,
+  captionpos=b,
+  showstringspaces=false
+}
+
+\tcbset{
+  nabtabox/.style={
+    enhanced,
+    breakable,
+    colback=NabtaSoft,
+    colframe=NabtaBlue,
+    coltitle=white,
+    colbacktitle=NabtaDark,
+    fonttitle=\bfseries,
+    boxrule=0.7pt,
+    arc=2pt,
+    left=8pt,
+    right=8pt,
+    top=8pt,
+    bottom=8pt
+  }
+}
+
+\graphicspath{{assets/logos/}{assets/figures/}{assets/graphs/}{assets/diagrams/}{assets/screenshots/}{assets/placeholders/}}

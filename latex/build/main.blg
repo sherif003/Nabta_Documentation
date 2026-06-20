@@ -1,0 +1,50 @@
+This is BibTeX, Version 0.99e
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: c:/Users/sheri/OneDrive/سطح المكتب/latex/build/main.aux
+Reallocating 'name_of_file' (item size: 1) to 7 items.
+The style file: ieeetr.bst
+Reallocating 'name_of_file' (item size: 1) to 22 items.
+Database file #1: references/references.bib
+Warning--empty journal in plantdoc2020
+You've used 10 entries,
+            1876 wiz_defined-function locations,
+            539 strings with 5733 characters,
+and the built_in function-call counts, 3011 in all, are:
+= -- 286
+> -- 143
+< -- 0
++ -- 52
+- -- 42
+* -- 207
+:= -- 430
+add.period$ -- 12
+call.type$ -- 10
+change.case$ -- 11
+chr.to.int$ -- 0
+cite$ -- 11
+duplicate$ -- 150
+empty$ -- 269
+format.name$ -- 42
+if$ -- 728
+int.to.chr$ -- 0
+int.to.str$ -- 10
+missing$ -- 7
+newline$ -- 35
+num.names$ -- 10
+pop$ -- 45
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 115
+stack$ -- 0
+substring$ -- 188
+swap$ -- 68
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 1
+while$ -- 27
+width$ -- 12
+write$ -- 99
+(There was 1 warning)

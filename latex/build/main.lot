@@ -1,0 +1,48 @@
+\babel@toc {english}{}\relax 
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {2.1}{\ignorespaces Stakeholder Groups and Their Primary Interests}}{8}{table.caption.9}%
+\contentsline {table}{\numberline {2.2}{\ignorespaces Functional Requirements: Authentication and Account Management}}{10}{table.caption.10}%
+\contentsline {table}{\numberline {2.3}{\ignorespaces Functional Requirements: Plant Image Analysis}}{11}{table.caption.11}%
+\contentsline {table}{\numberline {2.4}{\ignorespaces Functional Requirements: AI Consultation Chatbot}}{12}{table.caption.12}%
+\contentsline {table}{\numberline {2.5}{\ignorespaces Functional Requirements: Analytics Dashboard}}{13}{table.caption.13}%
+\contentsline {table}{\numberline {2.6}{\ignorespaces Non-Functional Requirements}}{14}{table.caption.14}%
+\contentsline {table}{\numberline {2.7}{\ignorespaces Use Case: User Registration}}{15}{table.caption.15}%
+\contentsline {table}{\numberline {2.8}{\ignorespaces Use Case: Plant Image Upload and Analysis}}{16}{table.caption.16}%
+\contentsline {table}{\numberline {2.9}{\ignorespaces Use Case: AI Chatbot Consultation}}{17}{table.caption.17}%
+\contentsline {table}{\numberline {2.10}{\ignorespaces Use Case: PDF Report Generation}}{18}{table.caption.18}%
+\contentsline {table}{\numberline {2.11}{\ignorespaces Use Case: Subscription Upgrade}}{18}{table.caption.19}%
+\contentsline {table}{\numberline {2.12}{\ignorespaces System Test Case Inventory (Part 1 of 2)}}{19}{table.caption.20}%
+\contentsline {table}{\numberline {2.13}{\ignorespaces System Test Case Inventory (Part 2 of 2)}}{20}{table.caption.21}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {3.1}{\ignorespaces Training Dataset Components for the NABTA Classification Model}}{22}{table.caption.22}%
+\contentsline {table}{\numberline {3.2}{\ignorespaces Data Augmentation Parameters Applied During Training}}{25}{table.caption.23}%
+\contentsline {table}{\numberline {3.3}{\ignorespaces YOLOv8 Training Hyperparameters}}{26}{table.caption.24}%
+\contentsline {table}{\numberline {3.4}{\ignorespaces U-Net Training Hyperparameters}}{27}{table.caption.25}%
+\contentsline {table}{\numberline {3.5}{\ignorespaces Custom CNN Classification Model Training Hyperparameters}}{29}{table.caption.26}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {4.1}{\ignorespaces FastAPI Router Structure}}{37}{table.caption.34}%
+\contentsline {table}{\numberline {4.2}{\ignorespaces Firestore Collection Schema}}{39}{table.caption.35}%
+\contentsline {table}{\numberline {4.3}{\ignorespaces NABTA REST API Endpoint Reference}}{40}{table.caption.36}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {5.1}{\ignorespaces AI and Machine Learning Technologies Employed}}{43}{table.caption.37}%
+\contentsline {table}{\numberline {5.2}{\ignorespaces Backend Technologies Employed}}{44}{table.caption.38}%
+\contentsline {table}{\numberline {5.3}{\ignorespaces Frontend Technologies Employed}}{45}{table.caption.39}%
+\contentsline {table}{\numberline {5.4}{\ignorespaces Infrastructure and DevOps Technologies}}{46}{table.caption.40}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {6.1}{\ignorespaces Custom CNN Classification Model --- Aggregate Test Set Metrics}}{53}{table.caption.44}%
+\contentsline {table}{\numberline {6.2}{\ignorespaces CNN Per-Class Performance (Selected Classes)}}{54}{table.caption.45}%
+\contentsline {table}{\numberline {6.3}{\ignorespaces YOLOv8 Detection Model --- Test Set Metrics}}{55}{table.caption.47}%
+\contentsline {table}{\numberline {6.4}{\ignorespaces U-Net Segmentation Model --- Test Set Metrics}}{56}{table.caption.49}%
+\contentsline {table}{\numberline {6.5}{\ignorespaces End-to-End Pipeline Latency Breakdown}}{57}{table.caption.50}%
+\contentsline {table}{\numberline {6.6}{\ignorespaces Expert Panel LLM Consultation Evaluation Scores (Likert 1--5)}}{58}{table.caption.51}%
+\contentsline {table}{\numberline {6.7}{\ignorespaces Comparative Performance --- Plant Disease Classification Systems}}{58}{table.caption.52}%
+\contentsline {table}{\numberline {6.8}{\ignorespaces Testing Summary}}{59}{table.caption.53}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {A.1}{\ignorespaces Complete 102-Class Label Taxonomy (Part 1 of 4)}}{67}{table.caption.56}%
+\contentsline {table}{\numberline {A.2}{\ignorespaces Complete 102-Class Label Taxonomy (Part 2 of 4)}}{68}{table.caption.57}%
+\contentsline {table}{\numberline {A.3}{\ignorespaces Complete 102-Class Label Taxonomy (Part 3 of 4)}}{69}{table.caption.58}%
+\contentsline {table}{\numberline {A.4}{\ignorespaces Complete 102-Class Label Taxonomy (Part 4 of 4)}}{70}{table.caption.59}%
+\addvspace {10\p@ }
+\contentsfinish 
