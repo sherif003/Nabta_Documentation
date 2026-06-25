@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.12) (preloaded format=xelatex 2026.6.18)  25 JUN 2026 20:52
+This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.12) (preloaded format=xelatex 2026.6.18)  25 JUN 2026 21:58
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -2174,6 +2174,11 @@ Requested font "cmsy10" at 10.95pt
 Requested font "cmex10" at 10.95pt
 Requested font "msam10" at 10.95pt
 Requested font "msbm10" at 10.95pt
+
+Overfull \hbox (12.60757pt too wide) in paragraph at lines 262--262
+ [][][][] 
+ []
+
 File: assets/forms/research_project_evaluation_forms_filled.pdf Graphic file (t
 ype pdf)
 <use assets/forms/research_project_evaluation_forms_filled.pdf>
@@ -2183,7 +2188,7 @@ ype pdf)
 File: assets/forms/research_project_evaluation_forms_filled.pdf Graphic file (t
 ype pdf)
 <use assets/forms/research_project_evaluation_forms_filled.pdf, page 1>
- [2
+[2
 
 
 ]
@@ -2244,8 +2249,7 @@ ype pdf)
 File: assets/forms/research_project_evaluation_forms_filled.pdf Graphic file (t
 ype pdf)
 <use assets/forms/research_project_evaluation_forms_filled.pdf, page 5>
-
-[7
+ [7
 
 ]
 File: assets/forms/research_project_evaluation_forms_filled.pdf Graphic file (t
@@ -2355,15 +2359,15 @@ ype pdf)
 <use assets/forms/research_project_evaluation_forms_filled.pdf, page 14>
  [16
 
-]) (frontmatter/dedication.tex
+])
+(frontmatter/dedication.tex
 LaTeX Font Info:    Font shape `TU/XCharter(0)/m/it' will be
 (Font)              scaled to size 17.28pt on input line 14.
 Requested font "[XCharter-Italic.otf]/OT:script=latn;language=dflt;+tnum;+lnum;
 +cv01=0;mapping=tex-text;" at 17.28pt
  -> C:/Users/sheri/AppData/Roaming/MiKTeX/fonts/opentype/public/xcharter/XChart
 er-Italic.otf
-)
-[17
+) [17
 
 
 ] (frontmatter/acknowledgement.tex
@@ -2376,7 +2380,8 @@ er-Bold.otf
 ) [18
 
 
-] (frontmatter/abstract.tex
+]
+(frontmatter/abstract.tex
 LaTeX Font Info:    Font shape `TU/XCharter(0)/m/sc' will be
 (Font)              scaled to size 12.0pt on input line 10.
 Requested font "[XCharter-Roman.otf]/OT:script=latn;language=dflt;+tnum;+lnum;+
@@ -2386,8 +2391,8 @@ er-Roman.otf
  [19
 
 
-])
-[20] (frontmatter/table_of_contents.tex (main.toc
+]) [20] (frontmatter/table_of_contents.tex
+(main.toc
 Overfull \hbox (1.24797pt too wide) detected at line 2
  \TU/XCharter(0)/b/n/12 xvii
  []
@@ -2395,11 +2400,6 @@ Overfull \hbox (1.24797pt too wide) detected at line 2
 
 Overfull \hbox (4.90796pt too wide) detected at line 3
  \TU/XCharter(0)/b/n/12 xviii
- []
-
-
-Overfull \hbox (0.51596pt too wide) detected at line 5
- \TU/XCharter(0)/b/n/12 xxx
  []
 
 [21
@@ -2485,11 +2485,11 @@ Underfull \hbox (badness 10000) in alignment at lines 83--83
 [][] 
  []
 
-[5] [6]
+[5] [6] [7]
 
-LaTeX Warning: Citation `gsma_plantix' on page 7 undefined on input line 105.
+LaTeX Warning: Citation `gsma_plantix' on page 8 undefined on input line 105.
 
-[7]
+
 Overfull \hbox (0.23195pt too wide) in paragraph at lines 107--108
 []\TU/XCharter(0)/m/n/12 able, end-to-end digital service that gives a grower a
 n instant and trustworthy diagnosis, paired[]
@@ -2842,6 +2842,9 @@ LaTeX Warning: Citation `plantix_website' on page 9 undefined on input line 160
 
 [9] [10]) (chapters/02_literature_review.tex [11]
 Chapter 2.
+
+LaTeX Warning: Citation `mohanty2016' on page 12 undefined on input line 13.
+
 [12
 
 ]
@@ -2875,7 +2878,20 @@ $ \TU/XCharter(0)/m/n/12 Query processed by RAG[]
 Chapter 3.
 [26
 
-] [27] [28] [29] [30] [31]
+]
+
+LaTeX Warning: Citation `plantdoc2020' on page 27 undefined on input line 55.
+
+[27] [28] [29] [30]
+
+LaTeX Warning: Citation `jocher2023yolov8' on page 31 undefined on input line 1
+33.
+
+
+LaTeX Warning: Citation `ronneberger2015' on page 31 undefined on input line 16
+2.
+
+[31]
 LaTeX Font Info:    Font shape `TU/XCharter(0)/m/n' will be
 (Font)              scaled to size 6.0pt on input line 167.
 Requested font "[XCharter-Roman.otf]/OT:script=latn;language=dflt;+tnum;+lnum;+
@@ -2885,15 +2901,22 @@ er-Roman.otf
 Requested font "cmbx12" at 12.0pt
 Requested font "cmbx8" at 8.0pt
 Requested font "cmbx6" at 6.0pt
- [32] [33] [34]
+ [32] [33]
+
+LaTeX Warning: Citation `selvaraju2017gradcam' on page 34 undefined on input li
+ne 242.
+
+[34]
+
+LaTeX Warning: Citation `lewis2020rag' on page 35 undefined on input line 259.
+
 Requested font "[lmmono12-regular]:" at 12.0pt
  -> C:/Program Files/MiKTeX/fonts/opentype/public/lm/lmmono12-regular.otf
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `lmtt' (encoding: TU).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-) (chapters/04_system_design.tex
-[35]
+) (chapters/04_system_design.tex [35]
 Chapter 4.
 LaTeX Font Info:    Font shape `TU/XCharter(0)/m/n' will be
 (Font)              scaled to size 10.0pt on input line 34.
@@ -2903,7 +2926,11 @@ cv01=0;mapping=tex-text;" at 10.0pt
 er-Roman.otf
 [36
 
-] [37] [38] [39] [40] [41] [42]
+] [37] [38] [39] [40] [41]
+
+LaTeX Warning: Citation `fastapi2023' on page 42 undefined on input line 145.
+
+[42]
 Underfull \hbox (badness 10000) in paragraph at lines 219--219
 [][]|\TU/lmtt/m/n/12 userId\TU/XCharter(0)/m/n/12 , \TU/lmtt/m/n/12 tier\TU/XCh
 arter(0)/m/n/12 , \TU/lmtt/m/n/12 startDate\TU/XCharter(0)/m/n/12 , \TU/lmtt/m/
@@ -2964,12 +2991,12 @@ File: assets/diagrams/iou_curve.png Graphic file (type bmp)
  [64]
 File: assets/diagrams/sample_2.png Graphic file (type bmp)
 <assets/diagrams/sample_2.png>
- [65] [66] [67])
-(chapters/07_conclusion.tex [68]
+ [65] [66] [67] [68] [69])
+(chapters/07_conclusion.tex [70]
 Chapter 7.
-[69
+[71
 
-] [70] [71] [72] [73] [74]) (appendices/appendix_a.tex [75]
+] [72] [73] [74] [75] [76]) (appendices/appendix_a.tex [77]
 Appendix A.
 Requested font "cmex7" at 7.0pt
 Requested font "cmbx10" at 10.0pt
@@ -2987,18 +3014,18 @@ Requested font "[XCharter-Italic.otf]/OT:script=latn;language=dflt;+tnum;+lnum;
 +cv01=0;mapping=tex-text;" at 10.0pt
  -> C:/Users/sheri/AppData/Roaming/MiKTeX/fonts/opentype/public/xcharter/XChart
 er-Italic.otf
-[76
+[78
 
-] [77] [78] [79] [80]) (appendices/appendix_b.tex [81
+] [79] [80] [81] [82]) (appendices/appendix_b.tex [83
 
 
 
 
 ]
 Appendix B.
-) [82
+) [84
 
-] [83] (main.bbl) [84
+] [85] (main.bbl) [86
 
 
 
@@ -3007,11 +3034,11 @@ Appendix B.
 Package glossaries Info: Preparing to sort glossary `main' (total number of
 (glossaries)             referenced entries: 15)
 
-[85
+[87
 
 
 
-] [86] (main.aux)
+] [88] (main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
@@ -3020,16 +3047,25 @@ L3 programming layer <2025-12-24>
 
 LaTeX Warning: There were undefined references.
 
-Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 65A48483B2EE5E6B812FB16E66B815DF;25941.
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+
+Package rerunfilecheck Warning: File `main.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `main.out':
+(rerunfilecheck)             Before: 7C515878BDE09694634C9F230D98C7C6;26641
+(rerunfilecheck)             After:  FDD9F908059506B8B07796F47B71B9EE;26885.
  ) 
 Here is how much of TeX's memory you used:
- 63295 strings out of 402987
- 1459622 string characters out of 5452871
- 2454055 words of memory out of 5000000
- 90984 multiletter control sequences out of 15000+600000
+ 63302 strings out of 402987
+ 1459788 string characters out of 5452871
+ 2454224 words of memory out of 5000000
+ 90991 multiletter control sequences out of 15000+600000
  638809 words of font info for 126 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  89i,17n,134p,2577b,2393s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on main.pdf (118 pages).
+Output written on main.pdf (120 pages).

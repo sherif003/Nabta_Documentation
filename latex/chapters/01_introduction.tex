@@ -42,7 +42,7 @@ The defining design decision behind NABTA is that it does not rely on a single e
 \item \textbf{Explainability (Grad-CAM):} Gradient-weighted Class Activation Mapping (Grad-CAM) is applied to the classifier's decision to generate a heatmap overlay on the original leaf image, visually highlighting exactly which pixels most influenced the predicted disease label.
 \end{enumerate}
 
-Beyond plant disease analysis, NABTA integrates two additional machine learning modules. The Crop Recommendation module predicts the most suitable crop based on soil nutrients, weather conditions, and environmental factors, while the Smart Irrigation module estimates crop water requirements to improve irrigation efficiency and support sustainable farming practices. Together with the AI Assistant, these intelligent services transform NABTA from a plant disease diagnosis tool into a comprehensive smart agriculture platform.
+Beyond plant disease analysis, NABTA integrates three additional machine learning models. The Crop Recommendation module predicts the most suitable crop based on soil nutrients, soil type, and environmental conditions. The Smart Irrigation module consists of two complementary models: a Random Forest classifier that determines whether irrigation is required and a Random Forest regressor that estimates the amount of water required by the crop. Together with the AI Assistant, these intelligent services transform NABTA from a plant disease diagnosis tool into a comprehensive smart agriculture platform. The Crop Recommendation module predicts the most suitable crop based on soil nutrients, weather conditions, and environmental factors, while the Smart Irrigation module estimates crop water requirements to improve irrigation efficiency and support sustainable farming practices. Together with the AI Assistant, these intelligent services transform NABTA from a plant disease diagnosis tool into a comprehensive smart agriculture platform.
 
 This pipeline is not exposed as a bare API or research script -- it is wrapped inside a production-grade web product designed for real end users:
 
@@ -115,7 +115,7 @@ The main objectives of NABTA are to develop a comprehensive AI-powered smart agr
 \begin{enumerate}[leftmargin=*,label=\textbf{O\arabic*.}]
 \item Build a complete end-to-end AI pipeline for plant disease diagnosis.
 \item Achieve broad and reliable disease coverage across multiple crop species.
-\item Develop intelligent crop recommendation and smart irrigation services using machine learning.
+\item Develop intelligent crop recommendation and smart irrigation models for irrigation decision-making and crop water requirement estimation using machine learning.
 \item Make AI decisions transparent and trustworthy using Grad-CAM.
 \item Deliver a genuinely usable interface for non-technical users.
 \item Engineer the system for production deployment, not only research use.
@@ -166,12 +166,21 @@ This comparison highlights a deliberate trade-off in NABTA's design: its disease
 Building directly on the gaps identified in Section~\ref{sec:intro_related_work}, this project contributes the following:
 
 \begin{enumerate}[leftmargin=*,label=\textbf{C\arabic*.}]
-\item A unified, explainable multi-stage AI pipeline: YOLOv8 detection, U-Net/EfficientNet-B0 segmentation, custom CNN classification, and Grad-CAM explanation.
-\item A cleaned, unified multi-source dataset of more than 120,000 images collected from nine public datasets.
-\item A production-grade, full-stack architecture using React.js, FastAPI, and Firebase.
-\item Integration of Computer Vision, Machine Learning, Explainable AI, and Large Language Models within a unified smart agriculture platform.
-\item A multilingual agricultural assistant built on Retrieval-Augmented Generation.
-\item A longitudinal analytics capability for monitoring disease prevalence and infection trends over time.
-\item An extensibility mechanism that allows the system to grow beyond its initial 102 classes over time.
-\item Demonstrated delivery discipline through an agile, sprint-based project workflow.
+
+\item A unified AI-powered smart agriculture platform integrating plant disease diagnosis, crop recommendation, irrigation recommendation, and AI consultation.
+
+\item An explainable multi-stage Computer Vision pipeline combining YOLOv8 detection, U-Net segmentation, CNN classification, and Grad-CAM visualization.
+
+\item A cleaned and unified plant disease dataset containing more than \textbf{120,000} images across \textbf{102} healthy and diseased plant classes collected from nine public datasets.
+
+\item Machine learning models for crop recommendation, irrigation decision classification, and crop water requirement estimation using Random Forest algorithms.
+
+\item Integration of Computer Vision, Machine Learning, Explainable AI, Retrieval-Augmented Generation (RAG), and Large Language Models within a unified intelligent decision-support platform.
+
+\item A production-ready cloud architecture based on React.js, FastAPI, Firebase, and RESTful APIs.
+
+\item A multilingual agricultural assistant capable of providing evidence-based agricultural consultations.
+
+\item A scalable architecture supporting future integration of IoT devices, weather forecasting services, satellite imagery, and additional AI models.
+
 \end{enumerate}

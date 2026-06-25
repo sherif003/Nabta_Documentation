@@ -109,25 +109,29 @@
 \contentsline {subsection}{\numberline {6.4.2}Training Convergence}{64}{subsection.6.4.2}%
 \contentsline {subsection}{\numberline {6.4.3}Segmentation Quality}{65}{subsection.6.4.3}%
 \contentsline {section}{\numberline {6.5}Crop Recommendation Model Performance}{66}{section.6.5}%
-\contentsline {subsection}{\numberline {6.5.1}Model Evaluation}{66}{subsection.6.5.1}%
+\contentsline {subsection}{\numberline {6.5.1}Overall Performance}{66}{subsection.6.5.1}%
 \contentsline {subsection}{\numberline {6.5.2}Agronomic Validation}{67}{subsection.6.5.2}%
-\contentsline {chapter}{\numberline {7}Conclusion and Future Work}{69}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Known Limitations}{71}{section.7.1}%
-\contentsline {section}{\numberline {7.2}Future Work}{72}{section.7.2}%
-\contentsline {subsection}{\numberline {7.2.1}Expansion of Plant Disease Coverage}{72}{subsection.7.2.1}%
-\contentsline {subsection}{\numberline {7.2.2}Advanced Computer Vision Models}{73}{subsection.7.2.2}%
-\contentsline {subsection}{\numberline {7.2.3}IoT-Based Smart Agriculture}{73}{subsection.7.2.3}%
-\contentsline {subsection}{\numberline {7.2.4}Weather Forecast Integration}{73}{subsection.7.2.4}%
-\contentsline {subsection}{\numberline {7.2.5}Satellite and Drone Imagery}{73}{subsection.7.2.5}%
-\contentsline {subsection}{\numberline {7.2.6}Mobile Application Development}{73}{subsection.7.2.6}%
-\contentsline {subsection}{\numberline {7.2.7}Edge AI Deployment}{74}{subsection.7.2.7}%
-\contentsline {subsection}{\numberline {7.2.8}Continuous Learning}{74}{subsection.7.2.8}%
-\contentsline {subsection}{\numberline {7.2.9}Smart Farm Integration}{74}{subsection.7.2.9}%
-\contentsline {section}{\numberline {7.3}Closing Remarks}{74}{section.7.3}%
-\contentsline {chapter}{\numberline {A}Dataset Details and Class Taxonomy}{76}{appendix.A}%
-\contentsline {section}{\numberline {A.1}Complete List of 102 Target Classes}{76}{section.A.1}%
-\contentsline {section}{\numberline {A.2}Dataset Class Distribution}{81}{section.A.2}%
-\contentsline {chapter}{\numberline {B}Project Visual Evidence Placeholders}{82}{appendix.B}%
-\contentsline {chapter}{Bibliography}{84}{section*.64}%
-\contentsline {chapter}{Glossary}{85}{section*.66}%
+\contentsline {section}{\numberline {6.6}Irrigation Recommendation Model Performance}{68}{section.6.6}%
+\contentsline {subsection}{\numberline {6.6.1}Irrigation Decision Model}{68}{subsection.6.6.1}%
+\contentsline {subsection}{\numberline {6.6.2}Water Requirement Estimation}{69}{subsection.6.6.2}%
+\contentsline {section}{\numberline {6.7}Chapter Summary}{70}{section.6.7}%
+\contentsline {chapter}{\numberline {7}Conclusion and Future Work}{71}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Known Limitations}{73}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Future Work}{74}{section.7.2}%
+\contentsline {subsection}{\numberline {7.2.1}Expansion of Plant Disease Coverage}{74}{subsection.7.2.1}%
+\contentsline {subsection}{\numberline {7.2.2}Advanced Computer Vision Models}{75}{subsection.7.2.2}%
+\contentsline {subsection}{\numberline {7.2.3}IoT-Based Smart Agriculture}{75}{subsection.7.2.3}%
+\contentsline {subsection}{\numberline {7.2.4}Weather Forecast Integration}{75}{subsection.7.2.4}%
+\contentsline {subsection}{\numberline {7.2.5}Satellite and Drone Imagery}{75}{subsection.7.2.5}%
+\contentsline {subsection}{\numberline {7.2.6}Mobile Application Development}{75}{subsection.7.2.6}%
+\contentsline {subsection}{\numberline {7.2.7}Edge AI Deployment}{76}{subsection.7.2.7}%
+\contentsline {subsection}{\numberline {7.2.8}Continuous Learning}{76}{subsection.7.2.8}%
+\contentsline {subsection}{\numberline {7.2.9}Smart Farm Integration}{76}{subsection.7.2.9}%
+\contentsline {section}{\numberline {7.3}Closing Remarks}{76}{section.7.3}%
+\contentsline {chapter}{\numberline {A}Dataset Details and Class Taxonomy}{78}{appendix.A}%
+\contentsline {section}{\numberline {A.1}Complete List of 102 Target Classes}{78}{section.A.1}%
+\contentsline {section}{\numberline {A.2}Dataset Class Distribution}{83}{section.A.2}%
+\contentsline {chapter}{\numberline {B}Project Visual Evidence Placeholders}{84}{appendix.B}%
+\contentsline {chapter}{Bibliography}{86}{section*.66}%
+\contentsline {chapter}{Glossary}{87}{section*.68}%
 \contentsfinish 
