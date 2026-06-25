@@ -1,71 +1,64 @@
 % Reference-aligned academic cover. Add the named logo files to assets/logos/.
 
 \begin{titlepage}
-\thispagestyle{empty}
 \centering
 
 \begin{tikzpicture}[remember picture,overlay]
-  \fill[NabtaDark]
-    (current page.south west) -- (current page.south east) --
-    ([yshift=3.8cm]current page.south east) --
-    ([yshift=1.1cm]current page.south west) -- cycle;
-  \fill[NabtaGold]
-    (current page.south west) --
-    ([yshift=1.1cm]current page.south west) --
-    ([yshift=3.8cm]current page.south east) --
-    ([yshift=4.35cm]current page.south east) -- cycle;
-  \node[anchor=south,text=white,font=\scriptsize] at
-    ([yshift=0.45cm]current page.south)
+  \draw[draw=green!55!black,line width=0.45pt]
+    ([xshift=1cm,yshift=-1cm]current page.north west) rectangle
+    ([xshift=-1cm,yshift=1cm]current page.south east);
+  \draw[draw=green!55!black,line width=0.45pt]
+    ([xshift=0.78cm,yshift=-0.78cm]current page.north west) rectangle
+    ([xshift=-0.78cm,yshift=0.78cm]current page.south east);
+\end{tikzpicture}
+
+\begin{tikzpicture}[remember picture,overlay]
+  \node[anchor=south,text=black,font=\scriptsize] at
+    ([yshift=0.95cm]current page.south)
     {Helwan University\quad $\bullet$\quad Academic Year 2025--2026\quad
      $\bullet$\quad Cairo, Egypt};
 \end{tikzpicture}
 
-\vspace*{-0.55cm}
+\vspace*{-0.95cm}
 \begin{minipage}[c]{0.19\textwidth}
   \centering
   % TODO: Add assets/logos/university_logo.png
-  \coverlogo[2.15cm]{assets/logos/university_logo.png}{University\\Logo}
+  \coverlogo[4.15cm]{assets/logos/university_logo.png}{University\\Logo}
 \end{minipage}
 \hfill
 \begin{minipage}[c]{0.54\textwidth}
   \centering
-  {\large\bfseries\color{NabtaDark} Helwan University}\\[0.2cm]
-  {\small\color{NabtaBlue} Faculty of Science}\\[0.08cm]
-  {\small\color{NabtaBlue} Department of Computer Science and Statistics}
+  {\large\bfseries Helwan University}\\[0.2cm]
+  {\small Faculty of Science}\\[0.08cm]
+  {\small Department of Computer Science and Statistics}
 \end{minipage}
 \hfill
 \begin{minipage}[c]{0.19\textwidth}
   \centering
   % TODO: Add assets/logos/faculty_logo.png
-  \coverlogo[2.15cm]{assets/logos/faculty_logo.png}{Faculty\\Logo}
+  \coverlogo[3.15cm]{assets/logos/faculty_logo.png}{Faculty\\Logo}
 \end{minipage}
 
-\vspace{0.35cm}
-{\color{NabtaLine}\rule{\textwidth}{0.6pt}}
-
 \vspace{0.45cm}
-% TODO: Add assets/logos/project_logo.png
-\coverlogo[1.35cm]{assets/logos/project_logo.png}{Project\\Logo}\\[0.35cm]
-{\small\bfseries\color{NabtaGold} FINAL YEAR GRADUATION PROJECT}\\[0.55cm]
-{\fontsize{25}{29}\selectfont\bfseries\color{NabtaDark} NABTA}\\[0.25cm]
-{\Large\color{NabtaDark} Plant Disease Analysis System}\\[0.3cm]
-{\small\color{NabtaBlue} An End-to-End Artificial Intelligence Platform for Plant Health Analysis}\\[0.8cm]
+{\small\bfseries FINAL YEAR GRADUATION PROJECT}\\[0.55cm]
+\coverlogo[4.35cm]{assets/logos/project_logo.png}{Project\\Logo}\\[0.35cm]
+{\Large Plant Disease Analysis System}\\[0.3cm]
+{\small An End-to-End Artificial Intelligence Platform for Plant Health Analysis}\\[0.8cm]
 
-{\normalsize\bfseries\color{NabtaGold} TEAM MEMBERS}\\[0.25cm]
+{\normalsize\bfseries TEAM MEMBERS}\\[0.25cm]
 \begin{tabular}{@{}l@{\hspace{1.1cm}}r@{}}
-\bfseries\color{NabtaDark} Ziad Walid Mokhtar & \color{NabtaMuted}-- \\
-\bfseries\color{NabtaDark} Sherif Karam Zaki & \color{NabtaMuted}352250808 \\
-\bfseries\color{NabtaDark} Armia Gamal Fakry & \color{NabtaMuted}-- \\
-\bfseries\color{NabtaDark} Peter Bolbol & \color{NabtaMuted}-- \\
-\bfseries\color{NabtaDark} Salsabel Esmail Hussin & \color{NabtaMuted}-- \\
-\bfseries\color{NabtaDark} Sara Essam Ibrahim & \color{NabtaMuted}-- \\
-\bfseries\color{NabtaDark} Shada Ayman Eldin Ahmed & \color{NabtaMuted}-- \\
+Armia Gamal Fakry & 352250706 \\
+Sherif Karam Zaki & 352250808 \\
+Sara Essam Ibrahim & 352250785 \\
+Ziad Walid Mokhtar & 352250783 \\
+Shada Ayman Eldin Ahmed & 352250804 \\
+Peter Bolbol Sefin & 352250738 \\
+Salsabel Esmail Hussin & 352250787 \\
 \end{tabular}
-% TODO: Replace the dashes above with the final official student IDs.
 
 \vspace{0.65cm}
-{\small\bfseries\color{NabtaGold} SUPERVISED BY}\\[0.18cm]
-{\large\bfseries\color{NabtaDark} Dr.\ Mourad Raafat}
+{\small\bfseries SUPERVISED BY}\\[0.18cm]
+{\large\bfseries Dr. Mourad Raafat}
 
 \vfill
 

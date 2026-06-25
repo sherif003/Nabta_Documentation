@@ -1,99 +1,177 @@
 %==============================================================================
-% CHAPTER 1 --- INTRODUCTION
+% CHAPTER 1 --- PROJECT IDEA AND IMPORTANCE
 %==============================================================================
 
 \chapter{Introduction}
 \label{chap:introduction}
 
-\chapterquote{Agriculture is our wisest pursuit, because it will in the end contribute most to real wealth, good morals, and happiness.}{Thomas Jefferson}
+\begin{center}
+\textit{NABTA -- An AI-Powered Smart Agriculture Platform}
+\end{center}
 
-\section{Background and Context}
+%==============================================================================
+\section{Background}
 \label{sec:intro_background}
 
-Agriculture constitutes one of the most fundamental pillars of human civilisation, providing sustenance, economic activity, and employment to billions of people across all continents. Despite dramatic advances in industrial food production and globalised supply chains, the security of the world's crop yields remains perpetually vulnerable to biological threats. Among these threats, plant pathogens---encompassing fungal infections, bacterial blights, viral diseases, and parasitic infestations---represent perhaps the most persistent and damaging challenge facing agricultural communities worldwide.
+Agriculture is one of the oldest and most strategically important sectors in human civilization, underpinning food security, economic stability, and rural livelihoods across the world. Plants form the base of nearly every terrestrial food chain and, together with marine phytoplankton and algae, drive the photosynthetic processes that sustain the planet's atmospheric oxygen and carbon cycles. This means that any sustained threat to plant health is, by extension, a threat to both food security and the broader ecological systems that human survival depends on. As the global population continues to grow toward approximately 9.1 billion by 2050, agricultural output must increase substantially simply to keep pace with demand, even before accounting for losses from pests and disease.
 
-The \gls{fao} estimates that plant diseases are collectively responsible for the destruction of up to \textbf{40\%} of all food crops globally on an annual basis~\cite{fao2021}. This staggering figure translates not merely to economic losses measured in billions of dollars, but to food insecurity for vulnerable populations, reduced livelihoods for smallholder farmers, and the unnecessary over-application of chemical pesticides that degrades soil health and contaminates water systems. The problem is particularly acute in developing nations, where limited access to agronomic expertise and diagnostic infrastructure renders early intervention exceptionally difficult.
+This is precisely where the problem becomes critical. According to the Food and Agriculture Organization (FAO) of the United Nations, up to 40\% of global crop production is lost every year to plant pests and diseases, costing the global economy more than $220 billion annually, with invasive pests alone responsible for at least $70 billion of that figure~\cite{fao_food_security}. These are not abstract numbers: outbreaks such as wheat rust, banana Fusarium wilt, and citrus greening have historically wiped out entire harvests and, in some regions, permanently altered what farmers are able to grow. Climate change is expected to make this worse, as shifting temperature and humidity patterns expand the geographic range in which many pathogens and pests can thrive.
 
-Historically, the identification and management of plant diseases has depended heavily on the manual inspection capabilities of trained agronomists and plant pathologists. Such experts evaluate macroscopic and microscopic symptoms---discolouration patterns, lesion morphology, necrotic tissue boundaries, and spore structures---to arrive at a differential diagnosis. This approach, while clinically valid, suffers from three fundamental operational limitations: it is \textit{time-intensive}, requiring sustained expert availability; it is \textit{geographically constrained}, given the scarcity of credentialled specialists in many agricultural regions; and it is inherently \textit{non-scalable}, since even an experienced agronomist can examine only a limited number of field samples within a practical timeframe.
+The challenge is especially relevant in agricultural economies such as Egypt's, where agriculture continues to contribute significantly to GDP and employment~\cite{world_bank_egypt_agri, egyptian_streets_agri}. Smallholder farmers -- those cultivating plots of roughly one to five feddans -- represent the overwhelming majority of cultivated land in the country. This farming structure means that the people most exposed to crop loss are often the least equipped, financially or logistically, to absorb it: they typically cannot afford frequent visits from agricultural consultants, may not have reliable access to diagnostic laboratories, and often rely on experience-based guesswork or generic, sometimes excessive, pesticide application when a problem appears.
 
-The convergence of deep learning, computer vision, and cloud computing over the past decade has opened genuinely transformative possibilities for automated, scalable, and accessible plant disease diagnosis. Landmark work such as that of Mohanty~et~al.~\cite{mohanty2016} demonstrated that convolutional neural networks trained on curated leaf-image datasets could achieve accuracy levels competitive with---and in some cases exceeding---those of human experts under controlled photographic conditions. Subsequent advances in object detection architectures, notably the YOLO family~\cite{jocher2023yolov8}, and in semantic segmentation networks, most prominently the U-Net architecture~\cite{ronneberger2015}, have further expanded the toolkit available for intelligent agricultural analysis. Alongside these discriminative models, the emergence of large language models and retrieval-augmented generation~\cite{lewis2020rag} has created new possibilities for deploying expert knowledge at scale through conversational interfaces.
+Historically, the response to this gap has been manual visual inspection: an agronomist, extension officer, or experienced farmer examines the crop, compares symptoms against personal knowledge, and recommends a treatment. While this method can be accurate in the hands of a true expert, it does not scale. It is slow, subjective, expensive to repeat across a large number of plants, and frequently unavailable at all in remote or under-resourced areas. The cost of getting it wrong is not trivial either -- misdiagnosis leads to the wrong treatment being applied, which wastes money on ineffective chemicals, can accelerate disease spread while the real problem remains untreated, and contributes to unnecessary pesticide use that carries its own environmental and health costs.
 
-\section{Problem Statement}
-\label{sec:intro_problem}
+Over the past decade, Artificial Intelligence -- and specifically Computer Vision and Deep Learning -- has matured into a credible alternative to this manual process. Convolutional Neural Networks learn to recognize visual patterns directly from pixel data without needing hand-crafted rules; object detectors such as the YOLO family can locate specific regions of interest within a larger image in real time; and segmentation architectures such as U-Net can isolate an object -- in this case, a leaf -- from its background at the pixel level with very high precision. These exact techniques have already proven themselves in high-stakes visual diagnostic domains such as medical imaging and industrial quality inspection, where consistency and speed at scale are equally critical. Their application to agriculture is a natural and increasingly well-documented extension, forming part of the broader global shift toward smart and precision agriculture, in which sensors, data, and AI models support rather than replace the judgment of farmers and agronomists.
 
-Despite the technological advances described above, a substantial gap persists between isolated academic demonstrations and practical, deployed systems that farmers and agricultural workers can readily access and trust. Several specific, interconnected challenges characterise this gap and motivated the development of the \nabta system:
+It is within this context, and against this backdrop of real economic and food-security stakes, that the NABTA project was conceived: to translate state-of-the-art Artificial Intelligence research into a practical, accessible, and explainable smart agriculture platform that any grower, regardless of technical background or geographic location, can use directly from a web browser.
 
-\begin{enumerate}[leftmargin=*, label=\textbf{P\arabic*.}]
-  \item \textbf{Stage-Specific Vulnerability:} Plant pathogens typically exhibit their most characteristic visual symptoms only in intermediate or advanced disease stages. Early-stage infections, when intervention would be most cost-effective, present subtle lesion patterns that are easily overlooked by non-specialist observers or overwhelmed by the complex visual noise present in field photographs---soil backgrounds, uneven lighting, overlapping foliage, and shadow gradients.
+%==============================================================================
+\section{Project Idea}
+\label{sec:intro_idea}
 
-  \item \textbf{Expert Scarcity and Geographic Inaccessibility:} Qualified plant pathologists and agronomists are unevenly distributed across agricultural geographies. Rural and remote farming communities in developing nations face the most acute shortfall, with access to specialist consultations requiring either costly field visits or lengthy delays.
+NABTA is a full-stack, AI-powered smart agriculture platform that enables users to analyze plant diseases, obtain intelligent crop recommendations, receive smart irrigation recommendations, and interact with an AI agricultural assistant through a unified web application. For plant disease analysis, users can upload a plant leaf image and receive an automated diagnosis, visual explanation, and practical treatment recommendations within seconds. The name ``Nabta'' -- Arabic for ``sprout'' or ``seedling'' -- was deliberately chosen to reflect the project's underlying philosophy: protecting new growth by catching problems while they are still small and treatable, rather than after they have already spread.
 
-  \item \textbf{Financial Constraints of Manual Diagnosis:} Continuous reliance on human expert evaluation is economically unsustainable for smallholder farmers operating on tight margins. Laboratory analysis, travel costs, and specialist fees collectively impose a recurring financial burden that suppresses diagnostic uptake.
+The defining design decision behind NABTA is that it does not rely on a single end-to-end classifier, as the majority of existing tools do. Instead, the diagnostic core is built around four core AI-driven stages -- detection, segmentation, classification, and explainability -- implemented through six sequential processing steps, since the segmentation stage is preceded by an initial region-of-interest crop and followed by a refinement crop before classification. Each step progressively refines and cleans the input for the step that follows, closely mirroring how a trained plant pathologist would visually examine a specimen: first locating the affected area on the whole plant, then isolating the individual leaf, and only then making a final, focused judgment about the specific disease present.
 
-  \item \textbf{Epidemic Spreading and Delayed Response:} Without rapid, on-demand diagnostic capabilities, infected plants may go undetected for extended periods. During this interval, pathogen spores and vectors spread to neighbouring plants and adjacent fields, escalating localised infections into wide-scale epidemic events before any containment response is mounted.
-
-  \item \textbf{Misdiagnosis Risk and Pesticide Misuse:} Incorrect identification of a pathogen, whether by an under-qualified observer or by a single-stage, context-insensitive AI model, leads directly to the application of inappropriate chemical treatments. Such misuse wastes agricultural inputs, accelerates the development of chemical resistance among pathogen populations, and introduces unnecessary environmental contamination.
-
-  \item \textbf{Scalability Ceiling of Human-Dependent Systems:} Traditional diagnostic workflows cannot be linearly scaled to monitor extensive agricultural operations. Large farms with hundreds of hectares under cultivation require a form of continuous, automated surveillance that no human workforce can economically provide.
+\begin{enumerate}[leftmargin=*,label=\textbf{Step \arabic*.}]
+\item \textbf{Detection (YOLOv8):} the raw uploaded image, which may contain an entire plant, multiple leaves, soil, or background clutter, is passed through a YOLOv8 object-detection model. YOLOv8 scans the image in a single forward pass and outputs bounding boxes around regions that show visible signs of infection, discarding irrelevant background before any further processing occurs.
+\item \textbf{Leaf Cropping (Region-of-Interest Extraction):} the bounding boxes from Step 1 are used to crop the image down to just the relevant plant region, producing a focused sub-image for the next step.
+\item \textbf{Segmentation (U-Net with an EfficientNet-B0 encoder):} the cropped region is passed through a U-Net segmentation network using an EfficientNet-B0 backbone as its encoder, performing pixel-level isolation of the leaf itself from any remaining background. In the team's internal validation testing, this step achieved a mean Intersection-over-Union (IoU) of \textbf{94.73\%} during validation.
+\item \textbf{Refined Cropping:} the segmentation mask is used to produce a final, noise-free crop containing only the leaf tissue relevant to diagnosis.
+\item \textbf{Classification (Custom CNN):} this clean, isolated leaf image is fed into a custom-trained Convolutional Neural Network that assigns it to one of 102 distinct disease classes spanning multiple crop species, drawing on patterns learned from a merged corpus of more than 120,000 training images.
+\item \textbf{Explainability (Grad-CAM):} Gradient-weighted Class Activation Mapping (Grad-CAM) is applied to the classifier's decision to generate a heatmap overlay on the original leaf image, visually highlighting exactly which pixels most influenced the predicted disease label.
 \end{enumerate}
 
-\section{Motivation}
-\label{sec:intro_motivation}
+Beyond plant disease analysis, NABTA integrates two additional machine learning modules. The Crop Recommendation module predicts the most suitable crop based on soil nutrients, weather conditions, and environmental factors, while the Smart Irrigation module estimates crop water requirements to improve irrigation efficiency and support sustainable farming practices. Together with the AI Assistant, these intelligent services transform NABTA from a plant disease diagnosis tool into a comprehensive smart agriculture platform.
 
-The motivation for developing \nabta arises from the recognition that the individual technologies required to address the above problems already exist in mature or near-mature forms within the research literature. What is absent is a coherent, production-quality system that combines these technologies in a principled architectural framework, exposes them through an accessible user interface suitable for non-technical agricultural workers, and deploys them with the security, reliability, and performance characteristics demanded by real-world operational environments.
+This pipeline is not exposed as a bare API or research script -- it is wrapped inside a production-grade web product designed for real end users:
 
-Furthermore, the authors were motivated by the observation that existing plant disease classification systems overwhelmingly adopt single-stage pipelines---one model receives a raw field image and produces a class label. This design choice, while computationally economical, fundamentally ignores the compound degradation in model confidence caused by complex photographic backgrounds. A hierarchical pipeline that progressively refines the input---first isolating the leaf region, then segmenting its tissue boundaries, and finally classifying the isolated pathological features---constitutes a significantly more robust approach to real-world conditions.
+\begin{itemize}[leftmargin=*]
+\item \textbf{Frontend (React.js):} provides the upload interface, displays detection boxes, segmentation masks, classification results with confidence scores, and the Grad-CAM heatmap, all within a guided workflow.
+\item \textbf{Backend (FastAPI + Firebase Cloud Functions):} the FastAPI REST API orchestrates the entire AI pipeline server-side, while Firebase Cloud Functions independently handle authentication events, scheduled keep-alive pings to the hosted model endpoints, and secure server-side proxying of third-party API keys.
+\item \textbf{History and Analytics dashboard:} inspired by modern business intelligence dashboards, visualizing disease distribution by type, an infection timeline that automatically aggregates by hour, day, or month depending on data density, and running totals of analyses, diseased detections, unique diseases, and tracked plants.
+\item \textbf{AI Assistant chatbot:} powered by the Cohere large language model combined with a Retrieval-Augmented Generation (RAG) pipeline, allowing users to ask natural-language plant-care questions and automatically generating structured, downloadable PDF Smart Reports.
+\item \textbf{User account management:} handled through Firebase Authentication, supporting email/password registration and Google sign-in, password recovery, and an editable user profile.
+\item \textbf{Premium tier:} introduced as part of the platform's subscription model to let advanced users -- larger farms, agricultural businesses, or researchers -- upload custom datasets for future model customization and training.
+\end{itemize}
 
-\section{Project Objectives}
-\label{sec:intro_objectives}
+The completed system is deployed and publicly accessible at nabta-system.tech, with its source code hosted on GitHub across three repositories and its development lifecycle tracked and managed through Jira across six structured agile sprints.
 
-The \nabta project pursues the following primary engineering and research objectives:
-
-\begin{enumerate}[leftmargin=*, label=\textbf{O\arabic*.}]
-  \item \textbf{Unified Multi-Model AI Pipeline:} Design and implement a sequential, multi-stage computer vision pipeline that combines object detection (\yolo), semantic segmentation (\unet), and image classification (\cnn) into a cohesive inference workflow acting on a single raw input image.
-
-  \item \textbf{High-Accuracy Pathogen Classification:} Achieve classification accuracy exceeding 95\% across a dataset spanning 102 distinct disease categories and healthy plant states, encompassing a diverse range of crop species and pathogen types.
-
-  \item \textbf{Explainable AI Integration:} Incorporate \gradcam visualisations into the inference output to ensure that model decisions are interpretable and verifiable by agronomists and non-technical users alike, thereby building operational trust in the system.
-
-  \item \textbf{Intelligent Consultation Layer:} Develop a domain-restricted, multilingual conversational AI module using \gls{rag} and the Cohere \gls{llm} platform, capable of delivering expert-quality treatment prescriptions grounded in curated agricultural knowledge.
-
-  \item \textbf{Production-Ready Cloud Deployment:} Architect a high-performance asynchronous backend using \fastapi, capable of servicing concurrent field requests with sub-second inference latency.
-
-  \item \textbf{Accessible, Responsive Interface:} Deliver a fully featured, mobile-responsive web application in React.js that enables farmers with minimal technical literacy to submit plant images and receive comprehensive diagnostic reports.
-
-  \item \textbf{Robust Security Architecture:} Implement a multi-layered security posture encompassing Firebase Authentication, HTTPS encryption, and secure API key management.
-\end{enumerate}
-
+%==============================================================================
 \section{Project Scope}
 \label{sec:intro_scope}
 
-The scope of the \nabta project encompasses the full software development lifecycle of the described system, from requirements analysis and architectural design through model training, system integration, and deployment. The project operates within the following defined boundaries:
+To keep the project realistically achievable within an academic timeline while still producing a genuinely usable, deployable system, the team established a clear boundary between functionality delivered in this version of NABTA and functionality deliberately deferred as future work.
 
-The classification capability is bounded by the training data: the system diagnoses plant diseases within the 102 classes represented in the combined training corpus, which includes crops such as tomato, potato, pepper, apple, grape, corn, rice, cotton, mango, eggplant, strawberry, orange, and cucumber, among others. Extension to additional species and pathogen types is identified as a future research direction.
+\begin{table}[htbp]
+\centering
+\caption{Project Scope Summary}
+\label{tab:intro_scope}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.46\textwidth}>{\raggedright\arraybackslash}p{0.46\textwidth}@{}}
+\toprule
+\textbf{In-Scope} & \textbf{Out-of-Scope} \\
+\midrule
+Web-based smart agriculture platform integrating AI-powered disease analysis, crop recommendation, irrigation recommendation, and AI consultation. & Native iOS / Android mobile applications. \\
+Classification across 102 disease classes spanning multiple crop species, built from 9 merged public datasets (120,000+ images). & On-device / edge AI inference (e.g., on drones, IoT sensors, or offline embedded hardware). \\
+User account management with Firebase Authentication (email/password and Google sign-in). & Real-time continuous field monitoring, drone integration, or IoT sensor data ingestion. \\
+AI Assistant chatbot (Cohere LLM with Retrieval-Augmented Generation) for plant-care guidance. & Automated marketplace, e-commerce, or pesticide/fertilizer purchasing integration. \\
+Automatically generated, downloadable PDF Smart Reports summarizing diagnosis and treatment plans. & Social/community features such as farmer-to-farmer forums or expert messaging. \\
+History and analytics dashboard (disease distribution, infection timeline, tracked plants). & Dedicated pixel-level disease-severity scoring as a standalone computer-vision module. \\
+Premium tier designed to let advanced users upload and train on custom datasets. & Multi-language support beyond the languages currently integrated in the interface. \\
+Secure, production-grade deployment (FastAPI REST API, Firebase, cloud-hosted models) at nabta-system.tech. & Offline / no-internet functionality. \\
+\bottomrule
+\end{tabularx}
+\end{table}
 
-The system is designed for \textit{leaf-level image analysis}. Diagnosis derived from full-plant or field-view imagery without sufficient leaf prominence is not the primary design target, although the \yolo detection stage partially compensates for this by isolating leaf-level regions of interest even within complex scene compositions.
+A few additional working assumptions and constraints shaped this scope: the system assumes the user has internet access and a device with a basic camera; image quality is assumed to be reasonable; and the 102-class disease taxonomy, while broad, is necessarily bounded by the diseases represented across the nine source datasets used for training. Diseases entirely absent from all nine sources cannot currently be diagnosed unless added later through the Premium custom-dataset pathway.
 
-The chatbot consultation interface is intentionally domain-restricted. The system rejects queries outside the agricultural domain to maintain response reliability and prevent the dissemination of hallucinated advice for off-topic subjects.
+%==============================================================================
+\section{Business Problem}
+\label{sec:intro_problem}
 
-\section{Contributions}
-\label{sec:intro_contributions}
-
-The principal technical contributions of the \nabta project are summarised as follows:
+Farmers, hobbyist growers, agricultural cooperatives, and small agribusinesses share a recurring set of obstacles when trying to protect their crops from disease, and these obstacles compound one another:
 
 \begin{itemize}[leftmargin=*]
-  \item \textbf{End-to-End Multi-Stage Pipeline:} A novel sequential pipeline architecture combining \yolo detection, \unet segmentation, and \cnn classification, demonstrated to achieve superior robustness over single-stage baselines on field-condition imagery.
-
-  \item \textbf{Large-Scale Training Corpus:} The curation and integration of a combined training dataset exceeding 120,000 images across 102 classes, sourced from seven distinct open-source agricultural repositories, with systematic balancing and augmentation.
-
-  \item \textbf{Integrated \gradcam Explainability:} The first demonstration, to the authors' knowledge, of real-time \gradcam overlay delivery within a production web application targeting agricultural end-users.
-
-  \item \textbf{\rag-Augmented Agricultural Chatbot:} A deployable, domain-restricted conversational AI module providing treatment recommendations grounded in a curated vector knowledge base, evaluated and validated by agricultural domain experts.
-
-  \item \textbf{Production Deployment Architecture:} A complete, documented system architecture combining \fastapi, Firebase, a vector database, and React.js, designed for immediate deployability in cloud environments.
+\item \textbf{Difficulty detecting disease at an early stage:} many infections are visually subtle when they first appear and are easy for an untrained eye to overlook until the damage is already extensive.
+\item \textbf{Limited access to expertise:} qualified plant pathologists and agricultural extension officers are unevenly distributed, and in many rural or under-resourced regions, a consultation may involve significant travel time, scheduling delay, or simply may not be available at all.
+\item \textbf{High cost of manual diagnosis at scale:} in-person inspection of every plant, or even a representative sample, across a large farm is expensive and impractical to repeat with the frequency that effective disease monitoring requires.
+\item \textbf{Rapid disease spread during the diagnosis gap:} the time elapsed between symptom onset and an actual diagnosis is exactly the window in which many fungal and bacterial pathogens spread most efficiently to neighboring plants.
+\item \textbf{Financial and environmental risk of misdiagnosis:} an incorrect identification leads to the wrong treatment, which not only fails to solve the original problem but adds direct economic cost and environmental harm.
+\item \textbf{Inefficient crop selection and irrigation planning:} Farmers often lack data-driven tools for selecting suitable crops and estimating irrigation requirements, leading to reduced productivity and inefficient resource utilization.
+\item \textbf{Lack of scalability of traditional methods:} expert-dependent diagnosis cannot scale elastically to serve a growing number of users or a sudden seasonal spike in inquiries.
+\item \textbf{No persistent record of plant health:} even when a diagnosis is obtained, there is typically no structured historical record connecting today's finding to last month's.
 \end{itemize}
 
-\section{Document Organisation}
-\label{sec:intro_organisation}
+These pain points are not hypothetical -- they are precisely why AI-assisted diagnosis apps such as Plantix have achieved tens of millions of downloads globally~\cite{gsma_plantix}. However, an examination of these existing solutions reveals that they typically function as largely closed, single-stage classifiers: a user submits a photo and receives a disease label and a generic treatment tip, with only limited insight into why that label was chosen, little to no way to track plant health over time within a personal record, and no widely available mechanism to extend the underlying model to a user's own specific crops or local conditions.
 
-The remainder of this document is structured as follows. \chapref{chap:literature_review} presents the domain background, related work, requirements analysis, and user-facing use cases. \chapref{chap:methodology} details the data collection strategy, preprocessing protocols, training corpus composition, and model development methodology. \chapref{chap:design} describes the full system architecture, backend design, frontend design, database schema, API specification, and modelling artefact placeholders. \chapref{chap:implementation} documents the technologies employed, the development environment, and key implementation details with illustrative screenshot placeholders. \chapref{chap:results} presents evaluation metrics, testing evidence, and comparative discussion. Finally, \chapref{chap:conclusion} synthesises the project's achievements, acknowledges its limitations, and outlines the roadmap for future enhancement.
+This leaves a clear and addressable gap in the market: there is no widely accessible, explainable, end-to-end digital service that gives a grower an instant and trustworthy diagnosis, paired with actionable treatment guidance and a historical record of plant health, without depending on the constant availability of a human expert.
+
+%==============================================================================
+\section{Project Objectives}
+\label{sec:intro_objectives}
+
+The main objectives of NABTA are to develop a comprehensive AI-powered smart agriculture platform that integrates computer vision, machine learning, explainable artificial intelligence, and conversational AI to provide accurate plant disease analysis, intelligent agricultural recommendations, and a production-ready decision-support system.
+
+\begin{enumerate}[leftmargin=*,label=\textbf{O\arabic*.}]
+\item Build a complete end-to-end AI pipeline for plant disease diagnosis.
+\item Achieve broad and reliable disease coverage across multiple crop species.
+\item Develop intelligent crop recommendation and smart irrigation services using machine learning.
+\item Make AI decisions transparent and trustworthy using Grad-CAM.
+\item Deliver a genuinely usable interface for non-technical users.
+\item Engineer the system for production deployment, not only research use.
+\item Extend diagnosis into actionable conversational guidance.
+\item Enable longitudinal insight into plant health through history and analytics.
+\item Support future extensibility through a premium custom-dataset pathway.
+\item Deliver the project through disciplined, agile project management.
+\end{enumerate}
+
+%==============================================================================
+\section{Related Work and Comparative Study}
+\label{sec:intro_related_work}
+
+Automated plant disease detection has been studied extensively in both academic research and commercial applications. However, most existing solutions still follow a single-stage classification approach rather than a complete diagnostic pipeline.
+
+Academic studies commonly train CNN-based classifiers or YOLO-based localizers directly on labeled leaf images. Many of these works report very high accuracy on clean laboratory-style datasets such as PlantVillage, but the performance often drops when the same models are applied to real field images with clutter, shadows, and varying illumination. This difference between lab conditions and practical deployment has been repeatedly highlighted in recent review papers.
+
+On the commercial side, applications such as Plantix, Agrio, Leaf Doctor, and Pl@ntNet demonstrate that there is real demand for AI-assisted plant diagnosis. These products are useful for fast symptom recognition and basic treatment advice, but they generally do not provide a full multi-stage pipeline, visual explainability, conversational guidance, or an extensible user custom-dataset mechanism.
+
+NABTA is positioned in the gap between those two worlds. It combines detection, segmentation, classification, and explainability into one workflow, while also wrapping the pipeline in a deployed web platform with a chatbot, historical analytics, and a planned extensibility path for future growth.
+
+\begin{table}[htbp]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\caption{Comparative Study of Plant Disease Applications}
+\label{tab:intro_related_work}
+\begin{tabularx}{\textwidth}{@{}p{0.18\textwidth}p{0.18\textwidth}p{0.13\textwidth}p{0.12\textwidth}p{0.11\textwidth}p{0.11\textwidth}@{}}
+\toprule
+\textbf{System} & \textbf{Detection \& Segmentation Pipeline} & \textbf{Disease / Class Coverage} & \textbf{Visual Explainability (XAI)} & \textbf{AI Assistant / Chatbot} & \textbf{Crop \& Irrigation Recommendation} \\
+\midrule
+Plantix~\cite{plantix_website} & Single-stage CNN classification only & About 800 pest/disease combinations across 30 crops & Limited transparency into model decisions & Not offered & Not offered \\
+Agrio~\cite{agrio_website} & Single-stage CNN classification with human review & Crop-specific, expert-curated catalogue & Limited reasoning exposed to end users & Not offered & Not offered \\
+Leaf Doctor~\cite{pethybridge2015leaf} & Colour-based pixel segmentation for severity scoring & Limited, research-oriented & Partial severity overlay only & Not offered & Not offered \\
+Pl@ntNet / PictureThis~\cite{plantnet_website} & Primarily species identification & Broad species coverage, narrow disease depth & Minimal disease decision transparency & Not offered & Not offered \\
+Typical academic CNN studies & Single-stage classification on clean, lab images & High lab accuracy; weaker field generalization & Rarely deployed in production & Not offered & Not offered \\
+NABTA (Proposed System) & YOLOv8 detection $\rightarrow$ U-Net/EfficientNet-B0 segmentation $\rightarrow$ CNN classification $\rightarrow$ Grad-CAM & 102 classes across multiple crops, from 9 public datasets & Grad-CAM heatmaps shown directly in the app & Yes -- Cohere LLM with RAG & Yes -- ML-based crop and irrigation recommendation \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+This comparison highlights a deliberate trade-off in NABTA's design: its disease taxonomy of 102 classes is narrower than the raw symptom catalogue of a mature commercial app like Plantix~\cite{plantix_website}, which was built up over years of continuous field data collection from millions of users. In exchange, NABTA is one of the few systems, academic or commercial, that combines detection, segmentation, classification, and visual explainability into a single end-to--end pipeline, while simultaneously wrapping that pipeline in a real production deployment with an LLM-based conversational assistant, historical analytics, and a custom-dataset training pathway designed to make the platform user-extensible over time.
+
+%==============================================================================
+\section{Project Contribution}
+\label{sec:intro_contributions}
+
+Building directly on the gaps identified in Section~\ref{sec:intro_related_work}, this project contributes the following:
+
+\begin{enumerate}[leftmargin=*,label=\textbf{C\arabic*.}]
+\item A unified, explainable multi-stage AI pipeline: YOLOv8 detection, U-Net/EfficientNet-B0 segmentation, custom CNN classification, and Grad-CAM explanation.
+\item A cleaned, unified multi-source dataset of more than 120,000 images collected from nine public datasets.
+\item A production-grade, full-stack architecture using React.js, FastAPI, and Firebase.
+\item Integration of Computer Vision, Machine Learning, Explainable AI, and Large Language Models within a unified smart agriculture platform.
+\item A multilingual agricultural assistant built on Retrieval-Augmented Generation.
+\item A longitudinal analytics capability for monitoring disease prevalence and infection trends over time.
+\item An extensibility mechanism that allows the system to grow beyond its initial 102 classes over time.
+\item Demonstrated delivery discipline through an agile, sprint-based project workflow.
+\end{enumerate}

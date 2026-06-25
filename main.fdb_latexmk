@@ -1,0 +1,14 @@
+# Fdb version 4
+["xdvipdfmx"] 0 "main.xdv" "main.pdf" "main" 1782400438.66542 -1
+  "main.xdv" 0 -1 0 "xelatex"
+  (generated)
+  "main.pdf"
+  (rewritten before read)
+["xelatex"] 1782400401.44256 "main.tex" "main.xdv" "main" 1782400438.66517 2
+  "main.aux" 1782400393 32 3985256e7290058c681f74d7a3565a19 "xelatex"
+  "main.tex" 0 -1 0 ""
+  (generated)
+  "main.aux"
+  "main.log"
+  "main.xdv"
+  (rewritten before read)

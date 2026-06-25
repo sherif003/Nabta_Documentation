@@ -10,28 +10,28 @@
 
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[L]{\scriptsize\itshape\color{NabtaBlue}\nouppercase{\leftmark}}
-\fancyhead[R]{\scriptsize\bfseries\color{NabtaGold}\nabta}
-\fancyfoot[C]{\scriptsize\color{NabtaBlue}\thepage}
+\fancyhead[L]{\scriptsize\itshape\color{NabtaDark}\nouppercase{\leftmark}}
+\fancyhead[R]{\scriptsize\bfseries\color{NabtaDark}\nabta}
+\fancyfoot[C]{\scriptsize\color{NabtaDark}\thepage}
 \renewcommand{\headrulewidth}{0.35pt}
 \renewcommand{\footrulewidth}{0pt}
-\renewcommand{\headrule}{\hbox to\headwidth{\color{NabtaLine}\leaders\hrule height \headrulewidth\hfill}}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{black}\leaders\hrule height \headrulewidth\hfill}}
 
 \fancypagestyle{plain}{%
   \fancyhf{}
-  \fancyfoot[C]{\scriptsize\color{NabtaBlue}\thepage}
+  \fancyfoot[C]{\scriptsize\color{NabtaDark}\thepage}
   \renewcommand{\headrulewidth}{0pt}
 }
 
 \titleformat{\chapter}[display]
   {\normalfont\bfseries\color{NabtaDark}}
-  {{\color{NabtaLine}\titlerule[0.45pt]}\vspace{1.7cm}\small\color{NabtaGold}\MakeUppercase{\chaptertitlename}\ \thechapter}
+  {\vspace{-0.9cm}\small\color{NabtaGold}\MakeUppercase{\chaptertitlename}\ \thechapter}
   {0.55em}
   {\LARGE}
   [\vspace{1.15em}{\color{NabtaGold}\titlerule[0.8pt]}]
 \titleformat{name=\chapter,numberless}[display]
   {\normalfont\bfseries\color{NabtaDark}}
-  {{\color{NabtaLine}\titlerule[0.45pt]}\vspace{1.7cm}}
+  {\vspace{-0.9cm}}
   {0pt}
   {\LARGE}
   [\vspace{1.15em}{\color{NabtaGold}\titlerule[0.8pt]}]
@@ -40,13 +40,13 @@
 
 \titleformat{\section}
   {\normalfont\large\bfseries\color{NabtaDark}}
-  {\color{NabtaGold}\thesection}{0.7em}{}
+  {\thesection}{0.7em}{}
 \titleformat{\subsection}
   {\normalfont\normalsize\bfseries\color{NabtaDark}}
-  {\color{NabtaGold}\thesubsection}{0.7em}{}
+  {\thesubsection}{0.7em}{}
 \titleformat{\subsubsection}
   {\normalfont\normalsize\bfseries\color{NabtaDark}}
-  {\color{NabtaGold}\thesubsubsection}{0.7em}{}
+  {\thesubsubsection}{0.7em}{}
 \titlespacing*{\section}{0pt}{1.8em}{0.8em}
 \titlespacing*{\subsection}{0pt}{1.45em}{0.55em}
 \titlespacing*{\subsubsection}{0pt}{1.2em}{0.45em}
@@ -60,12 +60,12 @@
   {\hspace*{-1.5em}}
   {\titlerule*[0.5pc]{.}\contentspage}
 \titlecontents{section}[3.8em]
-  {\color{NabtaBlue}}
+  {\color{NabtaDark}}
   {\contentslabel{2.3em}}
   {\hspace*{-2.3em}}
   {\titlerule*[0.5pc]{.}\contentspage}
 \titlecontents{subsection}[6.1em]
-  {\small\color{NabtaBlue}}
+  {\small\color{NabtaDark}}
   {\contentslabel{3.2em}}
   {\hspace*{-3.2em}}
   {\titlerule*[0.5pc]{.}\contentspage}
@@ -75,34 +75,30 @@
 \captionsetup[table]{name=Table,justification=centering,position=top}
 
 \hypersetup{
-  colorlinks=true,
-  linkcolor=NabtaDark,
-  citecolor=NabtaBlue,
-  urlcolor=LinkBlue,
-  filecolor=LinkBlue
+  hidelinks
 }
 
 \renewcommand{\arraystretch}{1.25}
 \setlength{\tabcolsep}{6pt}
-\arrayrulecolor{NabtaLine}
+\arrayrulecolor{black}
 \setlength{\aboverulesep}{0pt}
 \setlength{\belowrulesep}{0pt}
 \newcolumntype{Y}{>{\raggedright\arraybackslash}X}
 \newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
 \newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
-\AtBeginEnvironment{tabularx}{\rowcolors{1}{NabtaSoft}{white}}
+
 
 \lstset{
   basicstyle=\ttfamily\footnotesize,
   breaklines=true,
   frame=single,
-  backgroundcolor=\color{CodeGray},
-  rulecolor=\color{RuleGray},
-  keywordstyle=\color{NabtaBlue}\bfseries,
-  commentstyle=\color{NabtaMuted},
-  stringstyle=\color{NabtaGreen},
+  backgroundcolor=\color{white},
+  rulecolor=\color{black},
+  keywordstyle=\bfseries,
+  commentstyle=\itshape,
+  stringstyle=\itshape,
   numbers=left,
-  numberstyle=\tiny\color{NabtaMuted},
+  numberstyle=\tiny\color{black},
   numbersep=8pt,
   tabsize=2,
   captionpos=b,
@@ -113,10 +109,10 @@
   nabtabox/.style={
     enhanced,
     breakable,
-    colback=NabtaSoft,
-    colframe=NabtaBlue,
-    coltitle=white,
-    colbacktitle=NabtaDark,
+    colback=white,
+    colframe=black,
+    coltitle=black,
+    colbacktitle=white,
     fonttitle=\bfseries,
     boxrule=0.7pt,
     arc=2pt,

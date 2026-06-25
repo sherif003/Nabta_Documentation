@@ -1,0 +1,30 @@
+\babel@toc {english}{}\relax 
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces High-Level Three-Tier System Architecture of NABTA}}{37}{figure.caption.28}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces System Workflow Diagram}}{38}{figure.caption.29}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Model and Inference Pipeline}}{38}{figure.caption.30}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Database Schema Diagram}}{39}{figure.caption.31}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces NABTA Main Analysis Dashboard Interface}}{40}{figure.caption.32}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces NABTA Smart Analysis Center Dashboard}}{41}{figure.caption.33}%
+\contentsline {figure}{\numberline {4.7}{\ignorespaces NABTA AI Chat Assistant Interface}}{41}{figure.caption.34}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Image Upload Screen with File Type and Size Indicators}}{55}{figure.caption.42}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Analysis Results Screen with Detection, Segmentation, and Grad-CAM Panels}}{56}{figure.caption.43}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Subscription Tier Selection Screen}}{56}{figure.caption.44}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Training and Validation Accuracy and Loss Curves of the CNN Classification Model}}{60}{figure.caption.47}%
+\contentsline {figure}{\numberline {6.2}{\ignorespaces YOLOv8x Training Results}}{62}{figure.caption.49}%
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Representative YOLOv8 Detection Results}}{63}{figure.caption.50}%
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Training Performance of the U-Net Segmentation Model}}{65}{figure.caption.52}%
+\contentsline {figure}{\numberline {6.5}{\ignorespaces Representative U-Net Segmentation Results}}{66}{figure.caption.53}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {A.1}{\ignorespaces Distribution of Images Across Crop Categories in the Combined Training Corpus}}{81}{figure.caption.60}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {B.1}{\ignorespaces Database Schema Diagram}}{82}{figure.caption.61}%
+\contentsline {figure}{\numberline {B.2}{\ignorespaces User Interface Screenshot Set}}{82}{figure.caption.62}%
+\contentsline {figure}{\numberline {B.3}{\ignorespaces Model Performance Comparison}}{83}{figure.caption.63}%
+\contentsfinish 

@@ -1,101 +1,146 @@
 %==============================================================================
-% CHAPTER 9 --- CONCLUSION AND FUTURE WORK
-%==============================================================================
-
 \chapter{Conclusion and Future Work}
 \label{chap:conclusion}
 
-\chapterquote{We are what we repeatedly do. Excellence, then, is not an act, but a habit.}{Will Durant, paraphrasing Aristotle}
+This project successfully designed, developed, and evaluated \nabta---an intelligent AI-powered smart agriculture platform that integrates computer vision, machine learning, explainable artificial intelligence, and large language models within a unified cloud-based system. Rather than focusing solely on plant disease diagnosis, the proposed platform delivers multiple intelligent agricultural services, including plant disease analysis, crop recommendation, smart irrigation recommendation, AI-powered agricultural consultation, historical analytics, and real-time decision support.
 
-\section{Summary of Achievements}
-\label{sec:achievements}
+The principal achievements of the project are summarized as follows:
 
-This project has successfully designed, developed, and evaluated \nabta---an intelligent, full-stack, end-to-end artificial intelligence system for automated plant disease diagnosis. The platform represents a significant step toward bridging the gap between the theoretical capabilities demonstrated in the plant pathology machine learning literature and a practically deployable, user-accessible diagnostic tool for real agricultural environments.
+\begin{enumerate}[leftmargin=*,label=\textbf{A\arabic*.}]
 
-The principal achievements of the project are summarised as follows:
+\item \textbf{Development of an End-to-End Computer Vision Pipeline}
 
-\begin{enumerate}[leftmargin=*, label=\textbf{A\arabic*.}]
-  \item \textbf{Multi-Stage Sequential AI Pipeline:}
-    A novel pipeline architecture was designed and implemented in which a \yolo object detection model (mAP@0.50 = 94.1\%), a \unet semantic segmentation model (mean IoU = 91.8\%), and a custom 102-class \gls{cnn} classifier (accuracy = 96.4\%) are chained sequentially to progressively refine an input image from raw field photograph to an isolated, background-free leaf patch suitable for high-confidence pathogen classification. This hierarchical approach is demonstrated to outperform single-stage classification under realistic field conditions by eliminating background noise prior to the classification stage.
+A complete multi-stage computer vision pipeline was successfully designed and implemented by integrating YOLOv8 object detection, U-Net semantic segmentation, a custom CNN classification model, and Grad-CAM explainability. Unlike conventional single-stage classification approaches, the proposed sequential architecture progressively removes irrelevant background information before disease recognition, resulting in more reliable predictions under real-world agricultural conditions.
 
-  \item \textbf{Explainability Integration:}
-    The integration of real-time \gradcam visualisations into the inference response pipeline provides users with gradient-weighted heatmaps that visually justify the model's classification decision, addressing the critical trust deficit associated with opaque black-box deep learning systems in high-stakes agricultural contexts.
+\item \textbf{High-Performance Plant Disease Diagnosis}
 
-  \item \textbf{\rag-Augmented Expert Consultation:}
-    The deployment of a domain-restricted, \rag-powered conversational AI module---using the Cohere \texttt{command-r-\allowbreak plus} model grounded in a curated vector knowledge base of 847 agronomic documents---achieved an expert-panel satisfaction score of 4.7/5.0, indicating that the system can deliver useful, grounded treatment recommendations in both Arabic and English.
+The proposed CNN classification model achieved an overall classification accuracy of \textbf{95.0\%} on an independent test set containing \textbf{12,198} images representing \textbf{102} healthy and diseased plant classes collected from multiple public datasets. The model obtained weighted Precision, Recall, and F1-score values of approximately \textbf{95\%}, demonstrating strong generalization across diverse crops and disease categories.
 
-  \item \textbf{Production-Quality System Engineering:}
-    The complete system was implemented as a production-ready web application with a modular \fastapi backend, a React.js frontend, Firebase Authentication, Firestore storage, and cloud container deployment. The end-to-end inference latency of under 0.4 seconds satisfies the real-time usability requirement. The system achieved a System Usability Scale score of 82.5/100 (Excellent) in structured user acceptance testing.
+The YOLOv8x detection model successfully localized infected plant regions, achieving a validation \textbf{mAP@0.50 of 78.8\%} and a \textbf{mAP@0.50:0.95 of 52.8\%}. In addition, the proposed U-Net segmentation model achieved a best validation accuracy of \textbf{97.89\%} and a mean Intersection-over-Union (IoU) of \textbf{94.73\%}, providing accurate leaf isolation prior to disease classification.
 
-  \item \textbf{Comprehensive Dataset Curation:}
-    A training corpus of over 120,000 annotated images spanning 102 disease and healthy plant classes was assembled from seven distinct open-source repositories and supplemented with in-house pixel-level segmentation annotations, constituting the most diverse training dataset reported for this problem scope to the authors' knowledge.
+\item \textbf{Explainable Artificial Intelligence}
+
+To improve transparency and user confidence, Grad-CAM visualization was integrated into the diagnosis pipeline. The generated heatmaps highlight the image regions that contribute most strongly to the predicted disease class, allowing users to better understand and verify AI decisions.
+
+\item \textbf{Machine Learning for Smart Agriculture}
+
+Beyond disease diagnosis, the platform incorporates dedicated machine learning models for crop recommendation and irrigation recommendation. The crop recommendation module was enhanced through an agronomically informed crop--soil suitability strategy, increasing the influence of soil characteristics during prediction and producing recommendations that are more consistent with agricultural best practices. The irrigation recommendation module provides intelligent watering recommendations based on environmental conditions, soil characteristics, and crop requirements, supporting more efficient water management.
+
+\item \textbf{AI-Powered Agricultural Consultation}
+
+The platform integrates a multilingual agricultural assistant powered by Cohere Large Language Models together with Retrieval-Augmented Generation (RAG). The assistant provides evidence-based agricultural guidance, explains disease symptoms, recommends treatment strategies, answers farming-related questions, and generates structured Smart Reports for users.
+
+\item \textbf{Production-Ready Software Architecture}
+
+The complete platform was implemented as a production-ready web application using React.js, FastAPI, Firebase Authentication, Firestore, and cloud-hosted AI services. A modular architecture was adopted to facilitate scalability, maintainability, and future integration of additional intelligent agricultural services.
+
+\item \textbf{Comprehensive Agricultural Dataset}
+
+A unified plant disease dataset containing more than \textbf{120,000} images across \textbf{102} healthy and diseased plant classes was constructed by merging nine publicly available datasets. The dataset underwent extensive preprocessing, duplicate removal, class standardization, and quality verification to improve model robustness and generalization.
+
+\item \textbf{Integrated Smart Agriculture Platform}
+
+The final outcome of this project is not merely an individual deep learning model but a complete intelligent decision-support platform that combines computer vision, machine learning, explainable AI, large language models, cloud computing, and modern web technologies within a single integrated agricultural ecosystem capable of supporting farmers throughout multiple stages of crop management.
+
 \end{enumerate}
 
+%==============================================================================
 \section{Known Limitations}
 \label{sec:limitations}
 
-Notwithstanding the achievements above, the current iteration of the \nabta system exhibits several limitations that are acknowledged transparently:
+Although the proposed NABTA platform successfully integrates multiple intelligent agricultural services within a unified production-ready system, several limitations remain that provide opportunities for future improvement.
 
-\begin{enumerate}[leftmargin=*, label=\textbf{L\arabic*.}]
-  \item \textbf{Image Quality Dependency:}
-    The pipeline relies on sufficiently clear, focused, and well-lit leaf images. Photographs characterised by heavy motion blur, extreme over-exposure, or dense shadow coverage yield reduced YOLOv8 detection confidence and correspondingly lower classification accuracy.
+\begin{enumerate}[leftmargin=*,label=\textbf{L\arabic*.}]
 
-  \item \textbf{Fixed Class Vocabulary:}
-    The classification model's knowledge is bounded by the 102 classes represented in the training corpus. Emergence of a novel pathogen strain, or submission of an image from a crop species absent from the training distribution, will result in an incorrect classification with potentially high (but miscalibrated) confidence. Active learning mechanisms for flagging out-of-distribution inputs are identified as a future priority.
+\item \textbf{Plant Disease Coverage}
 
-  \item \textbf{Compute Infrastructure Requirements:}
-    The triple-model pipeline is computationally intensive. Acceptable latency requires GPU-equipped server hardware, introducing non-trivial infrastructure costs that may limit accessibility for small-scale or NGO-operated deployment contexts.
+The disease diagnosis module is limited to the plant species and disease classes represented within the current training datasets. Images containing previously unseen diseases or crop species may lead to reduced prediction accuracy until additional data become available for retraining.
 
-  \item \textbf{Connectivity Dependency:}
-    The current architecture requires a stable internet connection for all inference operations. Farmers in regions with poor connectivity cannot currently use the system offline, limiting its utility in some of the most agriculturally vulnerable geographies.
+\item \textbf{Image Quality Dependency}
 
-  \item \textbf{Chatbot Knowledge Base Currency:}
-    The RAG knowledge base is static post-deployment. New agronomic research, newly approved pesticides, or updates to organic treatment guidelines require manual knowledge base refresh operations.
+The computer vision pipeline relies on reasonably clear leaf images captured under suitable lighting conditions. Motion blur, heavy shadows, occlusions, poor camera focus, or extremely low image quality may negatively affect the detection, segmentation, and classification stages.
+
+\item \textbf{Crop Recommendation Constraints}
+
+Although the crop recommendation model incorporates soil characteristics, climatic variables, and nutrient information, its recommendations remain dependent on the quality and completeness of the input data supplied by the user. Incorrect or incomplete environmental information may reduce recommendation reliability.
+
+\item \textbf{Smart Irrigation Dependency}
+
+The irrigation recommendation module estimates irrigation requirements using environmental and soil parameters provided by the user. Since the system is not currently connected to physical IoT sensors, recommendation quality depends on accurate manual data entry.
+
+\item \textbf{Internet Connectivity}
+
+The current implementation is cloud-based and requires an active Internet connection for AI inference and access to online services. Offline operation is not currently supported.
+
+\item \textbf{Knowledge Base Maintenance}
+
+The AI agricultural assistant relies on a curated Retrieval-Augmented Generation (RAG) knowledge base. Newly published agricultural research, regulations, pesticides, or treatment recommendations require periodic updates to maintain accurate responses.
+
+\item \textbf{Computational Resources}
+
+Training and deploying multiple deep learning models—including YOLOv8, U-Net, CNN, and language models—require considerable computational resources. While inference is efficient on the deployed platform, model retraining remains computationally expensive.
+
 \end{enumerate}
 
+%==============================================================================
 \section{Future Work}
 \label{sec:future_work}
 
-The following research and engineering directions are proposed as the primary roadmap for extending and improving the \nabta platform:
+Although the proposed NABTA platform demonstrates the effectiveness of integrating multiple artificial intelligence technologies within a unified smart agriculture system, several research and engineering directions can further improve its capabilities and practical applicability.
 
-\subsection{Native Mobile Application}
+\subsection{Expansion of Plant Disease Coverage}
+\label{subsec:fw_dataset}
+
+Future work will focus on expanding the plant disease dataset by incorporating additional crop species, newly emerging plant diseases, and larger collections of real-world field images. Increasing dataset diversity will improve the robustness and generalization capability of the disease diagnosis models.
+
+\subsection{Advanced Computer Vision Models}
+\label{subsec:fw_cv}
+
+The current computer vision pipeline may be extended by investigating more advanced deep learning architectures, including Vision Transformers (ViTs), ConvNeXt, EfficientNetV2, and recent versions of YOLO. These models may further improve detection accuracy, classification performance, and computational efficiency while maintaining real-time inference.
+
+\subsection{IoT-Based Smart Agriculture}
+\label{subsec:fw_iot}
+
+One of the most important future extensions is the integration of Internet of Things (IoT) devices into the platform. Real-time soil moisture sensors, temperature sensors, humidity sensors, pH sensors, and weather stations would allow the irrigation and crop recommendation modules to operate using live environmental measurements instead of manually entered values.
+
+\subsection{Weather Forecast Integration}
+\label{subsec:fw_weather}
+
+Integrating weather forecasting services would enable the platform to provide predictive irrigation schedules, estimate future crop water requirements, and warn farmers about environmental conditions that may increase the risk of disease outbreaks.
+
+\subsection{Satellite and Drone Imagery}
+\label{subsec:fw_satellite}
+
+Future versions of NABTA may incorporate satellite imagery and unmanned aerial vehicle (UAV) data to support large-scale crop monitoring. Combining aerial observations with the existing computer vision pipeline would allow early detection of disease outbreaks and continuous monitoring of agricultural fields.
+
+\subsection{Mobile Application Development}
 \label{subsec:fw_mobile}
 
-Dedicated Android and iOS applications would dramatically lower the barrier to field adoption by enabling direct in-situ leaf capture through the device camera, eliminating the requirement for image transfer to a desktop or laptop. React Native is identified as the preferred cross-platform development framework, enabling significant code reuse from the existing React.js frontend.
+Developing dedicated Android and iOS applications would improve accessibility for farmers by enabling direct image acquisition, offline data collection, and seamless integration with mobile device cameras and sensors.
 
-\subsection{Edge AI Deployment via TensorFlow Lite}
+\subsection{Edge AI Deployment}
 \label{subsec:fw_edge}
 
-Converting the trained PyTorch models to the TensorFlow Lite (\gls{tflite}) format through ONNX intermediate representation would enable fully offline on-device inference. Model quantisation (post-training INT8 quantisation) can reduce model sizes by up to 4$\times$ and inference latency by up to 3$\times$ on mobile CPU hardware, making the system viable in connectivity-constrained agricultural regions. This pathway directly addresses the connectivity limitation described above.
+Model optimization techniques such as quantization, pruning, TensorRT, ONNX Runtime, and TensorFlow Lite may enable efficient deployment on edge devices, allowing disease diagnosis and intelligent recommendations to operate with minimal computational resources and reduced dependence on cloud infrastructure.
 
-\subsection{Multimodal Input Synthesis}
-\label{subsec:fw_multimodal}
+\subsection{Continuous Learning}
+\label{subsec:fw_learning}
 
-The current system is restricted to RGB leaf photographs. Incorporating additional sensing modalities---hyperspectral or multispectral imagery, aerial or satellite imagery from UAV platforms, and localised soil and microclimate sensor readings---would substantially enrich the diagnostic signal available to the classification pipeline and enable earlier-stage disease detection before macroscopic symptoms emerge on the leaf surface.
+Future versions of the platform may incorporate active learning and federated learning strategies that allow the AI models to improve continuously using newly collected agricultural data while preserving user privacy and reducing annotation costs.
 
-\subsection{Continuous Disease Severity Quantification}
-\label{subsec:fw_severity}
+\subsection{Smart Farm Integration}
+\label{subsec:fw_farm}
 
-The current pipeline computes an approximated infection percentage from the ratio of Grad-CAM high-activation pixels to total leaf area. A dedicated severity regression model that operates directly on the segmentation mask and lesion morphology features would provide a more accurate and calibrated severity measurement, enabling tracking of disease progression over time as a continuous variable rather than a categorical severity tier.
+NABTA can be integrated with precision agriculture systems, automated irrigation controllers, agricultural robots, and smart greenhouse management systems to support fully automated farm management and intelligent decision making.
 
-\subsection{Autonomous Farm Management Integration}
-\label{subsec:fw_automation}
-
-Integration of the \nabta diagnostic API with enterprise farm management software and precision agriculture actuator networks---automated spraying drones, variable-rate irrigation systems, and robotic harvesting platforms---would enable fully autonomous, AI-triggered agronomic interventions. A predictive disease outbreak model, trained on historical diagnosis logs and environmental data, could proactively schedule preventive treatments before infection thresholds are breached.
-
-\subsection{Federated Learning for Continuous Improvement}
-\label{subsec:fw_federated}
-
-To enable continuous model improvement from field usage data without compromising user privacy, a federated learning architecture could aggregate gradient updates from anonymised device-level inference sessions. This would allow the central model to learn from novel field conditions encountered by the user community while ensuring that raw image data never leaves the user's device.
-
-\subsection{Active Learning for Out-of-Distribution Detection}
-\label{subsec:fw_ood}
-
-Implementing conformal prediction or Monte Carlo Dropout uncertainty estimation would enable the system to identify and flag inputs that are poorly covered by the training distribution, routing such cases to human expert review and using the expert annotation to expand the training corpus in a principled, sample-efficient manner.
-
+%==============================================================================
 \section{Closing Remarks}
 \label{sec:closing}
 
-The \nabta project demonstrates that the integration of multiple state-of-the-art deep learning paradigms---object detection, semantic segmentation, image classification, explainable AI, and retrieval-augmented generation---within a coherent, production-quality software architecture can yield a plant disease diagnostic system that is simultaneously accurate, interpretable, and accessible. The system's achievement of 96.4\% classification accuracy across 102 disease classes, sub-0.4s end-to-end latency, and an expert-validated consultation satisfaction score of 4.7/5.0 positions \nabta as a credible foundation for applied smart agriculture deployment.
+The NABTA project demonstrates the potential of combining Computer Vision, Machine Learning, Explainable Artificial Intelligence, Large Language Models, and modern cloud technologies within a unified smart agriculture platform capable of supporting farmers throughout multiple stages of crop management.
 
-Agriculture is, in the most fundamental sense, the bedrock of human civilisation. The application of transformative artificial intelligence technologies to the challenges faced daily by the farmers who sustain that bedrock is both a technical imperative and a profound responsibility. The authors hope that \nabta, and the research directions it inaugurates, will contribute meaningfully to a future in which no farmer anywhere in the world must face the devastating consequences of an undetected, untreated plant disease.
+The developed platform successfully integrates automated plant disease diagnosis, intelligent crop recommendation, smart irrigation recommendation, multilingual agricultural consultation, historical analytics, and cloud-based deployment into a single production-ready system. Experimental evaluation demonstrated strong performance across the different AI components, including a CNN classification accuracy of \textbf{95.0\%}, a YOLOv8x detection model achieving \textbf{78.8\% mAP@0.50}, and a U-Net segmentation model reaching a best mean IoU of \textbf{94.73\%}. These results confirm the effectiveness of the proposed multi-stage AI pipeline for supporting practical agricultural decision making.
+
+Beyond its technical contributions, NABTA illustrates how artificial intelligence can contribute to sustainable agriculture by improving disease diagnosis, optimizing crop selection, enhancing irrigation efficiency, and providing accessible agricultural knowledge through conversational AI. The modular architecture also provides a solid foundation for future integration of IoT devices, weather forecasting services, satellite imagery, autonomous farming technologies, and additional AI models.
+
+The authors hope that this work contributes to the continued advancement of intelligent agricultural technologies and serves as a practical foundation for future research and real-world deployment of AI-powered smart farming systems.

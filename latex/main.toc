@@ -1,0 +1,133 @@
+\babel@toc {english}{}\relax 
+\contentsline {chapter}{Dedication}{i}{Doc-Start}%
+\contentsline {chapter}{Acknowledgement}{ii}{chapter*.1}%
+\contentsline {chapter}{Abstract}{iii}{chapter*.2}%
+\contentsline {chapter}{List of Abbreviations}{xiv}{section*.6}%
+\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Background}{1}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Project Idea}{3}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Project Scope}{5}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Business Problem}{7}{section.1.4}%
+\contentsline {section}{\numberline {1.5}Project Objectives}{8}{section.1.5}%
+\contentsline {section}{\numberline {1.6}Related Work and Comparative Study}{9}{section.1.6}%
+\contentsline {section}{\numberline {1.7}Project Contribution}{11}{section.1.7}%
+\contentsline {chapter}{\numberline {2}Literature Review and System Analysis}{12}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Related Work}{12}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Overview}{12}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Stakeholder Analysis}{13}{section.2.3}%
+\contentsline {section}{\numberline {2.4}User Roles}{13}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Free-Tier User}{13}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}Pro-Tier User}{14}{subsection.2.4.2}%
+\contentsline {subsection}{\numberline {2.4.3}System Administrator}{14}{subsection.2.4.3}%
+\contentsline {section}{\numberline {2.5}Functional Requirements}{14}{section.2.5}%
+\contentsline {subsection}{\numberline {2.5.1}Authentication and Account Management}{15}{subsection.2.5.1}%
+\contentsline {subsection}{\numberline {2.5.2}Plant Image Analysis}{16}{subsection.2.5.2}%
+\contentsline {subsection}{\numberline {2.5.3}AI Consultation Chatbot}{17}{subsection.2.5.3}%
+\contentsline {subsection}{\numberline {2.5.4}Analytics Dashboard}{18}{subsection.2.5.4}%
+\contentsline {section}{\numberline {2.6}Non-Functional Requirements}{19}{section.2.6}%
+\contentsline {section}{\numberline {2.7}Use Cases}{20}{section.2.7}%
+\contentsline {subsection}{\numberline {2.7.1}UC-01: User Registration}{20}{subsection.2.7.1}%
+\contentsline {subsection}{\numberline {2.7.2}UC-02: Plant Image Upload and Analysis}{21}{subsection.2.7.2}%
+\contentsline {subsection}{\numberline {2.7.3}UC-03: AI Chatbot Consultation}{22}{subsection.2.7.3}%
+\contentsline {subsection}{\numberline {2.7.4}UC-04: PDF Report Generation}{23}{subsection.2.7.4}%
+\contentsline {subsection}{\numberline {2.7.5}UC-05: Subscription Upgrade}{23}{subsection.2.7.5}%
+\contentsline {section}{\numberline {2.8}Test Cases}{24}{section.2.8}%
+\contentsline {chapter}{\numberline {3}Methodology}{26}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Overview}{26}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Data Collection}{26}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Dataset Strategy}{26}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Component Datasets}{27}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.3}Detection-Specific Corpus: PlantDoc Enhancement}{28}{subsection.3.2.3}%
+\contentsline {subsection}{\numberline {3.2.4}Segmentation Mask Construction}{28}{subsection.3.2.4}%
+\contentsline {section}{\numberline {3.3}Data Preprocessing}{28}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Image Resizing and Normalisation}{28}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Data Integrity Filtering}{29}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.3.3}Data Augmentation}{29}{subsection.3.3.3}%
+\contentsline {section}{\numberline {3.4}Feature Engineering}{30}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Model Development}{31}{section.3.5}%
+\contentsline {subsection}{\numberline {3.5.1}YOLOv8 Object Detection Model}{31}{subsection.3.5.1}%
+\contentsline {subsection}{\numberline {3.5.2}U-Net Semantic Segmentation Model}{32}{subsection.3.5.2}%
+\contentsline {subsection}{\numberline {3.5.3}Custom CNN Classification Model}{32}{subsection.3.5.3}%
+\contentsline {section}{\numberline {3.6}Grad-CAM Explainability Module}{34}{section.3.6}%
+\contentsline {section}{\numberline {3.7}RAG-Augmented Consultation Pipeline}{35}{section.3.7}%
+\contentsline {section}{\numberline {3.8}Validation Strategy}{35}{section.3.8}%
+\contentsline {chapter}{\numberline {4}System Design}{36}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Overview}{36}{section.4.1}%
+\contentsline {section}{\numberline {4.2}System Architecture}{36}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Design Artefact Placeholders}{37}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Frontend Design}{39}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Technology Stack}{39}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}Key Interface Screens}{39}{subsection.4.4.2}%
+\contentsline {subsubsection}{\numberline {4.4.2.1}Main Analysis Dashboard}{39}{subsubsection.4.4.2.1}%
+\contentsline {subsubsection}{\numberline {4.4.2.2}Smart Analysis Center}{40}{subsubsection.4.4.2.2}%
+\contentsline {subsubsection}{\numberline {4.4.2.3}AI Chat Assistant}{41}{subsubsection.4.4.2.3}%
+\contentsline {section}{\numberline {4.5}Backend Design}{42}{section.4.5}%
+\contentsline {subsection}{\numberline {4.5.1}Technology Stack}{42}{subsection.4.5.1}%
+\contentsline {subsection}{\numberline {4.5.2}API Router Structure}{42}{subsection.4.5.2}%
+\contentsline {subsection}{\numberline {4.5.3}Image Preprocessing Module}{42}{subsection.4.5.3}%
+\contentsline {subsection}{\numberline {4.5.4}ML Pipeline Router (MLManager)}{43}{subsection.4.5.4}%
+\contentsline {section}{\numberline {4.6}Database Design}{43}{section.4.6}%
+\contentsline {subsection}{\numberline {4.6.1}Firestore Document Schema}{43}{subsection.4.6.1}%
+\contentsline {subsection}{\numberline {4.6.2}Vector Database Schema}{44}{subsection.4.6.2}%
+\contentsline {section}{\numberline {4.7}API Specification}{45}{section.4.7}%
+\contentsline {section}{\numberline {4.8}Security Architecture}{45}{section.4.8}%
+\contentsline {subsection}{\numberline {4.8.1}Authentication and Authorisation}{45}{subsection.4.8.1}%
+\contentsline {subsection}{\numberline {4.8.2}Transport Security}{46}{subsection.4.8.2}%
+\contentsline {subsection}{\numberline {4.8.3}API Key Management}{46}{subsection.4.8.3}%
+\contentsline {subsection}{\numberline {4.8.4}Input Validation}{46}{subsection.4.8.4}%
+\contentsline {chapter}{\numberline {5}Implementation}{47}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Overview}{47}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Technology Stack}{47}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}AI and Machine Learning Technologies}{48}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Backend Technologies}{49}{subsection.5.2.2}%
+\contentsline {subsection}{\numberline {5.2.3}Frontend Technologies}{50}{subsection.5.2.3}%
+\contentsline {subsection}{\numberline {5.2.4}Infrastructure and DevOps}{51}{subsection.5.2.4}%
+\contentsline {section}{\numberline {5.3}Development Environment}{51}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Key Implementation Details}{51}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}Model Serialisation and Loading}{52}{subsection.5.4.1}%
+\contentsline {subsection}{\numberline {5.4.2}Asynchronous Pipeline Execution}{52}{subsection.5.4.2}%
+\contentsline {subsection}{\numberline {5.4.3}Grad-CAM Implementation}{53}{subsection.5.4.3}%
+\contentsline {subsection}{\numberline {5.4.4}RAG Knowledge Base Ingestion}{53}{subsection.5.4.4}%
+\contentsline {subsection}{\numberline {5.4.5}Internationalisation (i18n)}{54}{subsection.5.4.5}%
+\contentsline {section}{\numberline {5.5}Deployment}{54}{section.5.5}%
+\contentsline {subsection}{\numberline {5.5.1}Backend Deployment}{54}{subsection.5.5.1}%
+\contentsline {subsection}{\numberline {5.5.2}Frontend Deployment}{54}{subsection.5.5.2}%
+\contentsline {subsection}{\numberline {5.5.3}CI/CD Pipeline}{55}{subsection.5.5.3}%
+\contentsline {section}{\numberline {5.6}System Screenshots}{55}{section.5.6}%
+\contentsline {chapter}{\numberline {6}Results and Evaluation}{57}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Overview}{57}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Classification Model Performance}{57}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}Overall Performance}{57}{subsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.2.2}Representative Per-Class Performance}{58}{subsection.6.2.2}%
+\contentsline {subsection}{\numberline {6.2.3}Training Convergence}{59}{subsection.6.2.3}%
+\contentsline {section}{\numberline {6.3}YOLOv8 Detection Model Performance}{60}{section.6.3}%
+\contentsline {subsection}{\numberline {6.3.1}Overall Detection Performance}{60}{subsection.6.3.1}%
+\contentsline {subsection}{\numberline {6.3.2}Training Convergence}{61}{subsection.6.3.2}%
+\contentsline {subsection}{\numberline {6.3.3}Detection Examples}{62}{subsection.6.3.3}%
+\contentsline {section}{\numberline {6.4}U-Net Segmentation Model Performance}{63}{section.6.4}%
+\contentsline {subsection}{\numberline {6.4.1}Overall Segmentation Performance}{63}{subsection.6.4.1}%
+\contentsline {subsection}{\numberline {6.4.2}Training Convergence}{64}{subsection.6.4.2}%
+\contentsline {subsection}{\numberline {6.4.3}Segmentation Quality}{65}{subsection.6.4.3}%
+\contentsline {section}{\numberline {6.5}Crop Recommendation Model Performance}{66}{section.6.5}%
+\contentsline {subsection}{\numberline {6.5.1}Model Evaluation}{66}{subsection.6.5.1}%
+\contentsline {subsection}{\numberline {6.5.2}Agronomic Validation}{67}{subsection.6.5.2}%
+\contentsline {chapter}{\numberline {7}Conclusion and Future Work}{69}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Known Limitations}{71}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Future Work}{72}{section.7.2}%
+\contentsline {subsection}{\numberline {7.2.1}Expansion of Plant Disease Coverage}{72}{subsection.7.2.1}%
+\contentsline {subsection}{\numberline {7.2.2}Advanced Computer Vision Models}{73}{subsection.7.2.2}%
+\contentsline {subsection}{\numberline {7.2.3}IoT-Based Smart Agriculture}{73}{subsection.7.2.3}%
+\contentsline {subsection}{\numberline {7.2.4}Weather Forecast Integration}{73}{subsection.7.2.4}%
+\contentsline {subsection}{\numberline {7.2.5}Satellite and Drone Imagery}{73}{subsection.7.2.5}%
+\contentsline {subsection}{\numberline {7.2.6}Mobile Application Development}{73}{subsection.7.2.6}%
+\contentsline {subsection}{\numberline {7.2.7}Edge AI Deployment}{74}{subsection.7.2.7}%
+\contentsline {subsection}{\numberline {7.2.8}Continuous Learning}{74}{subsection.7.2.8}%
+\contentsline {subsection}{\numberline {7.2.9}Smart Farm Integration}{74}{subsection.7.2.9}%
+\contentsline {section}{\numberline {7.3}Closing Remarks}{74}{section.7.3}%
+\contentsline {chapter}{\numberline {A}Dataset Details and Class Taxonomy}{76}{appendix.A}%
+\contentsline {section}{\numberline {A.1}Complete List of 102 Target Classes}{76}{section.A.1}%
+\contentsline {section}{\numberline {A.2}Dataset Class Distribution}{81}{section.A.2}%
+\contentsline {chapter}{\numberline {B}Project Visual Evidence Placeholders}{82}{appendix.B}%
+\contentsline {chapter}{Bibliography}{84}{section*.64}%
+\contentsline {chapter}{Glossary}{85}{section*.66}%
+\contentsfinish 

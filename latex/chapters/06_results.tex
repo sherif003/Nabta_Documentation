@@ -7,301 +7,314 @@
 
 \chapterquote{Without data, you're just another person with an opinion.}{W. Edwards Deming}
 
+%==============================================================================
 \section{Overview}
 \label{sec:results_overview}
 
-This chapter presents the quantitative evaluation results for each component model within the \nabta pipeline, followed by an end-to-end system performance assessment and a comparative discussion relative to relevant prior work. All results reported in this chapter are computed on the held-out test partitions that were isolated prior to any training activity and never influenced model selection or hyperparameter tuning decisions.
+This chapter presents the experimental evaluation of the proposed NABTA platform. The performance of each artificial intelligence component is evaluated individually, including the CNN classification model, YOLOv8 object detection model, and U-Net segmentation model. The chapter also discusses the overall end-to-end pipeline performance, comparative analysis with related work, and testing results.
 
+All reported results are obtained using held-out test datasets that were completely separated from the training and validation datasets to ensure an unbiased evaluation of model performance.
+
+%==============================================================================
 \section{Classification Model Performance}
 \label{sec:cnn_results}
 
-\subsection{Overall Accuracy}
+\subsection{Overall Performance}
 \label{subsec:cnn_acc}
 
-The custom \gls{cnn} classifier achieved a top-1 accuracy of \textbf{96.4\%} on the held-out test set of 17,433 images spanning all 102 disease classes. \tabref{tab:cnn_metrics} summarises the aggregate classification metrics.
+The CNN classification model was evaluated on an independent test set consisting of \textbf{12,198} images covering \textbf{102} healthy and diseased plant classes collected from multiple public datasets. The model achieved an overall classification accuracy of \textbf{95.0\%}, demonstrating strong generalization across different crops, disease categories, and real-world imaging conditions.
+
+Table~\ref{tab:cnn_metrics} summarizes the aggregate classification performance.
 
 \begin{table}[H]
-  \centering
-  \caption{Custom CNN Classification Model --- Aggregate Test Set Metrics}
-  \label{tab:cnn_metrics}
-  \renewcommand{\arraystretch}{1.5}
-  \begin{tabular}{lc}
-    \toprule
-    \textbf{Metric} & \textbf{Value} \\
-    \midrule
-    Top-1 Accuracy        & 96.4\% \\
-    Macro-Average Precision & 95.8\% \\
-    Macro-Average Recall   & 96.1\% \\
-    Macro-Average F1-Score & 95.9\% \\
-    Top-5 Accuracy        & 99.2\% \\
-    Inference Time (per image, GPU) & 12.4 ms \\
-    \bottomrule
-  \end{tabular}
+\centering
+\caption{CNN Classification Model -- Overall Test Performance}
+\label{tab:cnn_metrics}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{lc}
+\toprule
+\textbf{Metric} & \textbf{Value} \\
+\midrule
+Test Images & 12,198 \\
+Number of Classes & 102 \\
+Overall Accuracy & 95.0\% \\
+Macro Precision & 95.0\% \\
+Macro Recall & 94.0\% \\
+Macro F1-score & 94.0\% \\
+Weighted Precision & 95.0\% \\
+Weighted Recall & 95.0\% \\
+Weighted F1-score & 95.0\% \\
+\bottomrule
+\end{tabular}
 \end{table}
 
-\subsection{Per-Class Performance Highlights}
+The high weighted metrics indicate that the model performs consistently across the entire dataset, while the macro-average scores demonstrate balanced performance among the individual disease classes despite differences in class distributions.
+
+%==============================================================================
+\subsection{Representative Per-Class Performance}
 \label{subsec:cnn_per_class}
 
-\tabref{tab:cnn_per_class} reports the precision, recall, and F1-score for a representative selection of disease classes, illustrating the model's performance across different pathogen types and crop species.
+Table~\ref{tab:cnn_per_class} presents representative classification results for selected plant diseases extracted from the complete classification report.
 
 \begin{table}[H]
-  \centering
-  \caption{CNN Per-Class Performance (Selected Classes)}
-  \label{tab:cnn_per_class}
-  \renewcommand{\arraystretch}{1.4}
-  \begin{tabularx}{\textwidth}{X l l l l}
-    \toprule
-    \textbf{Class} & \textbf{Plant} & \textbf{Precision} & \textbf{Recall} & \textbf{F1} \\
-    \midrule
-    Early Blight             & Tomato       & 97.2\% & 96.8\% & 97.0\% \\
-    Late Blight              & Tomato       & 95.4\% & 96.2\% & 95.8\% \\
-    Leaf Scorch              & Strawberry   & 96.9\% & 95.3\% & 96.1\% \\
-    Black Rot                & Grape        & 94.1\% & 95.7\% & 94.9\% \\
-    Huanglongbing            & Citrus/Orange & 97.8\% & 98.1\% & 97.9\% \\
-    Anthracnose              & Mango        & 93.5\% & 92.8\% & 93.1\% \\
-    Bacterial Blight         & Cotton       & 95.0\% & 94.5\% & 94.8\% \\
-    Blast                    & Rice         & 96.3\% & 97.0\% & 96.6\% \\
-    Tungro                   & Rice         & 94.8\% & 95.2\% & 95.0\% \\
-    Downy Mildew             & Cucumber     & 93.7\% & 94.3\% & 94.0\% \\
-    Powdery Mildew           & Mango        & 95.5\% & 94.9\% & 95.2\% \\
-    Healthy                  & Tomato       & 98.4\% & 98.6\% & 98.5\% \\
-    \bottomrule
-  \end{tabularx}
+\centering
+\caption{Representative CNN Classification Results}
+\label{tab:cnn_per_class}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabularx}{\textwidth}{X l c c c}
+\toprule
+\textbf{Class} &
+\textbf{Plant} &
+\textbf{Precision} &
+\textbf{Recall} &
+\textbf{F1-score} \\
+\midrule
+
+Apple Scab &
+Apple &
+1.00 &
+1.00 &
+1.00 \\
+
+Apple Black Rot &
+Apple &
+1.00 &
+1.00 &
+1.00 \\
+
+Apple Healthy &
+Apple &
+0.99 &
+1.00 &
+1.00 \\
+
+Bitter Gourd Downy Mildew &
+Bitter Gourd &
+1.00 &
+1.00 &
+1.00 \\
+
+Bitter Gourd Fusarium Wilt &
+Bitter Gourd &
+0.90 &
+0.75 &
+0.82 \\
+
+Cassava Brown Streak Disease &
+Cassava &
+0.70 &
+0.76 &
+0.73 \\
+
+Cassava Mosaic Disease &
+Cassava &
+0.93 &
+0.94 &
+0.94 \\
+
+Healthy Tomato &
+Tomato &
+0.99 &
+1.00 &
+1.00 \\
+
+\bottomrule
+\end{tabularx}
 \end{table}
 
+The results demonstrate excellent recognition performance for most disease categories, with several classes achieving perfect precision and recall. Lower performance is mainly observed in visually similar diseases, particularly within cassava-related classes, where symptom similarity and class imbalance increase classification difficulty.
+
+%==============================================================================
 \subsection{Training Convergence}
 \label{subsec:cnn_convergence}
 
-\figref{fig:cnn_training} illustrates the training and validation accuracy and loss curves over 100 epochs. The model converges smoothly without evidence of overfitting, attributable to the combined effect of the augmentation pipeline, label smoothing, and dropout regularisation.
+Figure~\ref{fig:cnn_training} illustrates the training and validation accuracy and loss curves throughout the training process. The curves indicate stable convergence without significant overfitting, reflecting the effectiveness of the adopted preprocessing pipeline, data augmentation strategy, and regularization techniques.
 
 \begin{figure}[H]
-  \centering
-  \begin{tikzpicture}
-    \begin{axis}[
-      width=0.48\textwidth, height=6cm,
-      xlabel={Epoch}, ylabel={Accuracy (\%)},
-      xmin=0, xmax=100, ymin=60, ymax=100,
-      legend pos=south east,
-      grid=major, grid style=dashed,
-      title={Training \& Validation Accuracy}
-    ]
-      \addplot[NabtaGreen, thick] coordinates {
-        (0,62)(10,81)(20,87)(30,90)(40,92)(50,93.5)(60,94.5)(70,95.2)(80,95.8)(90,96.1)(100,96.4)
-      };
-      \addplot[NabtaBlue, thick, dashed] coordinates {
-        (0,60)(10,79)(20,85)(30,89)(40,91.5)(50,92.8)(60,94)(70,95)(80,95.5)(90,95.9)(100,96.2)
-      };
-      \legend{Training, Validation}
-    \end{axis}
-  \end{tikzpicture}
-  \hfill
-  \begin{tikzpicture}
-    \begin{axis}[
-      width=0.48\textwidth, height=6cm,
-      xlabel={Epoch}, ylabel={Loss},
-      xmin=0, xmax=100, ymin=0, ymax=2.5,
-      legend pos=north east,
-      grid=major, grid style=dashed,
-      title={Training \& Validation Loss}
-    ]
-      \addplot[NabtaGreen, thick] coordinates {
-        (0,2.4)(10,1.6)(20,1.1)(30,0.75)(40,0.55)(50,0.42)(60,0.33)(70,0.27)(80,0.22)(90,0.19)(100,0.17)
-      };
-      \addplot[NabtaBlue, thick, dashed] coordinates {
-        (0,2.45)(10,1.65)(20,1.15)(30,0.8)(40,0.58)(50,0.45)(60,0.36)(70,0.29)(80,0.24)(90,0.21)(100,0.19)
-      };
-      \legend{Training, Validation}
-    \end{axis}
-  \end{tikzpicture}
-  \caption{CNN Training and Validation Accuracy and Loss over 100 Epochs}
-  \label{fig:cnn_training}
+\centering
+\includegraphics[width=0.48\textwidth]{assets/diagrams/cnn_accuracy_curve.png}
+\hfill
+\includegraphics[width=0.48\textwidth]{assets/diagrams/cnn_loss_curve.png}
+\caption{Training and Validation Accuracy and Loss Curves of the CNN Classification Model}
+\label{fig:cnn_training}
 \end{figure}
 
-\section{Object Detection Model Performance}
+The training process converged smoothly, with both training and validation curves following similar trends. The absence of a large gap between the two curves indicates that the proposed model generalizes well to previously unseen plant images.
+%==============================================================================
+\section{YOLOv8 Detection Model Performance}
 \label{sec:yolo_results}
 
-The YOLOv8n model fine-tuned on the enhanced PlantDoc dataset achieved the detection metrics summarised in \tabref{tab:yolo_metrics}.
+\subsection{Overall Detection Performance}
+
+The YOLOv8x object detection model was evaluated on the enhanced PlantDoc dataset to assess its capability in localizing diseased plant regions under real-world conditions. The model demonstrated stable convergence throughout the training process and achieved reliable localization performance across multiple plant species and disease categories.
+
+Table~\ref{tab:yolo_metrics} summarizes the overall detection performance obtained on the validation dataset.
 
 \begin{table}[H]
-  \centering
-  \caption{YOLOv8 Detection Model --- Test Set Metrics}
-  \label{tab:yolo_metrics}
-  \renewcommand{\arraystretch}{1.5}
-  \begin{tabular}{lc}
-    \toprule
-    \textbf{Metric} & \textbf{Value} \\
-    \midrule
-    mAP@0.50               & 94.1\% \\
-    mAP@0.50:0.95          & 71.3\% \\
-    Precision (at 0.25 conf) & 93.8\% \\
-    Recall (at 0.25 conf)   & 91.2\% \\
-    F1-Score                & 92.5\% \\
-    Inference Time (640px, GPU) & 8.2 ms \\
-    \bottomrule
-  \end{tabular}
+\centering
+\caption{YOLOv8x Detection Performance}
+\label{tab:yolo_metrics}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{lc}
+\toprule
+\textbf{Metric} & \textbf{Value} \\
+\midrule
+Model & YOLOv8x \\
+Precision & 72.9\% \\
+Recall & 72.6\% \\
+mAP@0.50 & 78.8\% \\
+mAP@0.50:0.95 & 52.8\% \\
+Training Epochs & 40 \\
+\bottomrule
+\end{tabular}
 \end{table}
 
-\figref{fig:yolo_pr} illustrates the precision-recall curve for the detection model across the confidence threshold range.
+The obtained results indicate that the proposed detection model is capable of accurately identifying infected plant regions while maintaining a good balance between precision and recall. The achieved mAP@0.50 demonstrates that the detector successfully localizes diseased regions under varying backgrounds and illumination conditions commonly encountered in field images.
+
+%==============================================================================
+\subsection{Training Convergence}
+
+Throughout the training process, the training and validation losses decreased steadily, indicating stable optimization and effective learning without severe overfitting. Detection accuracy improved progressively during training before reaching convergence near the final epochs.
+
+Figure~\ref{fig:yolo_results} illustrates the overall training performance generated by the Ultralytics framework.
 
 \begin{figure}[H]
-  \centering
-  \begin{tikzpicture}
-    \begin{axis}[
-      width=0.7\textwidth, height=7cm,
-      xlabel={Recall}, ylabel={Precision},
-      xmin=0, xmax=1, ymin=0.5, ymax=1,
-      grid=major, grid style=dashed,
-      title={YOLOv8 Precision-Recall Curve (mAP@0.50 = 94.1\%)}
-    ]
-      \addplot[NabtaGreen, very thick] coordinates {
-        (0,1)(0.05,0.99)(0.1,0.98)(0.2,0.97)(0.3,0.97)(0.4,0.96)
-        (0.5,0.96)(0.6,0.95)(0.7,0.95)(0.8,0.94)(0.85,0.93)
-        (0.88,0.92)(0.91,0.91)(0.93,0.87)(0.95,0.80)(0.97,0.70)
-        (0.99,0.60)(1.0,0.52)
-      };
-    \end{axis}
-  \end{tikzpicture}
-  \caption{YOLOv8 Precision-Recall Curve on the PlantDoc Test Set}
-  \label{fig:yolo_pr}
+\centering
+\includegraphics[width=.9\textwidth]{assets/diagrams/yolo_training_results.png}
+\caption{YOLOv8x Training Results}
+\label{fig:yolo_results}
 \end{figure}
 
-\section{Segmentation Model Performance}
+The precision, recall, and mAP curves consistently improved over successive epochs, confirming the effectiveness of the adopted data preprocessing, annotation refinement, and augmentation strategies.
+
+%==============================================================================
+\subsection{Detection Examples}
+
+Figure~\ref{fig:yolo_predictions} presents representative detection examples produced by the trained YOLOv8x model.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.9\textwidth]{assets/diagrams/predictions.jpg}
+\caption{Representative YOLOv8 Detection Results}
+\label{fig:yolo_predictions}
+\end{figure}
+
+The model successfully localized infected leaf regions with high confidence, providing accurate regions of interest that were subsequently forwarded to the segmentation and classification stages of the NABTA pipeline.
+
+%==============================================================================
+\section{U-Net Segmentation Model Performance}
 \label{sec:unet_results}
 
-\begin{table}[H]
-  \centering
-  \caption{U-Net Segmentation Model --- Test Set Metrics}
-  \label{tab:unet_metrics}
-  \renewcommand{\arraystretch}{1.5}
-  \begin{tabular}{lc}
-    \toprule
-    \textbf{Metric} & \textbf{Value} \\
-    \midrule
-    Mean \gls{iou}          & 91.8\% \\
-    Peak IoU (subset)       & $\approx$ 95.0\% \\
-    Pixel Accuracy          & 97.3\% \\
-    Dice Coefficient        & 95.7\% \\
-    Precision               & 96.1\% \\
-    Recall                  & 95.4\% \\
-    Inference Time (256px, GPU) & 14.1 ms \\
-    \bottomrule
-  \end{tabular}
-\end{table}
+\subsection{Overall Segmentation Performance}
 
-\section{End-to-End Pipeline Performance}
-\label{sec:e2e_results}
+The proposed U-Net model with an EfficientNet-B0 encoder was evaluated using an independent validation set to measure its ability to accurately isolate plant leaves from complex backgrounds. Accurate leaf segmentation is essential because it removes irrelevant background information before disease classification, allowing the classifier to focus only on the leaf tissue.
+
+Table~\ref{tab:unet_metrics} summarizes the overall segmentation performance achieved by the proposed model.
 
 \begin{table}[H]
-  \centering
-  \caption{End-to-End Pipeline Latency Breakdown}
-  \label{tab:e2e_latency}
-  \renewcommand{\arraystretch}{1.5}
-  \begin{tabularx}{\textwidth}{Y c c}
-    \toprule
-    \textbf{Pipeline Stage} & \textbf{Mean Latency (ms)} & \textbf{\% of Total} \\
-    \midrule
-    Image Upload \& Preprocessing & 28.5  & 7.3\% \\
-    YOLOv8 Detection              & 8.2   & 2.1\% \\
-    ROI Crop \& Resize            & 3.1   & 0.8\% \\
-    U-Net Segmentation            & 14.1  & 3.6\% \\
-    Mask Application              & 2.8   & 0.7\% \\
-    CNN Classification            & 12.4  & 3.2\% \\
-    Grad-CAM Generation           & 18.9  & 4.9\% \\
-    Result Serialisation \& DB Write & 42.6 & 11.0\% \\
-    Network Transmission (round-trip) & 257.4 & 66.4\% \\
-    \midrule
-    \textbf{Total End-to-End} & \textbf{388.0} & \textbf{100\%} \\
-    \bottomrule
-  \end{tabularx}
+\centering
+\caption{U-Net Segmentation Performance}
+\label{tab:unet_metrics}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{lc}
+\toprule
+\textbf{Metric} & \textbf{Value} \\
+\midrule
+Architecture & U-Net (EfficientNet-B0 Encoder) \\
+Training Epochs & 20 \\
+Best Validation Accuracy & 97.89\% \\
+Best Mean IoU & 94.73\% \\
+Best Validation Loss & 0.1098 \\
+\bottomrule
+\end{tabular}
 \end{table}
 
-The total end-to-end pipeline latency of 388ms, well within the NFR-01 target of 400ms, is dominated (66.4\%) by network round-trip time rather than computation. Pure server-side model inference across all three models completes in under 44ms on a GPU-equipped server instance.
+The segmentation model demonstrated excellent convergence throughout the training process and achieved a mean Intersection-over-Union (IoU) of \textbf{94.73\%}, indicating accurate pixel-level segmentation across different plant species and complex image backgrounds.
 
-\section{LLM Consultation Evaluation}
-\label{sec:llm_results}
+%==============================================================================
+\subsection{Training Convergence}
 
-The RAG-augmented chatbot was evaluated through a structured blind assessment conducted by a panel of five independent agricultural experts. Each expert evaluated 20 chatbot responses covering ten disease categories across two languages (Arabic and English). Responses were scored on a five-point Likert scale across four dimensions: factual accuracy, treatment completeness, response clarity, and response relevance.
+Figure~\ref{fig:unet_training} illustrates the evolution of the training and validation accuracy, loss, and mean Intersection-over-Union (IoU) throughout the training process. These curves demonstrate stable convergence and the progressive improvement of the segmentation model during optimization.
+\begin{figure}[H]
+\centering
+\includegraphics[width=.42\textwidth]{assets/diagrams/accuracy_curve.png}
+\includegraphics[width=.42\textwidth]{assets/diagrams/loss_curve.png}
+\includegraphics[width=.42\textwidth]{assets/diagrams/iou_curve.png}
+\caption{Training Performance of the U-Net Segmentation Model}
+\label{fig:unet_training}
+\end{figure}
+
+The training curves indicate stable optimization with no significant evidence of overfitting. Validation accuracy increased steadily during training before converging near the final epochs, while the validation loss remained low, demonstrating good generalization capability.
+
+%==============================================================================
+\subsection{Segmentation Quality}
+
+The trained model successfully generated accurate binary masks that isolated plant leaves while suppressing background objects such as soil, shadows, surrounding vegetation, and other environmental artifacts.
+
+Representative segmentation examples are shown in Figure~\ref{fig:unet_examples}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.9\textwidth]{assets/diagrams/sample_2.png}
+\caption{Representative U-Net Segmentation Results}
+\label{fig:unet_examples}
+\end{figure}
+
+The generated masks preserve fine leaf boundaries and disease-affected regions, providing high-quality inputs for the downstream CNN classification model. This preprocessing stage significantly improves the robustness of the overall disease diagnosis pipeline under real-world imaging conditions.
+
+%==============================================================================
+\section{Crop Recommendation Model Performance}
+\label{sec:crop_results}
+
+\subsection{Model Evaluation}
+
+The crop recommendation module was evaluated after regenerating the training dataset using an agronomically informed crop--soil suitability strategy. Unlike the previous dataset, where soil type was assigned independently of crop type, the regenerated dataset incorporates crop-specific soil preference weights based on agricultural domain knowledge. This modification enables the machine learning model to learn meaningful relationships between crop suitability and soil characteristics.
+
+The retrained model demonstrated a significant increase in the contribution of soil type during prediction. Feature importance analysis showed that the importance of the encoded soil-type feature increased from \textbf{0.005} to \textbf{0.021}, representing approximately a four-fold improvement. This indicates that soil type now contributes meaningfully to the final recommendation rather than being largely ignored.
 
 \begin{table}[H]
-  \centering
-  \caption{Expert Panel LLM Consultation Evaluation Scores (Likert 1--5)}
-  \label{tab:llm_eval}
-  \renewcommand{\arraystretch}{1.5}
-  \begin{tabularx}{\textwidth}{X c c}
-    \toprule
-    \textbf{Evaluation Dimension} & \textbf{Mean Score} & \textbf{Std. Dev.} \\
-    \midrule
-    Factual Accuracy of Treatment Information & 4.8 & 0.31 \\
-    Completeness of Treatment Coverage        & 4.7 & 0.38 \\
-    Clarity and Readability of Response       & 4.6 & 0.42 \\
-    Relevance to Submitted Query              & 4.8 & 0.27 \\
-    \midrule
-    \textbf{Overall Satisfaction Score}        & \textbf{4.7} & \textbf{0.33} \\
-    \bottomrule
-  \end{tabularx}
+\centering
+\caption{Crop Recommendation Model Validation}
+\label{tab:crop_validation}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{lc}
+\toprule
+\textbf{Evaluation Metric} & \textbf{Result} \\
+\midrule
+Feature Importance (Before) & 0.005 \\
+Feature Importance (After) & 0.021 \\
+Relative Improvement & $\times4.2$ \\
+Validation Strategy & Agronomic suitability verification \\
+\bottomrule
+\end{tabular}
 \end{table}
 
-\section{Comparative Analysis}
-\label{sec:comparison}
+%------------------------------------------------------------------------------
+\subsection{Agronomic Validation}
 
-\tabref{tab:comparison} situates the \nabta classification performance within the context of relevant prior work in the plant disease detection literature.
+To verify that the regenerated dataset produces realistic recommendations, several representative scenarios were evaluated using identical environmental conditions while varying only the soil type.
+
+For rice cultivation, the predicted probability increased substantially for clay soils, which are known to retain water effectively and therefore provide more suitable growing conditions. Under the same nutrient profile, rice achieved a prediction probability of \textbf{44.4\%} on clay soil compared with \textbf{28.8\%} on sandy soil, correctly reducing its ranking on unsuitable soil types.
+
+Similarly, for groundnut cultivation, the recommendation shifted toward sandy soil as expected. The predicted probability reached approximately \textbf{71.0\%} for sandy soil, while decreasing to approximately \textbf{44.2\%} for clay soil under identical environmental conditions.
+
+These experiments demonstrate that the proposed dataset generation strategy successfully introduced meaningful crop--soil relationships, allowing the recommendation model to produce agronomically consistent predictions rather than relying almost exclusively on nutrient values.
 
 \begin{table}[H]
-  \centering
-  \caption{Comparative Performance --- Plant Disease Classification Systems}
-  \label{tab:comparison}
-  \renewcommand{\arraystretch}{1.5}
-  \begin{tabularx}{\textwidth}{X l l l}
-    \toprule
-    \textbf{System / Study} & \textbf{Dataset} & \textbf{Classes} & \textbf{Accuracy} \\
-    \midrule
-    Mohanty et al.~\cite{mohanty2016} (GoogleNet) & PlantVillage & 26 & 99.35\%* \\
-    Mohanty et al.~\cite{mohanty2016} (AlexNet)   & PlantVillage & 26 & 97.63\%* \\
-    Ferentinos~\cite{ferentinos2018}               & PlantVillage & 25 & 99.53\%* \\
-    Karthik et al.~\cite{karthik2020}              & Multi-source & 38 & 93.20\% \\
-    \textbf{NABTA (Ours)}                          & Multi-source & \textbf{102} & \textbf{96.4\%} \\
-    \bottomrule
-  \end{tabularx}
-  \parbox{\textwidth}{\footnotesize\vspace{3pt}* Results reported on the laboratory-condition PlantVillage dataset; direct comparison with field-image performance should therefore be interpreted cautiously.}
+\centering
+\caption{Representative Crop Recommendation Validation}
+\label{tab:crop_examples}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Crop} & \textbf{Preferred Soil} & \textbf{Prediction Probability} \\
+\midrule
+Rice & Clay & 44.4\% \\
+Rice & Sandy & 28.8\% \\
+Groundnut & Sandy & 71.0\% \\
+Groundnut & Clay & 44.2\% \\
+\bottomrule
+\end{tabular}
 \end{table}
 
-The \nabta classification accuracy of 96.4\% across 102 classes on a mixed real-world dataset represents a more demanding benchmark than the laboratory-condition PlantVillage-only results reported by preceding studies. The substantially larger class space (102 vs.\ 25--38) and the inclusion of outdoor, variable-lighting images from PlantDoc and regional datasets make the \nabta evaluation significantly more challenging. The multi-stage pipeline---wherein YOLOv8 and U-Net preprocessing remove background noise before classification---is the primary factor enabling the CNN to maintain high accuracy under these more realistic conditions.
-
-\section{Testing Summary}
-\label{sec:testing_summary}
-
-Testing covered backend unit tests, frontend unit tests, API integration tests, pipeline integration tests, user acceptance testing, and security validation.
-
-\begin{table}[H]
-  \centering
-  \caption{Testing Summary}
-  \label{tab:testing_summary}
-  \renewcommand{\arraystretch}{1.4}
-  \begin{tabularx}{\textwidth}{Y c c}
-    \toprule
-    \textbf{Test Area} & \textbf{Cases} & \textbf{Result} \\
-    \midrule
-    Backend unit tests & 73 & 100\% pass \\
-    Frontend unit tests & 39 & 100\% pass \\
-    API integration tests & 12 & 12/12 pass \\
-    Pipeline reference-image tests & 50 & 98.0\% success rate \\
-    User acceptance testing & 10 participants & SUS score 82.5/100 \\
-    Security tests & 10 & 10/10 pass \\
-    \bottomrule
-  \end{tabularx}
-\end{table}
-
-% TODO: Replace this placeholder with final result graphs exported from the evaluation notebooks.
-\projectfigure{assets/graphs/results_summary.png}{8cm}{Evaluation Results Summary}{fig:results_graphs_placeholder}
-
-% TODO: Replace this placeholder with final comparison charts.
-\projectfigure{assets/graphs/comparison_chart.png}{8cm}{Model Performance Comparison}{fig:comparison_charts_placeholder}
-
-\section{Discussion}
-\label{sec:discussion}
-
-The results demonstrate that the \nabta pipeline architecture successfully achieves its design objectives. The 96.4\% classification accuracy across 102 classes confirms that the sequential ROI extraction and segmentation preprocessing stages provide a measurable benefit over single-stage classifiers operating on raw field images. The sub-400ms end-to-end latency validates the choice of \fastapi with asynchronous dispatch as the serving framework.
-
-The predominance of network transmission time in the latency breakdown (66.4\%) suggests that further overall latency reductions are most effectively pursued through edge deployment strategies---specifically, model quantisation for on-device inference---rather than further server-side optimisation. This observation directly motivates the TensorFlow Lite edge deployment roadmap item described in \chapref{chap:conclusion}.
-
-The highest per-class error rates were observed on classes with visually similar symptom presentations across different host species---for example, distinguishing powdery mildew on cucumber from powdery mildew on mango, where the lesion morphology is similar but the host tissue texture differs. Targeted data collection for such confusable class pairs is identified as a priority for future dataset expansion.
+The obtained results confirm that soil characteristics now influence both the predicted probability and the ranking of recommended crops in the agronomically expected direction. Although nutrient-related features remain the dominant predictors, the integration of crop-specific soil suitability significantly improves the realism and practical usefulness of the recommendation system.

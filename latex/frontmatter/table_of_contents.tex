@@ -1,16 +1,16 @@
 % Generated navigation pages for the report.
 
 \pagestyle{fancy}
-{
+{%
+  \let\cleardoublepage\clearpage
   \hypersetup{hidelinks}
   \tableofcontents
   \cleardoublepage
   \listoffigures
   \cleardoublepage
   \listoftables
-  \cleardoublepage
-}
 
-\glsaddall
-\printnoidxglossary[type=\acronymtype,title={List of Abbreviations},toctitle={List of Abbreviations}]
+  \glsaddall
+  \printnoidxglossary[type=\acronymtype,title={List of Abbreviations},toctitle={List of Abbreviations}]
+}
 \cleardoublepage
