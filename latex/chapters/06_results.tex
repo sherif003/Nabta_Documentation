@@ -11,7 +11,7 @@
 \section{Overview}
 \label{sec:results_overview}
 
-This chapter presents the experimental evaluation of the proposed NABTA platform. The performance of each artificial intelligence component is evaluated individually, including the CNN classification model, YOLOv8 object detection model, and U-Net segmentation model. The chapter also discusses the overall end-to-end pipeline performance, comparative analysis with related work, and testing results.
+This chapter presents the experimental evaluation of the proposed NABTA platform. The performance of each artificial intelligence component is evaluated individually, including the CNN classification model, YOLOv8 object detection model, U-Net segmentation model, Crop Recommendation model, and Smart Irrigation models. The reported results demonstrate the effectiveness of the proposed platform across all intelligent services.
 
 All reported results are obtained using held-out test datasets that were completely separated from the training and validation datasets to ensure an unbiased evaluation of model performance.
 
@@ -266,39 +266,43 @@ The generated masks preserve fine leaf boundaries and disease-affected regions, 
 \section{Crop Recommendation Model Performance}
 \label{sec:crop_results}
 
-\subsection{Model Evaluation}
+\subsection{Overall Performance}
 
-The crop recommendation module was evaluated after regenerating the training dataset using an agronomically informed crop--soil suitability strategy. Unlike the previous dataset, where soil type was assigned independently of crop type, the regenerated dataset incorporates crop-specific soil preference weights based on agricultural domain knowledge. This modification enables the machine learning model to learn meaningful relationships between crop suitability and soil characteristics.
+The crop recommendation model was developed using a Random Forest classifier trained on soil properties, environmental conditions, and climatic factors. The evaluation was performed using an independent test set to assess its ability to recommend the most suitable crop for different agricultural conditions.
 
-The retrained model demonstrated a significant increase in the contribution of soil type during prediction. Feature importance analysis showed that the importance of the encoded soil-type feature increased from \textbf{0.005} to \textbf{0.021}, representing approximately a four-fold improvement. This indicates that soil type now contributes meaningfully to the final recommendation rather than being largely ignored.
+Table~\ref{tab:crop_metrics} summarizes the overall classification performance.
 
 \begin{table}[H]
 \centering
-\caption{Crop Recommendation Model Validation}
-\label{tab:crop_validation}
+\caption{Crop Recommendation Model Performance}
+\label{tab:crop_metrics}
 \renewcommand{\arraystretch}{1.4}
 \begin{tabular}{lc}
 \toprule
-\textbf{Evaluation Metric} & \textbf{Result} \\
+\textbf{Metric} & \textbf{Value} \\
 \midrule
-Feature Importance (Before) & 0.005 \\
-Feature Importance (After) & 0.021 \\
-Relative Improvement & $\times4.2$ \\
-Validation Strategy & Agronomic suitability verification \\
+Model & Random Forest Classifier \\
+Training Accuracy & 88.76\% \\
+Test Accuracy & 85.13\% \\
+Precision & 85.41\% \\
+Recall & 85.13\% \\
+F1-score & 85.11\% \\
+Cross-validation Accuracy & 84.8\% $\pm$ 0.8\% \\
+Generalization Gap & 3.6\% \\
 \bottomrule
 \end{tabular}
 \end{table}
 
+The relatively small generalization gap indicates that the proposed model generalizes well to unseen agricultural conditions without significant overfitting. Furthermore, the consistent cross-validation accuracy confirms the robustness and reliability of the trained classifier.
+
 %------------------------------------------------------------------------------
 \subsection{Agronomic Validation}
 
-To verify that the regenerated dataset produces realistic recommendations, several representative scenarios were evaluated using identical environmental conditions while varying only the soil type.
+To improve the practical usefulness of the recommendation system, the original synthetic dataset was regenerated using agronomic crop--soil suitability rules derived from agricultural domain knowledge. Unlike the previous dataset, where soil type was assigned independently of crop type, the regenerated dataset models realistic crop-specific soil preferences.
 
-For rice cultivation, the predicted probability increased substantially for clay soils, which are known to retain water effectively and therefore provide more suitable growing conditions. Under the same nutrient profile, rice achieved a prediction probability of \textbf{44.4\%} on clay soil compared with \textbf{28.8\%} on sandy soil, correctly reducing its ranking on unsuitable soil types.
+Several representative scenarios were evaluated by keeping the nutrient and environmental conditions constant while varying only the soil type.
 
-Similarly, for groundnut cultivation, the recommendation shifted toward sandy soil as expected. The predicted probability reached approximately \textbf{71.0\%} for sandy soil, while decreasing to approximately \textbf{44.2\%} for clay soil under identical environmental conditions.
-
-These experiments demonstrate that the proposed dataset generation strategy successfully introduced meaningful crop--soil relationships, allowing the recommendation model to produce agronomically consistent predictions rather than relying almost exclusively on nutrient values.
+For rice cultivation, the prediction probability increased from \textbf{28.8\%} on sandy soil to \textbf{44.4\%} on clay soil, which is consistent with the high water-retention characteristics required for rice production. Conversely, groundnut achieved its highest prediction probability of \textbf{71.0\%} on sandy soil, while the probability decreased to \textbf{44.2\%} on clay soil under identical environmental conditions.
 
 \begin{table}[H]
 \centering
@@ -317,4 +321,69 @@ Groundnut & Clay & 44.2\% \\
 \end{tabular}
 \end{table}
 
-The obtained results confirm that soil characteristics now influence both the predicted probability and the ranking of recommended crops in the agronomically expected direction. Although nutrient-related features remain the dominant predictors, the integration of crop-specific soil suitability significantly improves the realism and practical usefulness of the recommendation system.
+The obtained results confirm that soil characteristics now influence both the predicted probability and the ranking of recommended crops in the agronomically expected direction. Although nutrient-related features remain the dominant predictors, incorporating crop-specific soil suitability significantly improves the realism and practical usefulness of the recommendation system.
+
+%==============================================================================
+\section{Irrigation Recommendation Model Performance}
+\label{sec:irrigation_results}
+
+The irrigation module consists of two complementary machine learning models: a Random Forest classifier that determines whether irrigation is required and a Random Forest regressor that estimates crop water requirements under different environmental conditions.
+
+%------------------------------------------------------------------------------
+\subsection{Irrigation Decision Model}
+
+Table~\ref{tab:irrigation_decision} summarizes the performance of the irrigation decision classifier.
+
+\begin{table}[H]
+\centering
+\caption{Irrigation Decision Model Performance}
+\label{tab:irrigation_decision}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{lc}
+\toprule
+\textbf{Metric} & \textbf{Value} \\
+\midrule
+Model & Random Forest Classifier \\
+Training Accuracy & 99.37\% \\
+Test Accuracy & 98.53\% \\
+Precision & 98.52\% \\
+Recall & 98.53\% \\
+F1-score & 98.52\% \\
+Generalization Gap & 0.8\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The irrigation decision classifier achieved excellent predictive performance while maintaining a very small generalization gap, indicating outstanding model stability and no observable evidence of overfitting.
+
+%------------------------------------------------------------------------------
+\subsection{Water Requirement Estimation}
+
+The second irrigation component estimates the amount of water required by a crop using a Random Forest regression model.
+
+\begin{table}[H]
+\centering
+\caption{Water Requirement Regression Performance}
+\label{tab:water_requirement}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{lc}
+\toprule
+\textbf{Metric} & \textbf{Value} \\
+\midrule
+Model & Random Forest Regressor \\
+Training $R^2$ & 96.81\% \\
+Test $R^2$ & 95.22\% \\
+Mean Absolute Error (MAE) & 13.47 mm \\
+Generalization Gap & 1.59\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The Random Forest regression model achieved a test coefficient of determination ($R^2$) of \textbf{95.22\%} with a mean absolute error (MAE) of only \textbf{13.47 mm}. These results indicate that the proposed model can accurately estimate crop water requirements under different environmental conditions. The small generalization gap further confirms the robustness of the proposed regression model.
+
+%==============================================================================
+\section{Chapter Summary}
+
+This chapter presented the experimental evaluation of all intelligent modules comprising the NABTA platform. The CNN classification model achieved an overall accuracy of \textbf{95.0\%}, while the YOLOv8x detector obtained a validation mAP@0.50 of \textbf{78.8\%}. The proposed U-Net segmentation model achieved a best mean IoU of \textbf{94.73\%}. Furthermore, the Random Forest crop recommendation model achieved a test accuracy of \textbf{85.13\%}, whereas the irrigation decision and water requirement models achieved a test accuracy of \textbf{98.53\%} and a test $R^2$ of \textbf{95.22\%}, respectively.
+
+Overall, the obtained results demonstrate that the proposed NABTA platform provides accurate, robust, and scalable AI-powered decision support for modern smart agriculture by integrating computer vision, machine learning, explainable AI, and large language models within a unified production-ready system.

@@ -2,7 +2,7 @@
 \chapter{Conclusion and Future Work}
 \label{chap:conclusion}
 
-This project successfully designed, developed, and evaluated \nabta---an intelligent AI-powered smart agriculture platform that integrates computer vision, machine learning, explainable artificial intelligence, and large language models within a unified cloud-based system. Rather than focusing solely on plant disease diagnosis, the proposed platform delivers multiple intelligent agricultural services, including plant disease analysis, crop recommendation, smart irrigation recommendation, AI-powered agricultural consultation, historical analytics, and real-time decision support.
+This project successfully designed, developed, and evaluated \nabta---an intelligent AI-powered smart agriculture platform that integrates computer vision, machine learning, explainable artificial intelligence, and large Large Language Models (LLMs) within a unified cloud-based system. Rather than focusing solely on plant disease diagnosis, the proposed platform delivers multiple intelligent agricultural services, including plant disease analysis, crop recommendation, smart irrigation recommendation, AI-powered agricultural consultation, historical analytics, and real-time decision support.
 
 The principal achievements of the project are summarized as follows:
 
@@ -24,7 +24,7 @@ To improve transparency and user confidence, Grad-CAM visualization was integrat
 
 \item \textbf{Machine Learning for Smart Agriculture}
 
-Beyond disease diagnosis, the platform incorporates dedicated machine learning models for crop recommendation and irrigation recommendation. The crop recommendation module was enhanced through an agronomically informed crop--soil suitability strategy, increasing the influence of soil characteristics during prediction and producing recommendations that are more consistent with agricultural best practices. The irrigation recommendation module provides intelligent watering recommendations based on environmental conditions, soil characteristics, and crop requirements, supporting more efficient water management.
+Beyond disease diagnosis, the platform incorporates dedicated Random Forest machine learning models for crop recommendation and smart irrigation. The crop recommendation model achieved a test accuracy of \textbf{85.13\%}, while the irrigation decision model achieved a test accuracy of \textbf{98.53\%}. In addition, a Random Forest regression model estimated crop water requirements with a test $R^2$ score of \textbf{95.22\%}. Together, these models provide intelligent agricultural recommendations that support efficient crop selection and irrigation planning.
 
 \item \textbf{AI-Powered Agricultural Consultation}
 
@@ -32,7 +32,7 @@ The platform integrates a multilingual agricultural assistant powered by Cohere 
 
 \item \textbf{Production-Ready Software Architecture}
 
-The complete platform was implemented as a production-ready web application using React.js, FastAPI, Firebase Authentication, Firestore, and cloud-hosted AI services. A modular architecture was adopted to facilitate scalability, maintainability, and future integration of additional intelligent agricultural services.
+The complete platform was implemented as a production-ready web application using React.js, FastAPI, Firebase Authentication, Firestore, and cloud-hosted AI inference services. A modular architecture was adopted to facilitate scalability, maintainability, and future integration of additional intelligent agricultural services.
 
 \item \textbf{Comprehensive Agricultural Dataset}
 
@@ -40,7 +40,7 @@ A unified plant disease dataset containing more than \textbf{120,000} images acr
 
 \item \textbf{Integrated Smart Agriculture Platform}
 
-The final outcome of this project is not merely an individual deep learning model but a complete intelligent decision-support platform that combines computer vision, machine learning, explainable AI, large language models, cloud computing, and modern web technologies within a single integrated agricultural ecosystem capable of supporting farmers throughout multiple stages of crop management.
+The final outcome of this project is not merely an individual deep learning model but a complete intelligent decision-support platform that combines computer vision, machine learning, explainable AI, large Large Language Models (LLMs), cloud computing, and modern web technologies within a single integrated agricultural ecosystem capable of supporting farmers throughout multiple stages of crop management.
 
 \end{enumerate}
 
@@ -78,7 +78,7 @@ The AI agricultural assistant relies on a curated Retrieval-Augmented Generation
 
 \item \textbf{Computational Resources}
 
-Training and deploying multiple deep learning models—including YOLOv8, U-Net, CNN, and language models—require considerable computational resources. While inference is efficient on the deployed platform, model retraining remains computationally expensive.
+Training and deploying multiple deep learning models—including YOLOv8, U-Net, CNN, and Large Language Models (LLMs)—require considerable computational resources. While inference is efficient on the deployed platform, model retraining remains computationally expensive.
 
 \end{enumerate}
 
@@ -96,7 +96,7 @@ Future work will focus on expanding the plant disease dataset by incorporating a
 \subsection{Advanced Computer Vision Models}
 \label{subsec:fw_cv}
 
-The current computer vision pipeline may be extended by investigating more advanced deep learning architectures, including Vision Transformers (ViTs), ConvNeXt, EfficientNetV2, and recent versions of YOLO. These models may further improve detection accuracy, classification performance, and computational efficiency while maintaining real-time inference.
+The current computer vision pipeline may be extended by investigating more advanced deep learning architectures, including Vision Transformers (ViTs), ConvNeXt, EfficientNetV2, and newer YOLO architectures such as YOLOv11 and future Ultralytics releases. These models may further improve detection accuracy, classification performance, and computational efficiency while maintaining real-time inference.
 
 \subsection{IoT-Based Smart Agriculture}
 \label{subsec:fw_iot}
@@ -139,8 +139,8 @@ NABTA can be integrated with precision agriculture systems, automated irrigation
 
 The NABTA project demonstrates the potential of combining Computer Vision, Machine Learning, Explainable Artificial Intelligence, Large Language Models, and modern cloud technologies within a unified smart agriculture platform capable of supporting farmers throughout multiple stages of crop management.
 
-The developed platform successfully integrates automated plant disease diagnosis, intelligent crop recommendation, smart irrigation recommendation, multilingual agricultural consultation, historical analytics, and cloud-based deployment into a single production-ready system. Experimental evaluation demonstrated strong performance across the different AI components, including a CNN classification accuracy of \textbf{95.0\%}, a YOLOv8x detection model achieving \textbf{78.8\% mAP@0.50}, and a U-Net segmentation model reaching a best mean IoU of \textbf{94.73\%}. These results confirm the effectiveness of the proposed multi-stage AI pipeline for supporting practical agricultural decision making.
+The developed platform successfully integrates automated plant disease diagnosis, intelligent crop recommendation, smart irrigation recommendation, multilingual agricultural consultation, historical analytics, and cloud-based deployment into a single production-ready system. Experimental evaluation demonstrated strong performance across all intelligent modules. The CNN classification model achieved an overall accuracy of \textbf{95.0\%}, the YOLOv8x detection model achieved \textbf{78.8\% mAP@0.50}, and the U-Net segmentation model reached a best mean IoU of \textbf{94.73\%}. Furthermore, the crop recommendation model achieved a test accuracy of \textbf{85.13\%}, while the irrigation decision model achieved \textbf{98.53\%} accuracy and the water requirement model achieved a test $R^2$ score of \textbf{95.22\%}. These results confirm the effectiveness of the proposed multi-stage AI pipeline and intelligent decision-support modules for practical smart agriculture.
 
 Beyond its technical contributions, NABTA illustrates how artificial intelligence can contribute to sustainable agriculture by improving disease diagnosis, optimizing crop selection, enhancing irrigation efficiency, and providing accessible agricultural knowledge through conversational AI. The modular architecture also provides a solid foundation for future integration of IoT devices, weather forecasting services, satellite imagery, autonomous farming technologies, and additional AI models.
 
-The authors hope that this work contributes to the continued advancement of intelligent agricultural technologies and serves as a practical foundation for future research and real-world deployment of AI-powered smart farming systems.
+The authors believe that this work provides a solid foundation for future research and practical deployment of AI-powered smart agriculture systems. It is hoped that NABTA will contribute to improving agricultural productivity, resource utilization, and sustainable farming through the integration of modern artificial intelligence technologies.
