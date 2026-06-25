@@ -1,8 +1,8 @@
 \babel@toc {english}{}\relax 
-\contentsline {chapter}{Dedication}{i}{Doc-Start}%
-\contentsline {chapter}{Acknowledgement}{ii}{chapter*.1}%
-\contentsline {chapter}{Abstract}{iii}{chapter*.2}%
-\contentsline {chapter}{List of Abbreviations}{xiv}{section*.6}%
+\contentsline {chapter}{Dedication}{xvii}{Doc-Start}%
+\contentsline {chapter}{Acknowledgement}{xviii}{chapter*.1}%
+\contentsline {chapter}{Abstract}{xix}{chapter*.2}%
+\contentsline {chapter}{List of Abbreviations}{xxx}{section*.6}%
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Background}{1}{section.1.1}%
 \contentsline {section}{\numberline {1.2}Project Idea}{3}{section.1.2}%
