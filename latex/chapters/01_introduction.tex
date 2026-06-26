@@ -137,23 +137,29 @@ On the commercial side, applications such as Plantix, Agrio, Leaf Doctor, and Pl
 
 NABTA is positioned in the gap between those two worlds. It combines detection, segmentation, classification, and explainability into one workflow, while also wrapping the pipeline in a deployed web platform with a chatbot, historical analytics, and a planned extensibility path for future growth.
 
-\begin{table}[htbp]
+\begin{table}[H]
 \centering
-\small
-\setlength{\tabcolsep}{4pt}
+\tiny
+\setlength{\tabcolsep}{2.2pt}
+\renewcommand{\arraystretch}{1.2}
 \caption{Comparative Study of Plant Disease Applications}
 \label{tab:intro_related_work}
-\begin{tabularx}{\textwidth}{@{}p{0.18\textwidth}p{0.18\textwidth}p{0.13\textwidth}p{0.12\textwidth}p{0.11\textwidth}p{0.11\textwidth}@{}}
-\toprule
+\begin{tabularx}{\textwidth}{|L{1.9cm}|L{2.75cm}|L{2.45cm}|L{2.35cm}|L{1.95cm}|Y|}
+\hline
 \textbf{System} & \textbf{Detection \& Segmentation Pipeline} & \textbf{Disease / Class Coverage} & \textbf{Visual Explainability (XAI)} & \textbf{AI Assistant / Chatbot} & \textbf{Crop \& Irrigation Recommendation} \\
-\midrule
+\hline
 Plantix~\cite{plantix_website} & Single-stage CNN classification only & About 800 pest/disease combinations across 30 crops & Limited transparency into model decisions & Not offered & Not offered \\
+\hline
 Agrio~\cite{agrio_website} & Single-stage CNN classification with human review & Crop-specific, expert-curated catalogue & Limited reasoning exposed to end users & Not offered & Not offered \\
+\hline
 Leaf Doctor~\cite{pethybridge2015leaf} & Colour-based pixel segmentation for severity scoring & Limited, research-oriented & Partial severity overlay only & Not offered & Not offered \\
+\hline
 Pl@ntNet / PictureThis~\cite{plantnet_website} & Primarily species identification & Broad species coverage, narrow disease depth & Minimal disease decision transparency & Not offered & Not offered \\
+\hline
 Typical academic CNN studies & Single-stage classification on clean, lab images & High lab accuracy; weaker field generalization & Rarely deployed in production & Not offered & Not offered \\
+\hline
 NABTA (Proposed System) & YOLOv8 detection $\rightarrow$ U-Net/EfficientNet-B0 segmentation $\rightarrow$ CNN classification $\rightarrow$ Grad-CAM & 102 classes across multiple crops, from 9 public datasets & Grad-CAM heatmaps shown directly in the app & Yes -- Cohere LLM with RAG & Yes -- ML-based crop and irrigation recommendation \\
-\bottomrule
+\hline
 \end{tabularx}
 \end{table}
 

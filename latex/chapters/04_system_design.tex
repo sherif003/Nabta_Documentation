@@ -198,26 +198,27 @@ The backend is organised into independent FastAPI routers, each encapsulating a 
   \centering
   \caption{FastAPI Router Structure}
   \label{tab:routers}
-  \renewcommand{\arraystretch}{1.4}
-  \begin{tabularx}{\textwidth}{|L{3cm}|L{2.5cm}|Y|}
+  \small
+  \renewcommand{\arraystretch}{1.42}
+  \begin{tabularx}{\textwidth}{|L{3.2cm}|L{3.1cm}|Y|}
     \hline
     \textbf{Router Module} & \textbf{Prefix} & \textbf{Responsibilities} \\
     \hline
-    \code{auth\_router}     & \texttt{/auth}     & Token validation middleware; user profile fetch \\
+    \makecell[l]{\code{auth}\\\code{\_router}}     & \texttt{/auth}     & Token validation middleware; user profile fetch \\
     \hline
-    \code{analysis\_router} & \texttt{/analyze}  & Image upload, pipeline orchestration, result retrieval \\
+    \makecell[l]{\code{analysis}\\\code{\_router}} & \texttt{/analyze}  & Image upload, pipeline orchestration, result retrieval \\
     \hline
-    \code{chat\_router}     & \texttt{/chat}     & Query intake, RAG pipeline invocation, response delivery \\
+    \makecell[l]{\code{chat}\\\code{\_router}}     & \texttt{/chat}     & Query intake, RAG pipeline invocation, response delivery \\
     \hline
-    \code{history\_router}  & \texttt{/history}  & User historical analysis log retrieval with pagination \\
+    \makecell[l]{\code{history}\\\code{\_router}}  & \texttt{/history}  & User historical analysis log retrieval with pagination \\
     \hline
-    \code{report\_router}   & \texttt{/report}   & PDF report generation and download \\
+    \makecell[l]{\code{report}\\\code{\_router}}   & \texttt{/report}   & PDF report generation and download \\
     \hline
-    \code{irrigation\_router} & \texttt{/predict} & Irrigation decision and water requirement prediction \\
+    \makecell[l]{\code{irrigation}\\\code{\_router}} & \texttt{/predict} & Irrigation decision and water requirement prediction \\
     \hline
-    \code{recommendation\_router} & \texttt{/get\_recommendation} & Top-3 crop recommendation based on soil, NPK, crop, and weather features \\
+    \makecell[l]{\code{recommendation}\\\code{\_router}} & \makecell[l]{\texttt{/get}\\\texttt{\_recommendation}} & Top-3 crop recommendation based on soil, NPK, crop, and weather features \\
     \hline
-    \code{admin\_router}    & \texttt{/admin}    & User management, system health monitoring (admin only) \\
+    \makecell[l]{\code{admin}\\\code{\_router}}    & \texttt{/admin}    & User management, system health monitoring (admin only) \\
     \hline
   \end{tabularx}
 \end{table}
@@ -260,8 +261,9 @@ The \code{MLManager} class implements the sequential orchestration logic connect
   \centering
   \caption{Firestore Collection Schema}
   \label{tab:firestore}
-  \renewcommand{\arraystretch}{1.5}
-  \begin{tabularx}{\textwidth}{|L{2.7cm}|Y|L{3.3cm}|}
+  \footnotesize
+  \renewcommand{\arraystretch}{1.28}
+  \begin{tabularx}{\textwidth}{|L{3.1cm}|Y|L{3.1cm}|}
     \hline
     \textbf{Collection} & \textbf{Key Fields} & \textbf{Subcollections} \\
     \hline
@@ -269,13 +271,13 @@ The \code{MLManager} class implements the sequential orchestration logic connect
     \hline
     \texttt{analyses}       & \code{analysisId}, \code{userId}, \code{imageUrl}, \code{classLabel}, \code{confidence}, \code{gradcamUrl}, \code{maskUrl}, \code{timestamp} & --- \\
     \hline
-    \texttt{chatHistory}    & \code{messageId}, \code{userId}, \code{role}, \code{content}, \code{timestamp} & --- \\
+    \makecell[l]{\texttt{chat}\\\texttt{History}}    & \code{messageId}, \code{userId}, \code{role}, \code{content}, \code{timestamp} & --- \\
     \hline
-    \texttt{subscriptions}  & \code{userId}, \code{tier}, \code{startDate}, \code{expiryDate}, \code{paymentRef} & --- \\
+    \makecell[l]{\texttt{subscriptions}}  & \code{userId}, \code{tier}, \code{startDate}, \code{expiryDate}, \code{paymentRef} & --- \\
     \hline
-    \texttt{irrigationRecords} & \code{recordId}, \code{userId}, \code{cropType}, \code{soilType}, \code{soilMoisture}, \code{temperature}, \code{decision}, \code{waterAmountMm}, \code{createdAt} & --- \\
+    \makecell[l]{\texttt{irrigation}\\\texttt{Records}} & \code{recordId}, \code{userId}, \code{cropType}, \code{soilType}, \code{soilMoisture}, \code{temperature}, \code{decision}, \code{waterAmountMm}, \code{createdAt} & --- \\
     \hline
-    \texttt{cropRecommendations} & \code{recId}, \code{userId}, \code{soilType}, \code{nVal}, \code{pVal}, \code{kVal}, \code{topCrop1}, \code{topCrop2}, \code{topCrop3}, \code{createdAt} & --- \\
+    \makecell[l]{\texttt{crop}\\\texttt{Recommendations}} & \code{recId}, \code{userId}, \code{soilType}, \code{nVal}, \code{pVal}, \code{kVal}, \code{topCrop1}, \code{topCrop2}, \code{topCrop3}, \code{createdAt} & --- \\
     \hline
   \end{tabularx}
 \end{table}
@@ -292,9 +294,10 @@ The \gls{rag} knowledge base is indexed in a vector database. Each document reco
   \centering
   \caption{NABTA REST API Endpoint Reference}
   \label{tab:api_endpoints}
-  \small
+  \footnotesize
   \setlength{\tabcolsep}{4pt}
-  \begin{tabularx}{\textwidth}{|L{1.55cm}|L{3.7cm}|L{1.7cm}|Y|}
+  \renewcommand{\arraystretch}{1.28}
+  \begin{tabularx}{\textwidth}{|C{1.4cm}|L{4.3cm}|C{1.8cm}|Y|}
     \hline
     \textbf{Method} & \textbf{Endpoint} & \textbf{Auth} & \textbf{Description} \\
     \hline
