@@ -1,350 +1,641 @@
 %==============================================================================
-% CHAPTER 5 --- SYSTEM DESIGN
+% CHAPTER 4 --- SYSTEM DESIGN
 %==============================================================================
 
 \chapter{System Design}
 \label{chap:design}
 
-\chapterquote{The architecture of a system is inseparable from the architecture of the team that produced it.}{Melvin Conway}
+\chapterquote{Good software architecture minimizes complexity while maximizing scalability, maintainability, and reliability.}{Martin Fowler}
 
+%==============================================================================
 \section{Overview}
 \label{sec:design_overview}
 
-This chapter presents the complete architectural specification of the \nabta system. The design is decomposed across three primary layers---frontend, backend, and AI/database---and documented through architectural diagrams, component descriptions, database schema specifications, and API endpoint definitions. The overarching design philosophy prioritises modularity, enabling independent evolution of individual components; performance, particularly sub-second inference latency; and security, through defence-in-depth mechanisms at every layer.
+This chapter presents the architectural design of the proposed NABTA platform. The system was designed following a modular and service-oriented architecture to facilitate scalability, maintainability, and seamless integration between multiple artificial intelligence models and cloud services.
 
-\section{System Architecture}
-\label{sec:system_architecture}
+The NABTA platform combines modern web technologies, deep learning, machine learning, explainable artificial intelligence, and cloud computing into a unified smart agriculture platform. The overall architecture separates the presentation layer, business logic, artificial intelligence services, and cloud infrastructure, allowing each subsystem to evolve independently while maintaining efficient communication through RESTful APIs.
 
-\nabta adopts a three-tier client-server architecture with a clear separation of concerns between the presentation layer, the application logic layer, and the data/model layer. \figref{fig:system_arch} illustrates the high-level structural relationships between these components.
+The design focuses on four primary objectives:
+
+\begin{itemize}
+\item High-performance AI inference for real-time plant disease diagnosis.
+\item Modular architecture that supports independent development and maintenance.
+\item Secure communication between frontend, backend, and cloud services.
+\item Scalable deployment capable of supporting multiple concurrent users.
+\end{itemize}
+
+The following sections describe the overall architecture, system workflow, UML diagrams, database design, API architecture, deployment strategy, and security mechanisms adopted in the implementation of the NABTA platform.
+
+%==============================================================================
+%==============================================================================
+\section{System Workflow}
+\label{sec:system_workflow}
+
+The operational workflow of NABTA consists of a sequence of interconnected software modules that cooperate to provide intelligent agricultural services. Figure~\ref{fig:system_workflow} illustrates the overall execution flow of the platform.
 
 \begin{figure}[H]
-  \centering
-  \begin{tikzpicture}[
-    box/.style={draw, rectangle, rounded corners=5pt, minimum width=5.5cm,
-                minimum height=1.2cm, align=center, font=\small\bfseries},
-    subbox/.style={draw, rectangle, rounded corners=3pt, minimum width=4.8cm,
-                   minimum height=0.7cm, align=center, font=\footnotesize,
-                   fill=white},
-    layer/.style={draw, rectangle, rounded corners=6pt, dashed,
-                  minimum width=6.5cm, align=center},
-    >=stealth, node distance=0.4cm
-  ]
-    % Frontend Layer
-    \node[box, fill=NabtaBlue!15]  (fe)  at (0,   0)     {Frontend Layer (React.js)};
-    \node[subbox] (fe1) at (0, -1.2) {Upload \& Analysis Dashboard};
-    \node[subbox] (fe2) at (0, -2.0) {AI Chat Panel};
-    \node[subbox] (fe3) at (0, -2.8) {Analytics Center};
-    \node[subbox] (fe4) at (0, -3.6) {Auth / User Management UI};
-
-    % Arrow
-    \draw[<->, thick] (0, -4.2) -- (0, -5.2)
-      node[midway, right, font=\small]{HTTPS / REST};
-
-    % Backend Layer
-    \node[box, fill=NabtaGreen!15] (be)  at (0, -5.8)   {Backend Layer (FastAPI)};
-    \node[subbox] (be1) at (0, -7.0) {Image Preprocessing Module};
-    \node[subbox] (be2) at (0, -7.8) {ML Pipeline Router (MLManager)};
-    \node[subbox] (be3) at (0, -8.6) {RAG Chatbot Engine};
-    \node[subbox] (be4) at (0, -9.4) {Auth Middleware (Firebase SDK)};
-    \node[subbox] (be5) at (0,-10.2) {PDF Report Generator};
-
-    % Arrow
-    \draw[<->, thick] (0,-10.8) -- (0,-11.8)
-      node[midway, right, font=\small]{Internal API / ORM};
-
-    % AI + DB Layer
-    \node[box, fill=orange!12]     (ai)  at (0,-12.4)   {AI \& Data Layer};
-    \node[subbox] (ai1) at (0,-13.6) {YOLOv8 Detection Model};
-    \node[subbox] (ai2) at (0,-14.4) {U-Net Segmentation Model};
-    \node[subbox] (ai3) at (0,-15.2) {Custom CNN Classifier + Grad-CAM};
-    \node[subbox] (ai4) at (0,-16.0) {Vector Database (Knowledge Base)};
-    \node[subbox] (ai5) at (0,-16.8) {Firebase Auth + Firestore};
-
-    % External Services
-    \node[box, fill=gray!12, minimum width=3.5cm] (ext1) at (7.5, -7.0)  {Cohere API\\(LLM)};
-    \node[box, fill=gray!12, minimum width=3.5cm] (ext2) at (7.5,-10.2) {Firebase\\(Auth)};
-    \node[box, fill=gray!12, minimum width=3.5cm] (ext3) at (7.5,-14.4) {Hugging Face\\(Model Hub)};
-
-    \draw[->] (be3) -- (ext1) node[midway,above,font=\tiny]{Cohere API};
-    \draw[->] (be4) -- (ext2) node[midway,above,font=\tiny]{SDK};
-    \draw[->] (ai2) -- (ext3) node[midway,above,font=\tiny]{Weights};
-
-  \end{tikzpicture}
-  \caption{High-Level Three-Tier System Architecture of NABTA}
-  \label{fig:system_arch}
+\centering
+\includegraphics[width=\textwidth]{assets/diagrams/system_workflow.png}
+\caption{Overall Workflow of the NABTA Platform}
+\label{fig:system_workflow}
 \end{figure}
 
-\section{UML and Data Design Artefacts}
-\label{sec:design_uml}
+The Presentation Layer consists of a React.js web application that provides users with interactive interfaces for plant disease analysis, irrigation prediction, crop recommendation, AI consultation, historical analysis, dashboard visualization, and account management.
 
-The system design was documented using complementary UML and data-modelling artefacts. Each diagram captures a different design viewpoint: functional scope, workflow logic, service interaction, static software structure, component deployment, and persistent data relationships. Together, these artefacts bridge the gap between stakeholder requirements and implementation-level decisions.
+The Application Layer is implemented using FastAPI, which acts as the central orchestration server. It manages user authentication, image preprocessing, request routing, communication with artificial intelligence models, report generation, database interaction, and external API integration.
 
-\subsection{Use Case View}
-\label{subsec:use_case_view}
+The Artificial Intelligence Layer contains all deployed intelligent models used throughout the platform. These include the YOLOv8x object detector for infected leaf localization, the U-Net segmentation model with an EfficientNet-B0 encoder for leaf extraction, the custom CNN classifier for plant disease recognition, Grad-CAM for explainability and disease severity estimation, a Random Forest classifier for crop recommendation, a Random Forest classifier for irrigation decision prediction, and a Random Forest regressor for estimating crop water requirements.
 
-The use case diagram in \figref{fig:use_case_diagram} captures the functional requirements of the \nabta system from the perspective of external actors. It separates account-management functions from the core AI analysis pipeline, chatbot assistance, smart irrigation, and crop recommendation modules. External dependencies such as Firebase Authentication, Cohere, Hugging Face, Email Service, and WeatherAPI are shown as actors because the platform relies on them to complete user-facing features.
+The Cloud Data Layer integrates Firebase Authentication, Cloud Firestore, Firebase Cloud Functions, the Cohere API, Retrieval-Augmented Generation (RAG), and Hugging Face model hosting. These services collectively provide secure authentication, cloud data storage, conversational AI capabilities, document retrieval, and deployment of trained deep learning models.
 
-\projectfigure[0.98\textwidth]{assets/diagrams/use_case_diagram.png}{8.2cm}{NABTA Use Case Diagram}{fig:use_case_diagram}
+This layered architecture enables loose coupling between software components, simplifies maintenance, improves scalability, and allows each subsystem to be updated independently without affecting the remaining parts of the platform.
 
-The system boundary identifies which behaviours belong to the application itself and which are delegated to external services. Mandatory behaviours such as detection, segmentation, classification, Grad-CAM generation, PDF report generation, and result storage are modelled using include relationships, while premium behaviours such as custom dataset upload are represented as optional extensions.
+%==============================================================================
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{assets/diagrams/system_workflows.png}
+\caption{Overall Workflow of the NABTA Platform}
+\label{fig:system_workflow}
+\end{figure}
 
-\subsection{Activity View}
-\label{subsec:activity_view}
+The execution process begins when a user accesses the web application through the React.js frontend. After successful authentication using Firebase Authentication, users can access the available intelligent services including plant disease analysis, crop recommendation, irrigation management, AI consultation, and historical records.
 
-The activity diagram in \figref{fig:activity_diagram} models the main user journey and business process logic. It includes both the successful path and failure branches, such as invalid login attempts that loop back for correction. The swimlane structure makes responsibility explicit: user actions remain in the user lane, while authentication, image analysis, irrigation prediction, crop recommendation, and result generation are handled by the system.
+For plant disease diagnosis, the user uploads a leaf image through the Plant Analysis interface. The uploaded image is transmitted to the FastAPI backend, which performs image validation and preprocessing before initiating the artificial intelligence pipeline.
 
-\projectfigure[0.88\textwidth]{assets/diagrams/activity_diagram.png}{13cm}{NABTA Activity Diagram}{fig:activity_diagram}
+The AI pipeline executes four consecutive stages. First, the YOLOv8x model detects and localizes the infected leaf region. Second, the detected region is forwarded to the U-Net segmentation model, which separates the leaf from the surrounding background. Third, the segmented leaf image is analyzed by the custom CNN classifier to determine the plant species and disease category. Finally, Grad-CAM generates an explainability heatmap while simultaneously estimating disease severity based on the highlighted infected regions.
 
-The workflow documents the sequential AI pipeline after image upload: object detection, segmentation, classification, confidence calculation, and result display. It also shows the parallel decision branch for irrigation and crop recommendation, where environmental and soil inputs are processed before the final results are presented.
+The generated results, including the detected disease, confidence score, segmentation mask, Grad-CAM visualization, and severity estimation, are stored in Cloud Firestore and displayed through the frontend interface. Users may also generate a PDF report containing the complete diagnosis.
 
-\subsection{Sequence View}
-\label{subsec:sequence_view}
+The platform additionally provides two intelligent decision-support services. The crop recommendation module predicts the most suitable crops based on soil characteristics and environmental conditions, while the irrigation management module predicts irrigation requirements and estimates crop water demand using dedicated Random Forest models.
 
-The sequence diagram in \figref{fig:sequence_diagram} describes runtime interactions across the principal system participants: user, frontend, backend, CNN engine, LLM chatbot engine, database, report generator, and irrigation engine. This view clarifies that the frontend does not communicate directly with the database or AI engines; all requests pass through the backend, which acts as the orchestration and security gateway.
+For agricultural consultation, user queries are processed through the Retrieval-Augmented Generation (RAG) pipeline. Relevant agricultural documents are first retrieved from the knowledge base before the query is forwarded to the Cohere Large Language Model, ensuring that generated responses remain domain-specific and evidence-based.
 
-\projectfigure[0.98\textwidth]{assets/diagrams/sequence_diagram.png}{9cm}{NABTA Sequence Diagram}{fig:sequence_diagram}
+This workflow integrates multiple artificial intelligence techniques within a unified architecture while maintaining efficient communication between all system components.
 
-The interaction flow covers authentication, chatbot queries, plant diagnosis, report generation, irrigation prediction, and crop recommendation. It also documents the ordering constraint that diagnosis results must be stored before report generation can use them.
+%==============================================================================
+\section{Use Case Diagram}
+\label{sec:use_case}
 
-\subsection{Class View}
-\label{subsec:class_view}
+The functional requirements of the NABTA platform are represented using the UML Use Case Diagram shown in Figure~\ref{fig:use_case}.
 
-The class diagram in \figref{fig:class_diagram} captures the implementation-oriented object structure. Data classes such as \code{User}, \code{ChatMessage}, and \code{UploadedImage} are separated from processing classes such as \code{ImageProcessor} and \code{MLManager}. The \code{MLManager} functions as a facade for detection, classification, and segmentation models, enabling new model types to be added without disrupting higher-level application logic.
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{assets/diagrams/use_case_diagram.png}
+\caption{Use Case Diagram of the NABTA Platform}
+\label{fig:use_case}
+\end{figure}
 
-\projectfigure[0.92\textwidth]{assets/diagrams/class_diagram.png}{8.6cm}{NABTA Class Diagram}{fig:class_diagram}
+The system primarily interacts with two categories of actors:
 
-The class view also includes the irrigation and crop recommendation subsystem. The \code{IrrigationSystem} class depends on WeatherAPI for real-time conditions and exposes prediction and recommendation operations, while \code{CropRecommendation} stores the top recommended crops and confidence values.
-
-\subsection{Data View}
-\label{subsec:data_view}
-
-The entity relationship diagram in \figref{fig:erd_diagram} describes the persistent data model. The \code{User} entity is the central owner of uploaded images, predictions, reports, chatbot conversations, subscriptions, custom datasets, irrigation records, and crop recommendations. This structure supports per-user privacy, history tracking, and premium functionality.
-
-\projectfigure[0.98\textwidth]{assets/diagrams/entity_relationship_diagram.png}{8.7cm}{NABTA Entity Relationship Diagram}{fig:erd_diagram}
-
-The most important design decision is the many-to-many relationship between predictions and diseases through \code{Prediction\_Disease}. This allows a single analysis to record multiple disease findings while preserving disease-level reference knowledge, such as causes, treatment plans, and prevention strategies, in one reusable catalogue.
-
-\subsection{Component and Deployment Views}
-\label{subsec:component_deployment}
-
-The component diagram and deployment diagram provide additional architectural views of how the system is assembled and hosted. \figref{fig:component_diagram} shows how frontend, backend, AI, database, reporting, and external-service components are connected, while \figref{fig:deployment_diagram} summarises the physical deployment arrangement.
-
-\projectfigure[0.96\textwidth]{assets/diagrams/component_diagram.jpeg}{9cm}{NABTA Component Diagram}{fig:component_diagram}
-
-\projectfigure[0.86\textwidth]{assets/diagrams/deployment_diagram.jpeg}{8cm}{NABTA Deployment Diagram}{fig:deployment_diagram}
-
-\section{Frontend Design}
-\label{sec:frontend_design}
-
-\subsection{Technology Stack}
-\label{subsec:fe_stack}
-
-The \nabta frontend is implemented as a single-page application (\gls{spa}) using \textbf{React.js} with functional components and the React Hooks API. State management is handled through a combination of component-local \code{useState}/\code{useReducer} hooks and a lightweight context-based global store for authenticated user state. HTTP communication with the backend is handled via the \textbf{Axios} library with request interceptors that inject the Firebase \gls{jwt} authentication token into the \code{Authorization} header of every protected request.
-
-\subsection{Key Interface Screens}
-\label{subsec:fe_screens}
-
-\subsubsection{Main Analysis Dashboard}
-\label{subsubsec:main_dashboard}
-
-The primary user interface screen presents a drag-and-drop image upload widget supporting \texttt{.jpg} and \texttt{.png} files up to 5MB. Upon successful upload, the interface transitions to a three-panel results layout:
-
-\begin{itemize}[leftmargin=*]
-  \item \textbf{Detection Panel:} Renders the uploaded image with bounding box overlays indicating the detected infected leaf regions, annotated with the YOLOv8 confidence score.
-  \item \textbf{Classification + Grad-CAM Panel:} Displays the predicted plant species, disease name, and confidence percentage alongside the Grad-CAM heatmap overlay image.
-  \item \textbf{Segmentation Panel:} Renders the binary segmentation mask with the leaf foreground highlighted in the system's primary colour.
+\begin{itemize}
+\item \textbf{User}, who utilizes the intelligent agricultural services.
+\item \textbf{Administrator}, who manages system resources and user accounts.
 \end{itemize}
 
-% TODO: Replace this placeholder with the final main dashboard screenshot.
-\projectfigure{assets/screenshots/main_dashboard.png}{8cm}{NABTA Main Analysis Dashboard Interface}{fig:ui_main}
+External services including Firebase Authentication, Cohere API, Hugging Face, Weather API, and Email Services cooperate with the system to provide authentication, artificial intelligence inference, weather information, and notification services.
 
-\subsubsection{Smart Analysis Center}
-\label{subsubsec:analytics}
+The User actor can perform the following operations:
 
-The analytics dashboard provides farm-level aggregate visualisations:
-
-\begin{itemize}[leftmargin=*]
-  \item \textbf{Disease Distribution Chart:} A horizontal bar chart displaying the cumulative count of each diagnosed disease across the user's historical submissions.
-  \item \textbf{Infection Timeline:} A time-series line chart mapping infection event counts across calendar months, enabling seasonal trend identification.
-  \item \textbf{Top Plant Species Panel:} A ranked list of the most frequently analysed crop types.
-  \item \textbf{Recent Analyses Log:} A paginated table presenting the most recent diagnoses with timestamp, plant species, disease label, and confidence score.
+\begin{itemize}
+\item Register and authenticate.
+\item Upload plant images.
+\item Analyze plant diseases.
+\item View disease reports.
+\item Generate PDF reports.
+\item Communicate with the AI Assistant.
+\item Obtain crop recommendations.
+\item Receive irrigation recommendations.
+\item Browse previous analysis records.
+\item View analytical dashboards.
+\item Manage personal profile information.
 \end{itemize}
 
-% TODO: Replace this placeholder with the final analytics dashboard screenshot.
-\projectfigure{assets/screenshots/analytics_dashboard.png}{8cm}{NABTA Smart Analysis Center Dashboard}{fig:ui_analytics}
+The Administrator possesses additional privileges, including managing users, monitoring system status, maintaining agricultural datasets, and supervising platform resources.
 
-\subsubsection{AI Chat Assistant}
-\label{subsubsec:chat_ui}
+The use case diagram demonstrates that all intelligent services are accessed through a unified interface while authentication and authorization mechanisms ensure secure access to protected resources.
 
-The chat interface occupies a dedicated panel and renders conversation history in a standard message-bubble format with right-aligned user messages and left-aligned assistant responses. A language toggle allows users to switch between Arabic and English input modes. The response is rendered in structured sections with clear typographic hierarchies for each consultation category.
+%==============================================================================
+\section{Activity Diagram}
+\label{sec:activity_diagram}
 
-% TODO: Replace this placeholder with the final AI chat assistant screenshot.
-\projectfigure{assets/screenshots/ai_chat.png}{8cm}{NABTA AI Chat Assistant Interface}{fig:ui_chat}
+The Activity Diagram illustrates the sequence of operations performed during the plant disease diagnosis process. It describes how user interactions trigger successive software components until the final diagnosis is produced.
 
-\section{Backend Design}
-\label{sec:backend_design}
+Figure~\ref{fig:activity_diagram} presents the activity diagram of the proposed system.
 
-\subsection{Technology Stack}
-\label{subsec:be_stack}
+\begin{figure}[H]
+\centering
+\includegraphics[width=.95\textwidth]{assets/diagrams/activity_diagram.png}
+\caption{Activity Diagram of the Plant Disease Diagnosis Process}
+\label{fig:activity_diagram}
+\end{figure}
 
-The backend is implemented in \textbf{Python 3.11} using the \textbf{FastAPI} framework~\cite{fastapi2023}. FastAPI was selected for its native support for asynchronous request handling via Python's \code{asyncio} runtime, its automatic OpenAPI schema generation, and its high throughput benchmarks relative to synchronous WSGI alternatives. Serving is managed by a \textbf{Uvicorn} ASGI server, with \textbf{Gunicorn} as the process manager for multi-worker production deployments.
+The workflow begins when the user uploads a plant image through the web interface. The backend validates the uploaded image before forwarding it to the artificial intelligence pipeline.
 
-\subsection{API Router Structure}
-\label{subsec:api_routers}
+The YOLOv8x detector first localizes the infected leaf region. The cropped image is then processed by the U-Net segmentation model to isolate the leaf from the background. The segmented image is subsequently classified using the CNN model, which predicts one of the supported plant disease classes.
 
-The backend is organised into independent FastAPI routers, each encapsulating a logical domain of functionality:
+Grad-CAM generates an explainability heatmap and estimates disease severity. Finally, the diagnosis report is generated, stored in Firebase Cloud Firestore, and presented to the user through the frontend interface.
 
-\begin{table}[H]
-  \centering
-  \caption{FastAPI Router Structure}
-  \label{tab:routers}
-  \small
-  \renewcommand{\arraystretch}{1.42}
-  \begin{tabularx}{\textwidth}{|L{3.2cm}|L{3.1cm}|Y|}
-    \hline
-    \textbf{Router Module} & \textbf{Prefix} & \textbf{Responsibilities} \\
-    \hline
-    \makecell[l]{\code{auth}\\\code{\_router}}     & \texttt{/auth}     & Token validation middleware; user profile fetch \\
-    \hline
-    \makecell[l]{\code{analysis}\\\code{\_router}} & \texttt{/analyze}  & Image upload, pipeline orchestration, result retrieval \\
-    \hline
-    \makecell[l]{\code{chat}\\\code{\_router}}     & \texttt{/chat}     & Query intake, RAG pipeline invocation, response delivery \\
-    \hline
-    \makecell[l]{\code{history}\\\code{\_router}}  & \texttt{/history}  & User historical analysis log retrieval with pagination \\
-    \hline
-    \makecell[l]{\code{report}\\\code{\_router}}   & \texttt{/report}   & PDF report generation and download \\
-    \hline
-    \makecell[l]{\code{irrigation}\\\code{\_router}} & \texttt{/predict} & Irrigation decision and water requirement prediction \\
-    \hline
-    \makecell[l]{\code{recommendation}\\\code{\_router}} & \makecell[l]{\texttt{/get}\\\texttt{\_recommendation}} & Top-3 crop recommendation based on soil, NPK, crop, and weather features \\
-    \hline
-    \makecell[l]{\code{admin}\\\code{\_router}}    & \texttt{/admin}    & User management, system health monitoring (admin only) \\
-    \hline
-  \end{tabularx}
-\end{table}
+This sequential workflow minimizes unnecessary computations while ensuring that every stage receives optimized input from the previous model.
 
-\subsection{Image Preprocessing Module}
-\label{subsec:preproc_module}
+%==============================================================================
+\section{Sequence Diagram}
+\label{sec:sequence_diagram}
 
-The \code{ImageProcessor} class encapsulates all preprocessing logic applied to incoming images prior to model inference. Upon receiving a multipart upload, the module:
+The Sequence Diagram describes the interactions among the user, frontend application, backend services, artificial intelligence models, and cloud infrastructure during a typical disease diagnosis session.
 
-\begin{enumerate}[leftmargin=*, label=\arabic*.]
-  \item Decodes the binary payload using \code{Pillow} and validates the MIME type and file size.
-  \item Resizes the image to the required resolution for each model stage using Lanczos resampling.
-  \item Converts to a normalised \code{NumPy} array and constructs a batched \code{PyTorch} tensor.
-  \item Returns separate tensor copies prepared for YOLOv8 (640px), U-Net (256px), and CNN (224px) input dimensions.
-\end{enumerate}
+Figure~\ref{fig:sequence_diagram} illustrates these interactions.
 
-\subsection{ML Pipeline Router (MLManager)}
-\label{subsec:mlmanager}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{assets/diagrams/sequence_diagram.png}
+\caption{Sequence Diagram of the NABTA Platform}
+\label{fig:sequence_diagram}
+\end{figure}
 
-The \code{MLManager} class implements the sequential orchestration logic connecting the three inference models. Each model is loaded into GPU memory at server startup using a singleton pattern to eliminate per-request loading overhead. The sequential dispatch proceeds as follows:
+The interaction begins when the user uploads a plant image through the React.js frontend. The frontend transmits the image to the FastAPI backend, which performs validation before initiating the AI pipeline.
 
-\begin{enumerate}[leftmargin=*, label=\textbf{Step \arabic*.}]
-  \item \textbf{Detection:} The 640px tensor is passed to the YOLOv8 engine. If no bounding box exceeds the confidence threshold ($\geq 0.25$), an early-exit response is returned.
-  \item \textbf{ROI Crop:} The highest-confidence bounding box coordinates are used to crop the original image. If multiple boxes are returned, the largest-area box is selected.
-  \item \textbf{Segmentation:} The cropped image is resized to 256px and passed to the U-Net engine, returning a binary probability mask. The mask is thresholded at 0.5 and applied to the crop.
-  \item \textbf{Classification:} The masked crop is resized to 224px and passed to the CNN classifier, yielding the softmax probability distribution across 102 classes.
-  \item \textbf{Grad-CAM:} Gradients are computed with respect to the final convolutional layer of the CNN for the predicted class, and the heatmap is composited onto the 224px crop.
-  \item \textbf{Result Assembly:} A \code{PredictionResult} object is constructed and serialised to JSON.
-\end{enumerate}
+The backend sequentially invokes the YOLOv8x detection model, the U-Net segmentation model, and the CNN classifier. Once classification is completed, Grad-CAM generates the explainability visualization and disease severity estimation.
 
+The generated diagnosis is stored in Cloud Firestore, while optional PDF reports are produced upon user request.
+
+When agricultural consultation is requested, the backend retrieves relevant knowledge through the Retrieval-Augmented Generation (RAG) pipeline before forwarding the enriched prompt to the Cohere Large Language Model.
+
+Finally, all generated outputs are returned to the frontend and displayed through the user interface.
+
+%==============================================================================
+\section{Class Diagram}
+\label{sec:class_diagram}
+
+The object-oriented structure of the software system is represented using the UML Class Diagram shown in Figure~\ref{fig:class_diagram}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{assets/diagrams/class_diagram.png}
+\caption{Class Diagram of the NABTA Platform}
+\label{fig:class_diagram}
+\end{figure}
+
+The system is composed of multiple logical classes responsible for user management, plant analysis, disease reports, chatbot interaction, crop recommendation, irrigation prediction, and report generation.
+
+Relationships between these classes improve modularity while supporting future extensibility and maintainability.
+
+Each software component encapsulates its own responsibilities, reducing coupling and improving software quality.
+
+%==============================================================================
+\section{Entity Relationship Diagram}
+\label{sec:erd}
+
+The persistent data used by the NABTA platform are stored in Google Cloud Firestore. Although Firestore is a NoSQL document-oriented database, the logical relationships between the major entities can still be represented using an Entity Relationship Diagram (ERD).
+
+Figure~\ref{fig:erd} illustrates the logical data model adopted in the proposed platform.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.95\textwidth]{assets/diagrams/entity_relationship_diagram.png}
+\caption{Entity Relationship Diagram of the NABTA Platform}
+\label{fig:erd}
+\end{figure}
+
+The database is organized around several primary entities that store user information, plant disease analyses, chatbot conversations, recommendation records, and generated reports.
+
+The main entities include:
+
+\begin{itemize}
+
+\item Users
+
+\item Plant Analysis
+
+\item Disease Reports
+
+\item Chat History
+
+\item Crop Recommendations
+
+\item Irrigation Records
+
+\item PDF Reports
+
+\item Custom Dataset
+
+\end{itemize}
+
+Each authenticated user may own multiple disease analyses, recommendation records, chatbot conversations, and generated reports, allowing the platform to maintain a complete history of agricultural activities.
+
+The document-oriented design of Cloud Firestore provides high scalability, low latency, and seamless synchronization with the frontend application.
+
+%==============================================================================
 \section{Database Design}
-\label{sec:db_design}
+\label{sec:database_design}
 
-\subsection{Firestore Document Schema}
-\label{subsec:firestore}
+The NABTA platform utilizes Firebase Cloud Firestore as its primary cloud database. Firestore stores information as collections of JSON-like documents, enabling flexible schema evolution while supporting real-time synchronization.
 
-\nabta uses \textbf{Google Cloud Firestore} as its primary operational database, leveraging its real-time synchronisation capabilities and serverless scalability. The Firestore schema is organised into the following top-level collections:
-
-\begin{table}[H]
-  \centering
-  \caption{Firestore Collection Schema}
-  \label{tab:firestore}
-  \footnotesize
-  \renewcommand{\arraystretch}{1.28}
-  \begin{tabularx}{\textwidth}{|L{3.1cm}|Y|L{3.1cm}|}
-    \hline
-    \textbf{Collection} & \textbf{Key Fields} & \textbf{Subcollections} \\
-    \hline
-    \texttt{users}          & \code{uid}, \code{email}, \code{displayName}, \code{tier}, \code{createdAt} & \texttt{analyses}, \texttt{chatHistory} \\
-    \hline
-    \texttt{analyses}       & \code{analysisId}, \code{userId}, \code{imageUrl}, \code{classLabel}, \code{confidence}, \code{gradcamUrl}, \code{maskUrl}, \code{timestamp} & --- \\
-    \hline
-    \makecell[l]{\texttt{chat}\\\texttt{History}}    & \code{messageId}, \code{userId}, \code{role}, \code{content}, \code{timestamp} & --- \\
-    \hline
-    \makecell[l]{\texttt{subscriptions}}  & \code{userId}, \code{tier}, \code{startDate}, \code{expiryDate}, \code{paymentRef} & --- \\
-    \hline
-    \makecell[l]{\texttt{irrigation}\\\texttt{Records}} & \code{recordId}, \code{userId}, \code{cropType}, \code{soilType}, \code{soilMoisture}, \code{temperature}, \code{decision}, \code{waterAmountMm}, \code{createdAt} & --- \\
-    \hline
-    \makecell[l]{\texttt{crop}\\\texttt{Recommendations}} & \code{recId}, \code{userId}, \code{soilType}, \code{nVal}, \code{pVal}, \code{kVal}, \code{topCrop1}, \code{topCrop2}, \code{topCrop3}, \code{createdAt} & --- \\
-    \hline
-  \end{tabularx}
-\end{table}
-
-\subsection{Vector Database Schema}
-\label{subsec:vector_db}
-
-The \gls{rag} knowledge base is indexed in a vector database. Each document record contains the following fields: \code{doc\_id} (unique identifier), \code{content} (raw text of the agronomic document), \code{embedding} (1024-dimensional float array produced by the Cohere embed model), \code{category} (disease class or topic tag), and \code{source} (citation reference for traceability).
-
-\section{API Specification}
-\label{sec:api_spec}
+The major collections implemented in the platform are summarized in Table~\ref{tab:firestore_collections}.
 
 \begin{table}[H]
-  \centering
-  \caption{NABTA REST API Endpoint Reference}
-  \label{tab:api_endpoints}
-  \footnotesize
-  \setlength{\tabcolsep}{4pt}
-  \renewcommand{\arraystretch}{1.28}
-  \begin{tabularx}{\textwidth}{|C{1.4cm}|L{4.3cm}|C{1.8cm}|Y|}
-    \hline
-    \textbf{Method} & \textbf{Endpoint} & \textbf{Auth} & \textbf{Description} \\
-    \hline
-    POST & \texttt{/analyze/upload} & JWT & Accepts an image and returns the pipeline result as JSON \\
-    \hline
-    GET & \texttt{/analyze/\{id\}} & JWT & Retrieves an analysis by identifier \\
-    \hline
-    POST & \texttt{/chat/query} & JWT & Returns a RAG-augmented response to a user query \\
-    \hline
-    POST & \texttt{/predict} & JWT & Returns irrigation decision and recommended water amount from soil, crop, and weather inputs \\
-    \hline
-    POST & \texttt{/get\_recommendation} & JWT & Returns top-3 crop recommendations with confidence values from NPK, soil, and city inputs \\
-    \hline
-    GET & \texttt{/history/} & JWT & Returns the user's paginated analysis history \\
-    \hline
-    GET & \texttt{/report/\{id\}} & JWT & Generates and streams a PDF analysis report \\
-    \hline
-    POST & \texttt{/auth/verify} & JWT & Validates a Firebase token and returns the user profile \\
-    \hline
-    POST & \texttt{/admin/user/\{uid\}} & Admin JWT & Updates a user's tier or account status \\
-    \hline
-    GET & \texttt{/admin/health} & Admin JWT & Returns CPU, GPU-memory, and model-health metrics \\
-    \hline
-  \end{tabularx}
+\centering
+\caption{Firestore Collections}
+\label{tab:firestore_collections}
+\renewcommand{\arraystretch}{1.35}
+
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{4cm}X}
+
+\toprule
+
+\textbf{Collection} &
+\textbf{Description}
+
+\\
+
+\midrule
+
+Users &
+Stores user account information, authentication identifiers, profile details, and subscription information.
+
+\\
+
+PlantAnalysis &
+Stores uploaded images, disease predictions, confidence scores, Grad-CAM visualizations, and disease severity estimations.
+
+\\
+
+DiseaseReports &
+Stores generated disease diagnosis reports and treatment recommendations.
+
+\\
+
+ChatHistory &
+Stores conversations between users and the AI agricultural assistant.
+
+\\
+
+CropRecommendations &
+Stores crop recommendation requests together with predicted crops and confidence values.
+
+\\
+
+IrrigationRecords &
+Stores irrigation prediction requests, irrigation decisions, and estimated crop water requirements.
+
+\\
+
+PDFReports &
+Stores metadata associated with generated PDF reports.
+
+\\
+
+CustomDataset &
+Stores administrator-managed agricultural knowledge and user-defined records.
+
+\\
+
+\bottomrule
+
+\end{tabularx}
+
 \end{table}
 
+Each document is uniquely identified using Firebase-generated document identifiers. Relationships between documents are maintained using user identifiers and analysis identifiers, enabling efficient retrieval of historical records without introducing unnecessary data duplication.
+
+The adopted database design supports horizontal scalability while maintaining high availability and low response latency.
+
+%==============================================================================
+\subsection{Database Relationships}
+
+Although Firestore is a document-oriented database, logical relationships exist between the stored collections.
+
+A single user may perform multiple plant analyses, generate multiple PDF reports, communicate with the AI assistant several times, and request both irrigation and crop recommendations.
+
+The principal relationships are summarized below:
+
+\begin{itemize}
+
+\item One User $\rightarrow$ Many Plant Analysis Records
+
+\item One User $\rightarrow$ Many Disease Reports
+
+\item One User $\rightarrow$ Many Chat Conversations
+
+\item One User $\rightarrow$ Many Crop Recommendations
+
+\item One User $\rightarrow$ Many Irrigation Records
+
+\item One User $\rightarrow$ Many PDF Reports
+
+\end{itemize}
+
+This logical organization simplifies historical record retrieval while maintaining data consistency throughout the platform.
+
+%==============================================================================
+\section{Component Diagram}
+\label{sec:component_diagram}
+
+The Component Diagram illustrates the modular organization of the NABTA platform and the interactions among its major software components.
+
+Figure~\ref{fig:component_diagram} presents the component architecture adopted in the proposed system.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{assets/diagrams/component_diagram.jpeg}
+\caption{Component Diagram of the NABTA Platform}
+\label{fig:component_diagram}
+\end{figure}
+
+The platform consists of several independent but interconnected software components, each responsible for a specific functionality.
+
+The major components include:
+
+\begin{itemize}
+
+\item React.js Frontend
+
+\item FastAPI Backend
+
+\item Authentication Service
+
+\item Plant Disease Analysis Service
+
+\item YOLOv8x Detection Service
+
+\item U-Net Segmentation Service
+
+\item CNN Classification Service
+
+\item Grad-CAM Explainability Service
+
+\item Crop Recommendation Service
+
+\item Irrigation Recommendation Service
+
+\item AI Assistant Service
+
+\item PDF Report Generator
+
+\item Firebase Cloud Services
+
+\item Cloud Firestore Database
+
+\end{itemize}
+
+The modular architecture allows every component to operate independently while communicating through RESTful APIs. Such separation simplifies future maintenance, testing, and deployment.
+
+%==============================================================================
+\section{Deployment Diagram}
+\label{sec:deployment}
+
+The Deployment Diagram illustrates how software components are distributed across cloud infrastructure and client devices.
+
+Figure~\ref{fig:deployment_diagram} presents the deployment architecture of NABTA.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{assets/diagrams/deployment_diagram.jpeg}
+\caption{Deployment Diagram of the NABTA Platform}
+\label{fig:deployment_diagram}
+\end{figure}
+
+The deployment architecture consists of four major nodes:
+
+\begin{enumerate}
+
+\item Client Device
+
+\item Frontend Server
+
+\item Backend Server
+
+\item Cloud Services
+
+\end{enumerate}
+
+Users access the platform through modern web browsers. The React.js application communicates with the FastAPI backend using HTTPS requests.
+
+The backend performs AI inference by invoking the deployed computer vision and machine learning models. Firebase Authentication verifies user identities, while Cloud Firestore stores persistent application data.
+
+The Cohere API is responsible for generating intelligent conversational responses through the Retrieval-Augmented Generation (RAG) pipeline, whereas Hugging Face hosts the deployed deep learning inference services.
+
+This deployment strategy provides scalability, security, and efficient resource utilization.
+
+%==============================================================================
+\section{REST API Design}
+\label{sec:api_design}
+
+Communication between the frontend application and backend services is performed through RESTful APIs implemented using FastAPI.
+
+Each API endpoint performs a dedicated task while exchanging data in JSON format.
+
+Table~\ref{tab:api_endpoints} summarizes the principal REST API endpoints implemented in the NABTA platform.
+
+\begin{table}[H]
+\centering
+\caption{Main REST API Endpoints}
+\label{tab:api_endpoints}
+\renewcommand{\arraystretch}{1.35}
+
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{3cm}X}
+
+\toprule
+
+\textbf{Endpoint} &
+\textbf{Method} &
+\textbf{Purpose}
+
+\\
+
+\midrule
+
+/api/detect &
+POST &
+Detect infected leaf using YOLOv8x.
+
+\\
+
+/api/segment &
+POST &
+Generate the leaf segmentation mask.
+
+\\
+
+/api/classify &
+POST &
+Predict plant species and disease class.
+
+\\
+
+/api/analyze &
+POST &
+Execute the complete AI analysis pipeline.
+
+\\
+
+/api/chat &
+POST &
+Generate AI agricultural consultation.
+
+\\
+
+/api/crop-recommendation &
+POST &
+Recommend suitable crops.
+
+\\
+
+/api/irrigation &
+POST &
+Predict irrigation decision.
+
+\\
+
+/api/water-requirement &
+POST &
+Estimate crop water requirement.
+
+\\
+
+/api/report &
+POST &
+Generate PDF disease reports.
+
+\\
+
+/api/history &
+GET &
+Retrieve previous analysis records.
+
+\\
+
+/api/profile &
+GET &
+Retrieve user profile information.
+
+\\
+
+\bottomrule
+
+\end{tabularx}
+
+\end{table}
+
+The REST architecture enables loose coupling between the frontend and backend while allowing individual services to evolve independently. FastAPI automatically generates OpenAPI documentation, simplifying API testing and future integration with external applications.
+
+%==============================================================================
 \section{Security Architecture}
 \label{sec:security}
 
-The \nabta security posture is implemented through a defence-in-depth strategy comprising multiple independent layers:
+Security represents one of the fundamental design considerations of the NABTA platform. Since the system processes user accounts, uploaded plant images, historical records, and artificial intelligence services, multiple security mechanisms were incorporated throughout the system architecture.
 
-\subsection{Authentication and Authorisation}
-\label{subsec:auth_sec}
+The proposed security framework consists of several complementary layers that collectively protect user information, backend services, and cloud resources.
 
-All user identity management is delegated to \textbf{Firebase Authentication}, which provides industry-standard OAuth 2.0 flows, encrypted credential storage, and brute-force protection. Upon successful authentication, Firebase issues a signed \gls{jwt} with a one-hour expiry. This token is transmitted in the \code{Authorization: Bearer} header of all API requests and verified by the FastAPI middleware layer using the Firebase Admin SDK before any protected handler is invoked.
+\subsection{Authentication and Authorization}
 
-\subsection{Transport Security}
-\label{subsec:transport_sec}
+User authentication is managed through Firebase Authentication using secure email and password credentials.
 
-All client-server communication is mandated to occur over \textbf{HTTPS} with TLS 1.2 or higher. HTTP-to-HTTPS redirection is enforced at the reverse proxy layer (Nginx). \gls{hsts} headers are set to prevent protocol downgrade attacks.
+After successful authentication, Firebase generates a JSON Web Token (JWT) that accompanies every protected request sent to the backend. The FastAPI server validates this token before granting access to secured endpoints, ensuring that only authenticated users can utilize protected platform services.
 
-\subsection{API Key Management}
-\label{subsec:key_sec}
+Role-based authorization is also supported, allowing administrators to access management functions while restricting regular users to their own resources.
 
-Third-party API keys (Cohere API key, Firebase service account credentials) are stored exclusively as environment variables injected at deployment time. No API keys are committed to version control or transmitted to the frontend. The \code{python-dotenv} library is used for local development environment management.
+\subsection{Secure API Communication}
 
-\subsection{Input Validation}
-\label{subsec:input_sec}
+All communication between the frontend and backend is performed through HTTPS using encrypted TLS connections.
 
-All incoming file uploads are validated for MIME type, file extension, and size before processing. Pydantic model validation enforces strict schema conformance on all JSON request bodies, rejecting malformed or unexpected fields with structured error responses.
+The backend validates every incoming request before processing, including:
+
+\begin{itemize}
+
+\item Authentication token verification.
+
+\item Uploaded image validation.
+
+\item Input parameter validation.
+
+\item File type verification.
+
+\item Request size limitation.
+
+\end{itemize}
+
+These validation mechanisms reduce the risk of malformed requests and unauthorized access.
+
+\subsection{API Key Protection}
+
+Sensitive credentials such as the Cohere API key, Firebase configuration, and external service tokens are never embedded directly within the frontend application.
+
+Instead, all confidential information is stored securely using environment variables on the backend server. This prevents accidental exposure of credentials while simplifying deployment across different environments.
+
+\subsection{Cloud Security}
+
+Firebase Authentication and Cloud Firestore implement multiple built-in security mechanisms including encrypted communication, access control rules, and user-based authorization.
+
+Firestore security rules ensure that users can access only their own analysis records, generated reports, and chatbot conversations.
+
+These cloud-level protections significantly improve overall platform security without increasing implementation complexity.
+
+%==============================================================================
+\section{Design Principles}
+\label{sec:design_principles}
+
+Several software engineering principles guided the design of the proposed NABTA platform.
+
+\begin{itemize}
+
+\item \textbf{Modularity}
+
+Each intelligent component operates as an independent service with clearly defined responsibilities.
+
+\item \textbf{Scalability}
+
+The architecture allows additional artificial intelligence models or cloud services to be integrated without major structural modifications.
+
+\item \textbf{Maintainability}
+
+Independent software modules simplify debugging, testing, maintenance, and future system upgrades.
+
+\item \textbf{Reusability}
+
+Reusable frontend components and backend APIs reduce software duplication while improving development efficiency.
+
+\item \textbf{Loose Coupling}
+
+RESTful communication minimizes dependencies between the frontend, backend, artificial intelligence models, and cloud services.
+
+\item \textbf{High Cohesion}
+
+Each module performs one primary responsibility, resulting in improved software quality and readability.
+
+\end{itemize}
+
+Applying these principles resulted in a flexible architecture capable of supporting future expansion while maintaining high software quality.
+
+%==============================================================================
+\section{Design Decisions}
+\label{sec:design_decisions}
+
+Several important architectural decisions were made during the development of NABTA.
+
+React.js was selected for frontend development because of its component-based architecture, excellent performance, and extensive ecosystem.
+
+FastAPI was adopted as the backend framework due to its asynchronous request handling, automatic API documentation, and high inference performance.
+
+YOLOv8x was selected for object detection because it achieved superior localization accuracy compared with smaller YOLO variants.
+
+U-Net with an EfficientNet-B0 encoder was chosen for semantic segmentation because it provides an excellent balance between segmentation accuracy and computational efficiency.
+
+The disease classification module employs a custom CNN specifically designed for large-scale plant disease recognition across 102 classes.
+
+Random Forest was selected for crop recommendation and irrigation prediction because it demonstrated strong predictive performance, robustness against overfitting, and excellent generalization capability.
+
+Firebase provides authentication, cloud storage, and backend services, while Cohere and Retrieval-Augmented Generation enable intelligent agricultural consultation with improved factual consistency.
+
+Collectively, these design decisions resulted in a scalable, maintainable, and production-ready smart agriculture platform.
+
+%==============================================================================
+\section{Chapter Summary}
+\label{sec:chapter4_summary}
+
+This chapter presented the complete architectural design of the NABTA smart agriculture platform.
+
+The overall system architecture, execution workflow, UML diagrams, database structure, deployment strategy, REST API architecture, and security mechanisms were discussed in detail. Furthermore, the chapter described the software engineering principles and architectural decisions that guided the implementation of the platform.
+
+The proposed design provides a modular, scalable, secure, and maintainable foundation that supports the integration of multiple artificial intelligence models within a unified web-based application.
+
+The following chapter presents the implementation details of the developed system, including the frontend interfaces, backend services, artificial intelligence integration, cloud deployment, and user interaction.

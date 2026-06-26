@@ -1,0 +1,1351 @@
+# ============================================================
+# NABTA Graduation Project - Full Academic Thesis Review
+# ============================================================
+
+You are an expert AI researcher, software engineering professor, IEEE paper reviewer, LaTeX specialist, and graduation project examiner.
+
+You are reviewing my COMPLETE graduation thesis for an AI-powered Smart Agriculture Platform called:
+
+NABTA
+
+Your task is NOT to summarize the report.
+
+Your task is NOT to answer questions.
+
+Your task is to completely review, improve, and finalize the thesis exactly as a university supervisor and external examiner would before the final defense.
+
+============================================================
+PRIMARY OBJECTIVE
+============================================================
+
+Review the ENTIRE LaTeX project.
+
+Inspect every chapter.
+
+Inspect every appendix.
+
+Inspect every figure.
+
+Inspect every table.
+
+Inspect every citation.
+
+Inspect every bibliography entry.
+
+Inspect every glossary item.
+
+Inspect every abbreviation.
+
+Inspect every equation.
+
+Inspect every algorithm.
+
+Inspect every diagram.
+
+Inspect every cross-reference.
+
+Inspect every caption.
+
+Inspect every page.
+
+The final report must be ready for direct university submission.
+
+============================================================
+GENERAL RULES
+============================================================
+
+Do NOT rewrite the report from scratch.
+
+Do NOT change the project idea.
+
+Do NOT change any experimental results.
+
+Do NOT invent metrics.
+
+Do NOT invent datasets.
+
+Do NOT invent references.
+
+Only improve the report while preserving the technical correctness.
+
+============================================================
+ACADEMIC WRITING
+============================================================
+
+Rewrite weak English.
+
+Correct grammar.
+
+Correct punctuation.
+
+Improve sentence flow.
+
+Use professional academic English.
+
+Follow IEEE / Springer writing style.
+
+Avoid repetitive wording.
+
+Avoid marketing language.
+
+Avoid exaggerated claims.
+
+Avoid first-person writing unless already required by the university template.
+
+Prefer passive voice whenever appropriate.
+
+Maintain consistent terminology throughout the report.
+
+For example always use:
+
+Plant Disease Classification
+
+instead of mixing
+
+Disease Classification
+
+Leaf Classification
+
+Plant Classification
+
+Image Classification
+
+unless technically necessary.
+
+Likewise always use
+
+Crop Recommendation
+
+Irrigation Recommendation
+
+Plant Disease Analysis
+
+Semantic Segmentation
+
+Object Detection
+
+Grad-CAM Visualization
+
+Prediction Confidence
+
+Disease Severity Estimation
+
+Use the exact same terminology everywhere.
+
+============================================================
+TECHNICAL CONSISTENCY
+============================================================
+
+Verify that every chapter uses exactly the same numbers.
+
+For example,
+
+102 Classes
+
+must remain
+
+102 Classes
+
+everywhere.
+
+120,000+ Images
+
+must remain identical throughout the report.
+
+YOLO metrics
+
+must match Results chapter.
+
+CNN accuracy
+
+must match Results chapter.
+
+U-Net IoU
+
+must match Results chapter.
+
+Crop Recommendation Accuracy
+
+must match Results chapter.
+
+Irrigation Accuracy
+
+must match Results chapter.
+
+Random Forest metrics
+
+must match Results chapter.
+
+If any inconsistency exists,
+
+correct it automatically.
+
+============================================================
+CHAPTER REVIEW
+============================================================
+
+Review every chapter.
+
+Chapter 1
+
+Introduction
+
+Review:
+
+grammar
+
+citations
+
+motivation
+
+problem statement
+
+objectives
+
+contributions
+
+report organization
+
+------------------------------------------------
+
+Chapter 2
+
+Literature Review
+
+Verify:
+
+logical flow
+
+comparison tables
+
+citations
+
+references
+
+technical accuracy
+
+research gaps
+
+------------------------------------------------
+
+Chapter 3
+
+Methodology
+
+Verify:
+
+dataset description
+
+preprocessing
+
+YOLO pipeline
+
+U-Net pipeline
+
+CNN pipeline
+
+Grad-CAM methodology
+
+Crop Recommendation methodology
+
+Irrigation methodology
+
+AI Assistant
+
+RAG
+
+System workflow
+
+============================================================
+IMPORTANT
+============================================================
+
+DO NOT explain what you changed.
+
+Modify the LaTeX source directly.
+
+Preserve all formatting.
+
+Preserve chapter numbering.
+
+Only improve quality and correctness.
+
+============================================================
+CHAPTER REVIEW (Continued)
+============================================================
+
+Chapter 4
+
+System Design
+
+Review every section carefully.
+
+Verify:
+
+Overall System Architecture
+
+System Workflow
+
+Use Case Diagram
+
+Activity Diagram
+
+Sequence Diagram
+
+Class Diagram
+
+Entity Relationship Diagram
+
+Database Design
+
+Component Diagram
+
+Deployment Diagram
+
+REST API Design
+
+Security Architecture
+
+Design Principles
+
+Design Decisions
+
+Chapter Summary
+
+Ensure every figure is referenced before it appears.
+
+Ensure every figure has:
+
+\caption{}
+
+\label{}
+
+Ensure every label is unique.
+
+------------------------------------------------------------
+
+Chapter 5
+
+Implementation
+
+Review:
+
+Frontend Implementation
+
+Backend Implementation
+
+Authentication
+
+Plant Analysis Module
+
+YOLO Integration
+
+U-Net Integration
+
+CNN Integration
+
+Grad-CAM Integration
+
+Crop Recommendation
+
+Irrigation Recommendation
+
+AI Assistant
+
+Database Integration
+
+Cloud Services
+
+PDF Generation
+
+Dashboard
+
+History Module
+
+Analytics Module
+
+User Management
+
+Implementation details should match the actual source code.
+
+------------------------------------------------------------
+
+Chapter 6
+
+Results and Discussion
+
+Review:
+
+Experimental setup
+
+Hardware specifications
+
+Software versions
+
+Training configuration
+
+Evaluation metrics
+
+Detection Results
+
+Segmentation Results
+
+Classification Results
+
+Crop Recommendation Results
+
+Irrigation Results
+
+Comparison Tables
+
+Discussion
+
+Limitations
+
+Verify that every metric matches the actual experiments.
+
+Never change any measured result.
+
+------------------------------------------------------------
+
+Chapter 7
+
+Conclusion and Future Work
+
+Review:
+
+Summary
+
+Research contributions
+
+Limitations
+
+Future improvements
+
+Ensure that every contribution listed here already appears somewhere in the report.
+
+============================================================
+LATEX REVIEW
+============================================================
+
+Review the entire LaTeX project.
+
+Fix:
+
+Overfull hboxes
+
+Underfull hboxes
+
+Undefined references
+
+Undefined citations
+
+Duplicate labels
+
+Broken labels
+
+Broken references
+
+Broken equations
+
+Wrong figure placement
+
+Wrong table placement
+
+Broken hyperlinks
+
+Missing packages
+
+Missing captions
+
+Missing labels
+
+Missing section references
+
+Broken glossary entries
+
+Broken acronym references
+
+Broken bibliography entries
+
+Unused bibliography items
+
+Unused labels
+
+Compilation warnings
+
+Compilation errors
+
+The project must compile successfully without warnings whenever possible.
+
+============================================================
+FIGURES
+============================================================
+
+Review every figure.
+
+Verify:
+
+Correct numbering
+
+Correct caption
+
+Correct label
+
+Correct placement
+
+Correct resolution
+
+Correct references
+
+Every figure must be referenced BEFORE the figure appears.
+
+For example:
+
+Figure~\ref{fig:yolo_architecture}
+
+Never write
+
+"the figure below"
+
+Never write
+
+"the following figure"
+
+Never write
+
+"the image below"
+
+Use only LaTeX references.
+
+============================================================
+TABLES
+============================================================
+
+Review every table.
+
+Verify:
+
+Caption
+
+Label
+
+Formatting
+
+Spacing
+
+Alignment
+
+Numbering
+
+Cross references
+
+No duplicated captions.
+
+No duplicated labels.
+
+Every table must be cited inside the text before appearing.
+
+============================================================
+LIST OF FIGURES
+============================================================
+
+Review the generated List of Figures.
+
+Ensure:
+
+Correct order
+
+Correct numbering
+
+Correct page numbers
+
+No duplicated captions
+
+No missing figures
+
+No empty entries
+
+============================================================
+LIST OF TABLES
+============================================================
+
+Review the generated List of Tables.
+
+Ensure:
+
+Correct numbering
+
+Correct ordering
+
+Correct page numbers
+
+No duplicated entries
+
+No missing tables
+
+============================================================
+CROSS REFERENCES
+============================================================
+
+Review every:
+
+Figure reference
+
+Table reference
+
+Section reference
+
+Chapter reference
+
+Equation reference
+
+Algorithm reference
+
+Appendix reference
+
+Ensure every reference points to the correct object.
+
+============================================================
+SPELLING REVIEW
+============================================================
+
+Correct:
+
+Spelling mistakes
+
+Capitalization
+
+Plural forms
+
+Scientific terminology
+
+British/American English inconsistencies
+
+Maintain one consistent English style throughout the thesis.
+
+============================================================
+REFERENCES AND CITATIONS
+============================================================
+
+This is one of the most important tasks.
+
+Review the ENTIRE thesis.
+
+Every technical statement must be supported by an academic citation.
+
+Whenever any of the following technologies or concepts are mentioned,
+
+insert the proper citation number.
+
+Examples include (but are not limited to):
+
+Artificial Intelligence
+
+Machine Learning
+
+Deep Learning
+
+Computer Vision
+
+Convolutional Neural Networks (CNN)
+
+YOLO
+
+YOLOv8
+
+U-Net
+
+EfficientNet
+
+Grad-CAM
+
+Random Forest
+
+Decision Trees
+
+Image Segmentation
+
+Object Detection
+
+Semantic Segmentation
+
+Transfer Learning
+
+FastAPI
+
+React.js
+
+Firebase
+
+Cloud Firestore
+
+REST API
+
+Retrieval-Augmented Generation (RAG)
+
+Large Language Models
+
+Cohere
+
+Precision Agriculture
+
+Smart Agriculture
+
+Plant Disease Detection
+
+Crop Recommendation
+
+Irrigation Recommendation
+
+Explainable AI (XAI)
+
+Every paragraph discussing these topics should contain one or more citation numbers.
+
+Example:
+
+YOLOv8 has demonstrated state-of-the-art performance for real-time object detection [21].
+
+U-Net is widely adopted for semantic segmentation in biomedical and agricultural image analysis [17].
+
+Random Forest has shown excellent predictive performance for agricultural decision support systems [38].
+
+Never leave technical paragraphs without citations.
+
+============================================================
+BIBLIOGRAPHY
+============================================================
+
+Review the bibliography completely.
+
+Remove duplicate references.
+
+Remove unused references.
+
+Correct author names.
+
+Correct publication years.
+
+Correct conference names.
+
+Correct journal names.
+
+Correct capitalization.
+
+Correct DOI fields.
+
+Correct URLs.
+
+Correct BibTeX formatting.
+
+Ensure every citation exists.
+
+Ensure every bibliography entry is cited at least once.
+
+If a required reference does not exist,
+
+create a proper BibTeX entry.
+
+============================================================
+DATASET REFERENCES
+============================================================
+
+The plant disease classification dataset was built by merging the following nine public datasets.
+
+Create proper bibliography entries for each dataset.
+
+Use the following sources.
+
+Dataset 1
+
+PlantVillage
+
+https://www.kaggle.com/datasets/mohitsingh1804/plantvillage
+
+------------------------------------------------------------
+
+Dataset 2
+
+Plant Diseases Training Dataset
+
+https://www.kaggle.com/datasets/nirmalsankalana/plant-diseases-training-dataset
+
+------------------------------------------------------------
+
+Dataset 3
+
+Bangladesh Plant Disease Dataset
+
+https://data.mendeley.com/datasets/n67gctmjyj/3
+
+------------------------------------------------------------
+
+Dataset 4
+
+Eggplant Leaf Disease Dataset
+
+https://www.kaggle.com/datasets/researchforus/eggplant-leaf-disease-dataset
+
+------------------------------------------------------------
+
+Dataset 5
+
+Eggplant Disease Dataset (Mendeley)
+
+https://data.mendeley.com/datasets/pvsv534ccg/1
+
+------------------------------------------------------------
+
+Dataset 6
+
+Rice Leaf Diseases Dataset
+
+https://www.kaggle.com/datasets/vbookshelf/rice-leaf-diseases
+
+------------------------------------------------------------
+
+Dataset 7
+
+Cotton Disease Dataset
+
+https://www.kaggle.com/datasets/janmejaybhoi/cotton-disease-dataset
+
+------------------------------------------------------------
+
+Dataset 8
+
+Mango Leaf Disease Dataset
+
+https://www.kaggle.com/datasets/aryashah2k/mango-leaf-disease-dataset
+
+------------------------------------------------------------
+
+Dataset 9
+
+Ricey Leaf Disease Dataset
+
+https://data.mendeley.com/datasets/t46kkgh2yw/1
+
+============================================================
+APPENDIX
+============================================================
+
+After the References section,
+
+create
+
+\appendix
+
+Create
+
+Appendix A
+
+Dataset Details and Class Taxonomy
+
+------------------------------------------------------------
+
+Section A.1
+
+Dataset Sources
+
+Describe every dataset.
+
+Create a professional LaTeX table containing
+
+Dataset Name
+
+Source
+
+Description
+
+Reference Number
+
+Access Link
+
+Use citations for every dataset.
+
+------------------------------------------------------------
+
+Section A.2
+
+Class Distribution
+
+Create a table showing
+
+Plant Species
+
+Healthy Classes
+
+Disease Classes
+
+Total Classes
+
+Then explain the class distribution.
+
+============================================================
+CLASS MAPPING
+============================================================
+
+I will provide a Python dictionary named
+
+CLASS_MAPPING
+
+containing all 102 output classes.
+
+DO NOT include the Python code inside the report.
+
+Instead,
+
+convert it into professional LaTeX tables.
+
+Group the classes by plant species.
+
+CLASS_MAPPING = {
+0:  "Apple - Apple Scab",
+1:  "Apple - Black Rot",
+2:  "Apple - Cedar Apple Rust",
+3:  "Apple - Alternaria Leaf Spot",
+4:  "Apple - Brown Spot",
+5:  "Apple - Gray Spot",
+6:  "Apple - Healthy",
+
+7:  "Bitter Gourd - Downy Mildew",
+8:  "Bitter Gourd - Fusarium Wilt",
+9:  "Bitter Gourd - Healthy",
+10: "Bitter Gourd - Mosaic Virus",
+
+11: "Blueberry - Healthy",
+
+12: "Bottle Gourd - Anthracnose",
+13: "Bottle Gourd - Downy Mildew",
+14: "Bottle Gourd - Healthy",
+
+15: "Cassava - Brown Streak Disease",
+16: "Cassava - Green Mottle",
+17: "Cassava - Healthy",
+18: "Cassava - Mosaic Disease",
+
+19: "Cauliflower - Black Rot",
+20: "Cauliflower - Downy Mildew",
+21: "Cauliflower - Healthy",
+
+22: "Cherry (Including Sour) - Powdery Mildew",
+23: "Cherry (Including Sour) - Healthy",
+
+24: "Coffee - Healthy",
+25: "Coffee - Rust",
+
+26: "Corn (Maize) - Cercospora Leaf Spot (Gray Leaf Spot)",
+27: "Corn (Maize) - Common Rust",
+28: "Corn (Maize) - Northern Leaf Blight",
+29: "Corn (Maize) - Healthy",
+
+30: "Cotton - Diseased Leaf",
+31: "Cotton - Healthy Leaf",
+
+32: "Cucumber - Anthracnose",
+33: "Cucumber - Downy Mildew",
+34: "Cucumber - Healthy",
+
+35: "Eggplant - Cercospora Leaf Spot",
+36: "Eggplant - Hadda Beetles",
+37: "Eggplant - Healthy",
+38: "Eggplant - Insect Pest Disease",
+39: "Eggplant - Leaf Spot",
+40: "Eggplant - Mosaic Virus",
+41: "Eggplant - Phomopsis Blight",
+42: "Eggplant - Tobacco Caterpillar",
+43: "Eggplant - Wilt",
+
+44: "Grape - Black Rot",
+45: "Grape - Esca (Black Measles)",
+46: "Grape - Leaf Blight (Isariopsis Leaf Spot)",
+47: "Grape - Healthy",
+
+48: "Mango - Anthracnose",
+49: "Mango - Bacterial Canker",
+50: "Mango - Cutting Weevil",
+51: "Mango - Die Back",
+52: "Mango - Gall Midge",
+53: "Mango - Healthy",
+54: "Mango - Powdery Mildew",
+55: "Mango - Sooty Mould",
+
+56: "Orange - Huanglongbing (Citrus Greening)",
+
+57: "Peach - Bacterial Spot",
+58: "Peach - Healthy",
+
+59: "Pepper (Bell) - Bacterial Spot",
+60: "Pepper (Bell) - Healthy",
+
+61: "Potato - Early Blight",
+62: "Potato - Late Blight",
+63: "Potato - Bacterial Wilt",
+64: "Potato - Healthy",
+65: "Potato - Leafroll Virus",
+66: "Potato - Mosaic Virus",
+67: "Potato - Pests",
+68: "Potato - Phytophthora",
+
+69: "Raspberry - Healthy",
+
+70: "Rice - Bacterial Blight",
+71: "Rice - Blast",
+72: "Rice - Brown Spot",
+73: "Rice - Healthy",
+74: "Rice - Leaf Scald",
+75: "Rice - Leaf Smut",
+76: "Rice - Narrow Brown Leaf Spot",
+77: "Rice - Rice Hispa",
+78: "Rice - Sheath Blight",
+79: "Rice - Tungro",
+
+80: "Rose - Healthy",
+81: "Rose - Rust",
+82: "Rose - Slug Sawfly",
+
+83: "Soybean - Healthy",
+
+84: "Squash - Powdery Mildew",
+
+85: "Strawberry - Leaf Scorch",
+86: "Strawberry - Healthy",
+
+87: "Tomato - Bacterial Spot",
+88: "Tomato - Early Blight",
+89: "Tomato - Late Blight",
+90: "Tomato - Leaf Mold",
+91: "Tomato - Septoria Leaf Spot",
+92: "Tomato - Spider Mites (Two-Spotted Spider Mite)",
+93: "Tomato - Target Spot",
+94: "Tomato - Tomato Yellow Leaf Curl Virus",
+95: "Tomato - Tomato Mosaic Virus",
+96: "Tomato - Healthy",
+97: "Tomato - Spotted Wilt",
+
+98:  "Watermelon - Anthracnose",
+99:  "Watermelon - Downy Mildew",
+100: "Watermelon - Healthy",
+101: "Watermelon - Mosaic Virus"
+}
+
+Continue until all 102 classes are included.
+
+Use longtable so the table automatically spans multiple pages.
+
+Do not truncate any class.
+
+Include all 102 classes.
+
+============================================================
+IMPORTANT
+============================================================
+
+After I provide the CLASS_MAPPING dictionary,
+
+automatically generate all Appendix tables.
+
+Do not ask for confirmation.
+
+Do not output Python code.
+
+Only output clean academic LaTeX.
+
+============================================================
+CLASS MAPPING INPUT
+============================================================
+
+After this prompt, I will provide a Python dictionary named:
+
+CLASS_MAPPING
+
+This dictionary contains the complete mapping between the model output indices and the 102 prediction classes.
+
+Read the dictionary completely.
+
+Automatically determine:
+
+• Plant species
+
+• Healthy classes
+
+• Disease classes
+
+• Number of diseases per plant
+
+• Total number of classes
+
+Generate professional LaTeX tables grouped by plant species.
+
+Do NOT include the Python code inside the report.
+
+Do NOT mention Python.
+
+Do NOT mention dictionaries.
+
+Convert everything into academic tables.
+
+Use:
+
+longtable
+
+or
+
+tabularx
+
+depending on the report style.
+
+============================================================
+APPENDIX QUALITY
+============================================================
+
+The appendix must look like a professional IEEE / Springer thesis.
+
+Use proper chapter titles.
+
+Use proper section titles.
+
+Use professional captions.
+
+Every table must have
+
+\caption
+
+\label
+
+Every table must be referenced from the text.
+
+Maintain exactly the same formatting used in the rest of the thesis.
+
+============================================================
+LIST OF FIGURES
+============================================================
+
+Review the List of Figures.
+
+Verify:
+
+Correct numbering.
+
+Correct ordering.
+
+Correct page numbers.
+
+No duplicated entries.
+
+No empty captions.
+
+No missing figures.
+
+Every figure in the report must appear exactly once in the List of Figures.
+
+============================================================
+LIST OF TABLES
+============================================================
+
+Review the List of Tables.
+
+Verify:
+
+Correct numbering.
+
+Correct ordering.
+
+Correct page numbers.
+
+No duplicated tables.
+
+No missing tables.
+
+Every table must appear exactly once.
+
+============================================================
+FINAL CONSISTENCY CHECK
+============================================================
+
+Perform a complete consistency review of the entire thesis.
+
+Verify that:
+
+The Abstract matches the final implementation.
+
+The Introduction matches the project objectives.
+
+The Literature Review supports the chosen methods.
+
+The Methodology matches the implementation.
+
+The System Design matches the implementation.
+
+The Results chapter contains the correct experimental values.
+
+The Conclusion accurately summarizes the achieved work.
+
+The Future Work is realistic and technically consistent.
+
+============================================================
+NUMERICAL CONSISTENCY
+============================================================
+
+Check every reported number.
+
+Examples include:
+
+102 classes
+
+120,000+ images
+
+YOLO Precision
+
+YOLO Recall
+
+YOLO mAP@50
+
+YOLO mAP@50-95
+
+CNN Accuracy
+
+U-Net IoU
+
+Crop Recommendation Accuracy
+
+Crop Recommendation Precision
+
+Crop Recommendation Recall
+
+Crop Recommendation F1-score
+
+Cross-validation Accuracy
+
+Irrigation Decision Accuracy
+
+Water Requirement R²
+
+MAE
+
+Ensure the same values appear consistently throughout:
+
+Abstract
+
+Methodology
+
+Implementation
+
+Results
+
+Conclusion
+
+Appendix
+
+Correct any inconsistency automatically.
+
+============================================================
+LATEX QUALITY
+============================================================
+
+The final project must compile successfully.
+
+Fix:
+
+Missing packages
+
+Broken labels
+
+Broken references
+
+Broken citations
+
+Duplicate labels
+
+Overfull hboxes
+
+Underfull hboxes
+
+Float placement
+
+Caption formatting
+
+Appendix formatting
+
+Bibliography formatting
+
+Glossary formatting
+
+Acronym formatting
+
+============================================================
+DO NOT REMOVE
+============================================================
+
+Do NOT remove:
+
+Figures
+
+Tables
+
+Algorithms
+
+Diagrams
+
+Screenshots
+
+Experimental results
+
+Performance metrics
+
+References
+
+Appendices
+
+unless they are duplicated or clearly incorrect.
+
+============================================================
+FINAL OUTPUT
+============================================================
+
+The final LaTeX project should be suitable for direct submission as a university graduation thesis.
+
+The document should require no further editing.
+
+The English should be publication quality.
+
+The formatting should be consistent across all chapters.
+
+The bibliography should be complete.
+
+The citations should be correct.
+
+The appendix should be professionally organized.
+
+Every figure and table should be correctly referenced.
+
+Every technical statement should be supported by appropriate references.
+
+The final thesis should satisfy the standards of IEEE-style academic writing and be ready for graduation project defense.
+
+============================================================
+FILES PROVIDED
+============================================================
+
+I will provide the following files:
+
+1. Complete LaTeX project.
+
+2. bibliography.bib
+
+3. CLASS_MAPPING.py
+
+4. Dataset information.
+
+5. Figures and diagrams.
+
+6. Screenshots.
+
+Read ALL files before making any modifications.
+
+Never assume missing information.
+
+If additional references are required, add valid BibTeX entries using trusted academic sources only (IEEE, Springer, Elsevier, ACM, Nature, MDPI, CVPR, ICCV, ECCV, arXiv where appropriate).
+
+Preserve all existing experimental results and do not fabricate data.

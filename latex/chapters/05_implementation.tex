@@ -1,368 +1,364 @@
 %==============================================================================
-% CHAPTER 6 --- IMPLEMENTATION
+% CHAPTER 5 --- SYSTEM IMPLEMENTATION
 %==============================================================================
 
-\chapter{Implementation}
+\chapter{System Implementation}
 \label{chap:implementation}
 
-\chapterquote{Make it work, make it right, make it fast---in that order.}{Kent Beck}
+\chapterquote{The best designs are those that successfully become working systems.}{Alan Kay}
 
+%==============================================================================
 \section{Overview}
-\label{sec:impl_overview}
+\label{sec:implementation_overview}
 
-This chapter documents the practical realisation of the system design described in \chapref{chap:design}. It encompasses the selection and justification of the full technology stack, a description of the development environment and tooling, an account of the deployment configuration, and illustrative references to key interface screens. The implementation phase proceeded in three parallel workstreams---AI model development, backend service construction, and frontend application development---coordinated through a shared Git repository and a sprint-based project management workflow.
+This chapter presents the implementation details of the proposed NABTA platform. Following the system methodology presented in Chapter~3 and the architectural design described in Chapter~5, this chapter demonstrates how the proposed solution was transformed into a fully functional smart agriculture platform.
 
-\section{Technology Stack}
-\label{sec:tech_stack}
+The implementation integrates modern web technologies, deep learning models, machine learning algorithms, cloud services, and explainable artificial intelligence within a unified production-ready application. The platform consists of a React.js frontend, a FastAPI backend, multiple AI models for image analysis and agricultural recommendation, Firebase cloud services, and a Retrieval-Augmented Generation (RAG) chatbot powered by the Cohere API.
 
-\subsection{AI and Machine Learning Technologies}
-\label{subsec:ml_tech}
+The implementation workflow follows the same sequence adopted by the deployed system. First, the graphical user interfaces are presented, followed by the backend implementation, AI model integration, cloud services, and finally the complete system workflow.
 
-\begin{table}[H]
-  \centering
-  \caption{AI and Machine Learning Technologies Employed}
-  \label{tab:ml_tech}
-  \renewcommand{\arraystretch}{1.5}
-  \begin{tabularx}{\textwidth}{|L{3.15cm}|L{2.05cm}|Y|}
-    \hline
-    \textbf{Technology} & \textbf{Version} & \textbf{Role} \\
-    \hline
-    Python         & 3.11         & Primary programming language for all ML and backend code \\
-    \hline
-    PyTorch        & 2.1          & Deep learning framework for CNN and U-Net model construction, training, and inference \\
-    \hline
-    Ultralytics    & 8.0          & YOLOv8 model training, export, and inference API \\
-    \hline
-    segmentation-models-pytorch & 0.3 & U-Net architecture with EfficientNet-B0 encoder \\
-    \hline
-    torchvision    & 0.16         & Image transformation pipelines and pretrained weights \\
-    \hline
-    scikit-learn   & 1.4          & Classification, regression, stratified splitting, metric computation, and crop/irrigation modelling \\
-    \hline
-    TensorFlow     & 2.x          & Experimental notebook environment for baseline model prototyping \\
-    \hline
-    Joblib         & 1.x          & Serialisation of classical machine-learning models and preprocessing artefacts \\
-    \hline
-    OpenCV         & 4.9          & Image I/O, colour space conversions, and Grad-CAM overlay compositing \\
-    \hline
-    NumPy          & 1.26         & Numerical array operations throughout the pipeline \\
-    \hline
-    Pandas         & 2.x          & Tabular dataset preparation for irrigation and crop recommendation models \\
-    \hline
-    Pillow         & 10.2         & Image decoding and format conversion \\
-    \hline
-    Matplotlib     & 3.8          & Training curve visualisation and offline evaluation plots \\
-    \hline
-  \end{tabularx}
-\end{table}
+%==============================================================================
+\section{Frontend Implementation}
+\label{sec:frontend}
 
-\subsection{Backend Technologies}
-\label{subsec:be_tech}
+The frontend of NABTA was implemented using React.js as a Single-Page Application (SPA). The interface was designed to provide an intuitive user experience while supporting complex AI functionalities through a modern dashboard-based design.
 
-\begin{table}[H]
-  \centering
-  \caption{Backend Technologies Employed}
-  \label{tab:be_tech}
-  \renewcommand{\arraystretch}{1.5}
-  \begin{tabularx}{\textwidth}{|L{3.15cm}|L{2.05cm}|Y|}
-    \hline
-    \textbf{Technology} & \textbf{Version} & \textbf{Role} \\
-    \hline
-    FastAPI        & 0.111        & Asynchronous REST API framework \\
-    \hline
-    Uvicorn        & 0.29         & ASGI server for running FastAPI in production \\
-    \hline
-    Gunicorn       & 22.0         & Process manager for multi-worker Uvicorn deployments \\
-    \hline
-    Firebase Admin SDK & 6.4    & Server-side JWT token verification and Firestore access \\
-    \hline
-    Cohere    & 5.5     & LLM inference and embedding API calls \\
-    \hline
-    ReportLab      & 4.1          & PDF report generation \\
-    \hline
-    python-dotenv  & 1.0          & Environment variable management \\
-    \hline
-    Requests       & 2.x          & WeatherAPI and external HTTP service integration \\
-    \hline
-  \end{tabularx}
-\end{table}
+Responsive layouts, reusable components, dark/light themes, interactive visualizations, and asynchronous communication with the backend enable users to access all platform services through a unified interface.
 
-\subsection{Frontend Technologies}
-\label{subsec:fe_tech}
+The following subsections present the main user interfaces implemented in the system.
 
-\begin{table}[H]
-  \centering
-  \caption{Frontend Technologies Employed}
-  \label{tab:fe_tech}
-  \renewcommand{\arraystretch}{1.5}
-  \begin{tabularx}{\textwidth}{|L{3.15cm}|L{2.05cm}|Y|}
-    \hline
-    \textbf{Technology} & \textbf{Version} & \textbf{Role} \\
-    \hline
-    React.js          & 18.3  & Component-based SPA framework \\
-    \hline
-    Vite              & 5.2   & Build tooling and hot-module replacement dev server \\
-    \hline
-    Axios             & 1.7   & HTTP client for backend communication \\
-    \hline
-    Firebase JS SDK   & 10.11 & Client-side authentication and Firestore real-time queries \\
-    \hline
-    Recharts          & 2.12  & Disease distribution and infection timeline chart components \\
-    \hline
-    React Dropzone    & 14.2  & Drag-and-drop file upload component \\
-    \hline
-    Tailwind CSS      & 3.4   & Utility-first CSS framework for responsive layout \\
-    \hline
-    i18next           & 23.11 & Internationalisation (Arabic / English) \\
-    \hline
-    React Router      & 6.x   & Client-side route management and protected dashboard navigation \\
-    \hline
-    HTML5 / CSS3 / JavaScript & Current web standards & Page structure, styling, and browser-side interaction logic \\
-    \hline
-  \end{tabularx}
-\end{table}
+%==============================================================================
+\subsection{Home Page}
+\label{subsec:landing}
 
-\subsection{Infrastructure and DevOps}
-\label{subsec:devops_tech}
+The landing page serves as the public entry point to the NABTA platform. It introduces the objectives of the system, highlights the available artificial intelligence services, and provides quick access to authentication and analysis modules.
 
-\begin{table}[H]
-  \centering
-  \caption{Infrastructure and DevOps Technologies}
-  \label{tab:devops_tech}
-  \renewcommand{\arraystretch}{1.5}
-  \begin{tabularx}{\textwidth}{|L{4cm}|Y|}
-    \hline
-    \textbf{Technology} & \textbf{Role} \\
-    \hline
-    Docker \& Docker Compose & Containerisation of backend service and dependencies for reproducible deployment \\
-    \hline
-    Nginx                    & Reverse proxy for HTTPS termination and static file serving \\
-    \hline
-    Firebase Hosting         & CDN-based hosting for the React.js SPA \\
-    \hline
-    Vercel                   & Alternative frontend deployment platform used during testing and preview builds \\
-    \hline
-    Firebase Firestore       & Cloud-hosted NoSQL database for user records, analysis history, and chat history \\
-    \hline
-    Firebase Authentication  & Managed authentication for registration, login, password reset, and secure sessions \\
-    \hline
-    Google Cloud Run         & Serverless container platform for backend deployment \\
-    \hline
-    Git / GitHub             & Version control and collaborative development \\
-    \hline
-    GitHub Actions           & CI/CD pipeline for automated testing and deployment \\
-    \hline
-    Google Colab / Kaggle    & GPU-accelerated model training environment \\
-    \hline
-    WeatherAPI               & External weather service used by irrigation and crop recommendation modules \\
-    \hline
-    Jupyter Notebook         & Model experimentation, data exploration, and training notebook environment \\
-    \hline
-  \end{tabularx}
-\end{table}
-
-\section{Development Environment}
-\label{sec:dev_env}
-
-Model training was performed on cloud GPU platforms (Google Colab Pro+ and Kaggle Notebooks) utilising NVIDIA A100 and T4 GPUs with 16GB and 40GB of VRAM respectively. The classification CNN training run of 100 epochs on the 116,000-image corpus required approximately 14 hours of wall-clock time on an A100 instance. U-Net training completed in approximately 4 hours, and YOLOv8 fine-tuning in approximately 2 hours.
-
-Local development was conducted on workstations running Ubuntu 22.04 and Windows 11 with Python 3.11 virtual environments. The backend was developed using \textbf{VS Code} with the Pylance language server and the REST Client extension for endpoint testing. Frontend development used VS Code with the ESLint and Prettier extensions to enforce code style consistency.
-
-\begin{table}[H]
-  \centering
-  \caption{Development Environment Summary}
-  \label{tab:dev_env_summary}
-  \renewcommand{\arraystretch}{1.35}
-  \begin{tabularx}{\textwidth}{|L{4cm}|Y|}
-    \hline
-    \textbf{Category} & \textbf{Environment Details} \\
-    \hline
-    Hardware & Intel Core i5/i7 or equivalent processor, minimum 8GB RAM, SSD storage recommended, and reliable internet connectivity for cloud APIs and hosted services. \\
-    \hline
-    Operating Systems & Windows 10/11 for local development and Ubuntu 22.04 for backend and deployment-oriented testing. \\
-    \hline
-    Development Tools & Visual Studio Code, Git, GitHub, Jupyter Notebook, Firebase Console, REST Client, ESLint, Prettier, and Pylance. \\
-    \hline
-    Runtime Platforms & Python virtual environments, Node.js tooling for the React frontend, Google Colab, and Kaggle Notebooks for GPU-enabled model training. \\
-    \hline
-  \end{tabularx}
-\end{table}
-
-\section{Key Implementation Details}
-\label{sec:impl_details}
-
-\subsection{Model Serialisation and Loading}
-\label{subsec:model_load}
-
-Trained model weights are serialised in the following formats:
-\begin{itemize}[leftmargin=*]
-  \item \textbf{YOLOv8:} Ultralytics \texttt{.pt} checkpoint format.
-  \item \textbf{U-Net:} PyTorch \texttt{state\_dict} serialised via \code{torch.save()}.
-  \item \textbf{Custom CNN:} PyTorch \texttt{state\_dict} serialised via \code{torch.save()}.
-\end{itemize}
-
-At FastAPI server startup, all three models are loaded into a singleton \code{MLManager} instance, which pins model tensors to the available GPU device (falling back to CPU if no CUDA device is detected). This singleton pattern eliminates per-request model loading overhead, which would otherwise add multiple seconds to inference latency.
-
-\subsection{Asynchronous Pipeline Execution}
-\label{subsec:async_exec}
-
-FastAPI's \code{async def} route handlers enable the server to accept new HTTP connections while awaiting I/O-bound operations (database reads/writes, Cohere API calls). CPU-bound model inference operations are dispatched to a thread pool executor via \texttt{asyncio.run\_\allowbreak in\_\allowbreak executor()} to prevent blocking the event loop:
-
-\begin{lstlisting}[language=Python, caption={Asynchronous Model Inference Dispatch}, label={lst:async_infer}]
-import asyncio
-from concurrent.futures import ThreadPoolExecutor
-
-executor = ThreadPoolExecutor(max_workers=4)
-
-async def run_pipeline(image_tensor):
-    loop = asyncio.get_event_loop()
-    result = await loop.run_in_executor(
-        executor,
-        ml_manager.run_full_pipeline,
-        image_tensor
-    )
-    return result
-\end{lstlisting}
-
-\subsection{Grad-CAM Implementation}
-\label{subsec:gradcam_impl}
-
-\gradcam is implemented using a forward hook registered on the final convolutional layer of the CNN to capture activation maps, and a backward hook to capture the corresponding gradients:
-
-\begin{lstlisting}[language=Python, caption={Grad-CAM Hook Registration}, label={lst:gradcam}]
-class GradCAM:
-    def __init__(self, model, target_layer):
-        self.model = model
-        self.activations = None
-        self.gradients = None
-        target_layer.register_forward_hook(self._save_activations)
-        target_layer.register_backward_hook(self._save_gradients)
-
-    def _save_activations(self, module, input, output):
-        self.activations = output.detach()
-
-    def _save_gradients(self, module, grad_in, grad_out):
-        self.gradients = grad_out[0].detach()
-
-    def generate(self, input_tensor, class_idx):
-        output = self.model(input_tensor)
-        self.model.zero_grad()
-        output[0, class_idx].backward()
-        weights = self.gradients.mean(dim=(2, 3), keepdim=True)
-        cam = (weights * self.activations).sum(dim=1, keepdim=True)
-        cam = torch.clamp(cam, min=0)
-        cam = F.interpolate(cam, size=input_tensor.shape[2:],
-                            mode='bilinear', align_corners=False)
-        cam = cam - cam.min()
-        cam = cam / (cam.max() + 1e-8)
-        return cam.squeeze().cpu().numpy()
-\end{lstlisting}
-
-\subsection{RAG Knowledge Base Ingestion}
-\label{subsec:rag_ingest}
-
-The knowledge base was constructed by collecting 847 agronomist-authored treatment documents spanning all 102 disease classes, converted from structured agricultural manuals and curated field guidelines. Each document was split into 512-token chunks with 64-token overlap using LangChain's \code{RecursiveCharacterTextSplitter}. Chunks were embedded using the Cohere \code{embed-multilingual-v3.0} model (1024-dimensional output) and indexed in a persistent Chroma vector store.
-
-\subsection{Smart Irrigation and Crop Recommendation Module}
-\label{subsec:irrigation_impl}
-
-The smart irrigation module extends \nabta beyond image-based disease analysis by combining soil information, weather data, and machine-learning models to support field-level decision-making. The module is implemented as a backend service that accepts crop type, soil type, soil moisture, and location context, then returns both an irrigation decision and an estimated water requirement.
-
-The irrigation decision model is implemented using a Random Forest classifier with 100 decision trees. Its feature vector includes temperature, humidity, rainfall, soil moisture, depletion ratio, crop type, soil type, field capacity (FC), and wilting point (WP). The trained model achieved approximately \textbf{98.5\%} test accuracy, making it suitable for rule-assisted operational recommendations.
-
-The water requirement model is implemented using a Random Forest regressor. It estimates the irrigation water amount in millimetres by combining model predictions with FAO-56 evapotranspiration concepts and crop coefficient (\(K_c\)) values. The model achieved \(R^2 = 0.952\) and a mean absolute error of approximately \textbf{13.5 mm}.
-
-The crop recommendation model predicts suitable crops from soil and environmental inputs. Feature engineering was applied to generate \code{N\_P\_ratio}, \code{N\_K\_ratio}, and \code{NPK\_total}. Instead of returning only a single class, the module returns the top three crop recommendations with confidence percentages, giving farmers more flexible decision support.
-
-\begin{table}[H]
-  \centering
-  \caption{Smart Irrigation and Crop Recommendation Models}
-  \label{tab:irrigation_models}
-  \renewcommand{\arraystretch}{1.35}
-  \begin{tabularx}{\textwidth}{|L{3.2cm}|L{3.4cm}|Y|}
-    \hline
-    \textbf{Model} & \textbf{Technique} & \textbf{Output} \\
-    \hline
-    Irrigation Decision & Random Forest Classifier & Binary decision indicating whether irrigation is currently required. \\
-    \hline
-    Water Requirement & Random Forest Regressor with FAO-56-inspired features & Recommended irrigation amount in millimetres. \\
-    \hline
-    Crop Recommendation & Multi-class machine-learning classifier with engineered NPK features & Top three suitable crops with confidence percentages. \\
-    \hline
-  \end{tabularx}
-\end{table}
-
-\subsection{WeatherAPI Integration}
-\label{subsec:weather_impl}
-
-WeatherAPI is integrated to retrieve real-time environmental values, including temperature, humidity, rainfall, and location-specific weather conditions. When the frontend provides city information or GPS-derived coordinates, the backend requests current weather data and normalises the returned values before passing them to the irrigation and crop recommendation models. This keeps irrigation decisions responsive to actual weather conditions rather than relying only on static soil inputs.
-
-\subsection{Firebase Integration}
-\label{subsec:firebase_impl}
-
-Firebase is used for authentication, user management, secure session handling, and cloud data storage. Registration, login, password reset, and session verification are handled through Firebase Authentication. The backend verifies Firebase tokens through the Firebase Admin SDK before protected endpoints are executed, while Firestore stores user profiles, analysis histories, chat records, and subscription-related data.
-
-\subsection{Internationalisation (i18n)}
-\label{subsec:i18n}
-
-Bilingual support for Arabic and English was implemented using \textbf{i18next} with the \texttt{react-\allowbreak i18next} bindings. Translation files are maintained as JSON dictionaries for all UI strings. The chatbot's language mode is communicated to the backend as a request header (\code{X-Language: ar} or \code{X-Language: en}), which is incorporated into the system prompt to instruct the Cohere model to respond in the specified language.
-
-\section{Deployment}
-\label{sec:deployment}
-
-\subsection{Backend Deployment}
-\label{subsec:be_deploy}
-
-The FastAPI backend is containerised as a Docker image based on \code{python:3.11-slim}. The production container includes:
-\begin{itemize}[leftmargin=*]
-  \item Gunicorn configured with 4 Uvicorn workers.
-  \item Nginx sidecar container for HTTPS termination and static file serving.
-  \item Model weight files embedded in the container image or mounted via a Cloud Storage volume.
-\end{itemize}
-
-The container is deployed to \textbf{Google Cloud Run}, providing automatic scaling from zero to multiple concurrent instances based on request volume, with a minimum instance count of one to eliminate cold-start latency.
-
-\subsection{Frontend Deployment}
-\label{subsec:fe_deploy}
-
-The React.js application is built using Vite's production build pipeline (\code{vite build}), producing an optimised static asset bundle. The bundle is deployed to \textbf{Firebase Hosting}, which serves assets from Google's global CDN with automatic HTTPS enforcement and custom domain support.
-
-\subsection{CI/CD Pipeline}
-\label{subsec:cicd}
-
-A GitHub Actions workflow automates the following pipeline on every push to the \texttt{main} branch:
-\begin{enumerate}[leftmargin=*, label=\arabic*.]
-  \item Run Python unit and integration tests (pytest).
-  \item Run ESLint and TypeScript type-checking on the frontend.
-  \item Build and push the backend Docker image to Google Container Registry.
-  \item Deploy the new image revision to Cloud Run.
-  \item Build the React.js production bundle.
-  \item Deploy the bundle to Firebase Hosting.
-\end{enumerate}
-
-\section{System Screenshots}
-\label{sec:screenshots}
-
-\projectfigure[0.95\textwidth]{assets/screenshots/login_welcome_screen.png}{8cm}{NABTA Login and Welcome Screen}{fig:ui_login_welcome}
-
-% TODO: Replace this placeholder with the final analysis results screen screenshot.
-\projectfigure{assets/screenshots/results_screen.png}{8cm}{Analysis Results Screen with Detection, Segmentation, and Grad-CAM Panels}{fig:ui_results}
+The page presents the major capabilities of the platform, including plant disease diagnosis, crop recommendation, irrigation management, AI-powered consultation, and analytical dashboards. Modern animations and responsive design techniques were adopted to improve usability across desktop and mobile devices.
 
 \begin{figure}[H]
-  \centering
-  \begin{subfigure}[t]{0.49\textwidth}
-    \centering
-    \includegraphics[width=\linewidth,height=5.4cm,keepaspectratio]{assets/screenshots/crop_recomendation.png}
-    \caption{Crop Recommendation Screen}
-    \label{fig:ui_crop_recommendation}
-  \end{subfigure}\hfill
-  \begin{subfigure}[t]{0.49\textwidth}
-    \centering
-    \includegraphics[width=\linewidth,height=5.4cm,keepaspectratio]{assets/screenshots/irrigation_management.png}
-    \caption{Irrigation Management Screen}
-    \label{fig:ui_irrigation_management}
-  \end{subfigure}
-  \vspace{-0.3em}
-  \caption{Crop Recommendation and Irrigation Management Screens}
-  \label{fig:ui_crop_irrigation}
+\centering
+\includegraphics[width=\textwidth]{assets/screenshots/home_page.png}
+\caption{NABTA Landing Page}
+\label{fig:landing_page}
 \end{figure}
+
+%==============================================================================
+\subsection{User Authentication}
+\label{subsec:login}
+
+User authentication is implemented using Firebase Authentication, providing secure account management through email and password authentication.
+
+The authentication interface validates user credentials before granting access to protected platform features. Authentication tokens are securely generated by Firebase and verified by the FastAPI backend before processing any authorized request.
+
+The login page also provides direct navigation to account registration and password recovery services.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.9\textwidth]{assets/screenshots/login_page.png}
+\caption{User Authentication Interface}
+\label{fig:login_page}
+\end{figure}
+
+%==============================================================================
+\subsection{Password Recovery}
+\label{subsec:reset_password}
+
+To improve usability and account security, NABTA provides a password recovery mechanism integrated with Firebase Authentication.
+
+Users can request a password reset by entering their registered email address. A secure password reset link is then sent automatically, allowing users to create a new password without administrator intervention.
+
+This functionality improves accessibility while maintaining secure account management practices.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.85\textwidth]{assets/screenshots/reset_password.png}
+\caption{Password Recovery Interface}
+\label{fig:reset_password}
+\end{figure}
+
+%==============================================================================
+\subsection{Plant Analysis Interface}
+\label{subsec:plant_analysis}
+
+The Plant Analysis module represents the primary functionality of the NABTA platform. It enables users to upload plant leaf images for automatic disease diagnosis through the integrated artificial intelligence pipeline.
+
+The interface supports drag-and-drop image uploading as well as conventional file selection. Before processing begins, the uploaded image is validated to ensure that only supported image formats are accepted.
+
+Once the image is submitted, the frontend sends it asynchronously to the FastAPI backend, where the complete AI pipeline is executed.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{assets/screenshots/plant_analysis_upload.png}
+\caption{Plant Analysis Upload Interface}
+\label{fig:plant_upload}
+\end{figure}
+
+%==============================================================================
+%==============================================================================
+\subsection{Plant Disease Analysis Results}
+\label{subsec:analysis_results}
+
+After the uploaded image is processed, the NABTA platform presents a unified analysis interface that visualizes the complete artificial intelligence pipeline. Instead of displaying only the predicted disease, the system provides the outputs of all integrated computer vision models within a single dashboard, allowing users to understand each stage of the diagnosis process.
+
+The interface presents:
+
+\begin{itemize}
+\item The uploaded plant image.
+\item YOLOv8x object detection with the detected leaf bounding box.
+\item U-Net semantic segmentation of the leaf.
+\item CNN-based plant species and disease classification.
+\item Prediction confidence score.
+\item Disease severity estimation.
+\item Direct access to the complete disease analysis report.
+\end{itemize}
+
+Displaying all analysis stages together improves transparency and enables users to verify the complete decision-making process rather than relying solely on the final prediction. This integrated visualization also demonstrates the interaction between the detection, segmentation, and classification models within the proposed NABTA pipeline.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{assets/screenshots/analysis_results.png}
+\caption{Integrated Plant Disease Analysis Interface Showing the Outputs of YOLOv8x Detection, U-Net Segmentation, CNN Classification, Confidence Score, and Disease Severity Estimation}
+\label{fig:analysis_results}
+\end{figure}
+
+%==============================================================================
+\subsection{Disease Diagnosis Report}
+\label{subsec:disease_report}
+
+Following image analysis, NABTA generates a detailed disease diagnosis report summarizing all extracted information.
+
+The report contains the predicted disease class, confidence score, detected plant species, disease severity level, Grad-CAM visualization, and recommended treatment guidelines.
+
+This report provides users with a complete overview of the analysis outcome while serving as a basis for subsequent agricultural recommendations.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{assets/screenshots/disease_report.png}
+\caption{Disease Analysis Report}
+\label{fig:disease_report}
+\end{figure}
+
+%==============================================================================
+\subsection{AI Agricultural Assistant}
+\label{subsec:assistant}
+
+To provide intelligent agricultural consultation beyond disease diagnosis, NABTA integrates an AI-powered conversational assistant.
+
+The assistant combines Cohere's Large Language Model with Retrieval-Augmented Generation (RAG), enabling it to retrieve domain-specific agricultural knowledge before generating responses.
+
+Users may ask questions regarding disease symptoms, treatment methods, crop management, irrigation practices, fertilizers, and general farming recommendations.
+
+The chatbot supports both Arabic and English, providing context-aware responses based on the retrieved agricultural knowledge base.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{assets/screenshots/ai_assistant.png}
+\caption{AI Agricultural Assistant}
+\label{fig:assistant}
+\end{figure}
+
+%==============================================================================
+\subsection{AI Recommendations}
+\label{subsec:recommendations}
+
+After completing the disease diagnosis process, the platform automatically generates intelligent recommendations to assist users in making informed agricultural decisions.
+
+The recommendation engine combines the outputs of the disease classification model with the knowledge retrieved by the Retrieval-Augmented Generation (RAG) system. Based on the detected disease, the platform provides practical guidance regarding treatment methods, disease prevention strategies, suitable pesticides or fungicides, irrigation considerations, and crop management practices.
+
+Presenting recommendations immediately after diagnosis enables users to move directly from disease identification to actionable agricultural decisions.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{assets/screenshots/ai_recommendations.png}
+\caption{AI-Based Agricultural Recommendations}
+\label{fig:recommendations}
+\end{figure}
+
+%==============================================================================
+\subsection{PDF Disease Report}
+\label{subsec:pdf_report}
+
+To facilitate documentation and information sharing, NABTA automatically generates a downloadable PDF report for every completed disease analysis.
+
+The generated report summarizes all information produced during the AI pipeline, including the uploaded image, detected disease, confidence score, Grad-CAM visualization, disease severity, recommended treatment, and additional agricultural guidance.
+
+The PDF report enables farmers, agricultural engineers, and researchers to archive diagnosis results or share them with specialists for further consultation.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{assets/screenshots/pdf_report.png}
+\caption{Automatically Generated PDF Disease Report}
+\label{fig:pdf_report}
+\end{figure}
+
+%==============================================================================
+\subsection{Analysis Dashboard}
+\label{subsec:dashboard}
+
+The dashboard provides users with an integrated overview of their activities and the overall performance of the NABTA platform.
+
+It summarizes important information including the total number of analyses, diagnosed diseases, healthy plant detections, generated reports, and recent AI activities. Interactive widgets and graphical indicators allow users to quickly monitor system usage and recent analysis results.
+
+The dashboard serves as the central navigation point after user authentication.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{assets/screenshots/dashboard.png}
+\caption{Analysis Dashboard}
+\label{fig:dashboard}
+\end{figure}
+
+%==============================================================================
+\subsection{Plant and Disease Analytics}
+\label{subsec:analytics}
+
+NABTA includes an analytics module that visualizes historical disease statistics and plant health trends.
+
+Interactive charts display the distribution of detected diseases, healthy versus diseased samples, frequently analyzed plant species, confidence score distributions, and temporal analysis trends.
+
+These visualizations assist users in understanding disease prevalence while providing useful insights for monitoring crop health over time.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{assets/screenshots/analytics.png}
+\caption{Plant and Disease Analytics Dashboard}
+\label{fig:analytics}
+\end{figure}
+
+%==============================================================================
+\subsection{Analysis History}
+\label{subsec:history}
+
+Every completed analysis is securely stored within the user's account, allowing previous diagnoses to be reviewed at any time.
+
+The history interface displays previously analyzed images together with their corresponding disease predictions, confidence scores, timestamps, and generated reports.
+
+Users can search, filter, revisit, or download previous analysis reports without repeating the disease detection process.
+
+Maintaining historical records improves traceability and enables long-term monitoring of crop health.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{assets/screenshots/history.png}
+\caption{Analysis History Interface}
+\label{fig:history}
+\end{figure}
+
+%==============================================================================
+\subsection{Irrigation Management}
+\label{subsec:irrigation}
+
+The irrigation management module assists farmers in making informed irrigation decisions using machine learning models trained on agricultural and environmental data.
+
+Users provide soil moisture, soil type, crop type, temperature, humidity, rainfall, and other environmental parameters. The platform then predicts whether irrigation is required and estimates the expected crop water requirement.
+
+The interface presents the prediction results in a clear and user-friendly format, enabling farmers to optimize irrigation schedules while reducing unnecessary water consumption.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{assets/screenshots/irrigation_management.png}
+\caption{Smart Irrigation Management Interface}
+\label{fig:irrigation}
+\end{figure}
+
+%==============================================================================
+\subsection{Crop Recommendation}
+\label{subsec:crop}
+
+The crop recommendation module suggests the most suitable crop based on soil properties and environmental conditions.
+
+Users enter the available Nitrogen (N), Phosphorus (P), Potassium (K), soil type, pH, temperature, humidity, and rainfall values. These inputs are processed by a Random Forest classifier trained on a regenerated agricultural dataset incorporating crop--soil suitability knowledge.
+
+The system predicts the most appropriate crop together with confidence scores, allowing users to select crops that best match the current environmental conditions.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{assets/screenshots/crop_recommendation.png}
+\caption{Crop Recommendation Interface}
+\label{fig:crop}
+\end{figure}
+
+%==============================================================================
+\subsection{Custom Data Management}
+\label{subsec:custom_data}
+
+The platform includes a custom data management module that allows administrators to manage agricultural knowledge and user-generated data.
+
+Authorized users can create, update, delete, and organize custom records through an intuitive interface. This functionality enables continuous expansion of the agricultural knowledge base while maintaining data consistency across the platform.
+
+The management interface simplifies dataset maintenance without requiring direct database access.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{assets/screenshots/custom_data_management.png}
+\caption{Custom Data Management Interface}
+\label{fig:custom_data}
+\end{figure}
+
+%==============================================================================
+\subsection{User Profile}
+\label{subsec:profile}
+
+Each registered user has a personalized profile containing account information, analysis statistics, generated reports, and personal preferences.
+
+The profile page allows users to update personal information, change passwords, manage profile settings, and review their overall activity within the platform.
+
+This centralized profile improves personalization while providing quick access to frequently used services.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{assets/screenshots/user_profile.png}
+\caption{User Profile Interface}
+\label{fig:profile}
+\end{figure}
+
+%==============================================================================
+\section{Backend Implementation}
+\label{sec:backend}
+
+The backend of NABTA was implemented using FastAPI, providing a lightweight and high-performance RESTful API architecture.
+
+FastAPI coordinates communication between the frontend, artificial intelligence models, Firebase services, and external APIs. The backend is responsible for image processing, model inference, authentication, report generation, chatbot interaction, and database communication.
+
+Asynchronous request handling enables multiple users to access AI services simultaneously while maintaining low response latency.
+
+%==============================================================================
+\section{Artificial Intelligence Integration}
+\label{sec:ai_integration}
+
+One of the primary objectives of NABTA is the seamless integration of multiple artificial intelligence models within a single production-ready platform.
+
+The AI pipeline consists of:
+
+\begin{itemize}
+\item YOLOv8x for infected leaf detection.
+\item U-Net with EfficientNet-B0 encoder for semantic segmentation.
+\item Custom CNN for disease classification.
+\item Grad-CAM for explainability and disease severity estimation.
+\item Random Forest classifier for crop recommendation.
+\item Random Forest classifier for irrigation decision prediction.
+\item Random Forest regressor for crop water requirement estimation.
+\item Cohere Large Language Model integrated with Retrieval-Augmented Generation for intelligent agricultural consultation.
+\end{itemize}
+
+All models communicate through standardized FastAPI endpoints, enabling independent deployment while maintaining seamless integration across the entire platform.
+
+%==============================================================================
+\section{Cloud Services Integration}
+\label{sec:firebase}
+
+Firebase provides the cloud infrastructure supporting authentication, secure data storage, and backend services.
+
+The platform utilizes Firebase Authentication for secure user management, Cloud Firestore for storing analysis history and user information, and Cloud Functions for backend automation, email notifications, and secure API operations.
+
+These cloud services improve scalability, reliability, and security while minimizing infrastructure management overhead.
+
+%==============================================================================
+\section{Chapter Summary}
+\label{sec:chapter4_summary}
+
+This chapter presented the implementation of the NABTA smart agriculture platform, including the frontend interfaces, backend services, artificial intelligence integration, and cloud infrastructure.
+
+The implementation demonstrates how multiple AI technologies were successfully combined into a unified web-based application that supports plant disease diagnosis, crop recommendation, irrigation management, explainable artificial intelligence, PDF report generation, and intelligent agricultural consultation.
+
+The following chapter presents the experimental evaluation and performance analysis of all implemented artificial intelligence models.

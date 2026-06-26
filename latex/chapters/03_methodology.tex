@@ -1,313 +1,640 @@
 %==============================================================================
-% CHAPTER 4 --- METHODOLOGY
+% CHAPTER 3 --- SYSTEM METHODOLOGY
 %==============================================================================
 
-\chapter{Methodology}
+\chapter{System Methodology}
 \label{chap:methodology}
 
-\chapterquote{In God we trust. All others must bring data.}{W. Edwards Deming}
+\chapterquote{Artificial intelligence is most effective when multiple specialized models collaborate to solve a complex real-world problem.}{Anonymous}
 
+%==============================================================================
 \section{Overview}
-\label{sec:meth_overview}
+\label{sec:methodology_overview}
 
-The methodological framework underlying the \nabta system reflects a principled, iterative approach to the development and validation of machine learning models for agricultural pathogen diagnosis. This chapter details each stage of the data science lifecycle as applied to the project: dataset collection and curation, preprocessing and augmentation strategies, the architecture and training of each component model, and the validation strategy employed to evaluate generalisation performance. The design decisions described herein were guided by a core objective of maximising real-world robustness rather than benchmark-optimised performance on curated laboratory data.
+This chapter presents the methodology adopted for designing, developing, and integrating the intelligent components of the proposed NABTA platform. The system was developed as a complete AI-powered smart agriculture platform that combines Computer Vision, Machine Learning, Explainable Artificial Intelligence, and Large Language Models within a unified web-based architecture.
 
-\section{Data Collection}
-\label{sec:data_collection}
+Unlike conventional plant disease diagnosis systems that rely solely on image classification, NABTA adopts a multi-stage processing pipeline consisting of object detection, semantic segmentation, disease classification, explainable artificial intelligence, crop recommendation, irrigation recommendation, and retrieval-augmented conversational assistance. Each module was independently designed, trained, evaluated, and finally integrated through a FastAPI backend to provide a seamless end-to-end intelligent decision-support platform.
 
-\subsection{Dataset Strategy}
-\label{subsec:dataset_strategy}
+%==============================================================================
+\section{System Architecture}
+\label{sec:system_architecture}
 
-The fundamental challenge in building a robust plant disease classifier is not merely the acquisition of data, but the acquisition of sufficiently diverse data that represents the heterogeneity of real field conditions. A single-source dataset, however large, tends to encode the photographic style, lighting conditions, and crop species distribution of its contributing institution. To mitigate this domain-bias problem, the \nabta training corpus was assembled by integrating seven distinct publicly available agricultural image repositories.
+The NABTA platform follows a modular service-oriented architecture consisting of five major layers.
 
-The combined dataset totals in excess of \textbf{120,000 annotated images} spanning \textbf{102 target classes}---comprising disease states across multiple crop species as well as corresponding healthy class labels for each species. This multi-source fusion constitutes a substantially more challenging and representative training distribution than any single component dataset.
+\begin{enumerate}[leftmargin=*,label=\textbf{Layer \arabic*.}]
 
-\subsection{Component Datasets}
-\label{subsec:datasets}
+\item \textbf{Presentation Layer}
 
-\begin{table}[H]
-  \centering
-  \caption{Training Dataset Components for the NABTA Classification Model}
-  \label{tab:datasets}
-  \small
-  \renewcommand{\arraystretch}{1.35}
-  \setlength{\tabcolsep}{4pt}
-  \begin{tabularx}{\textwidth}{|L{2.7cm}|Y|L{2.5cm}|L{2.4cm}|}
-    \hline
-    \textbf{Dataset} & \textbf{Description} & \textbf{Focus} & \textbf{Source} \\
-    \hline
-    PlantVillage & Benchmark dataset of 54,305 images across 14 crops and 26 diseases; laboratory-controlled conditions & Classification & Kaggle / Penn State \\
-    \hline
-    PlantDoc & 2,569 images collected under diverse outdoor conditions; includes 13 plant species and 17 disease classes & Detection \& Classification & Open Source \\
-    \hline
-    Plant Diseases Training Dataset & Supplementary multi-crop collection for generalisation improvement & Classification & Kaggle \\
-    \hline
-    Bangladesh Crop Dataset & Region-specific rice and jute crop images for geographic diversity & Classification & Kaggle \\
-    \hline
-    Rice Leaf Disease Dataset & Dedicated collection for bacterial blight, blast, and tungro diseases in rice & Classification & Kaggle \\
-    \hline
-    Cotton Dataset & Images of cotton leaf curl virus, bacterial blight, and healthy states & Classification & Kaggle \\
-    \hline
-    Mango Plant Dataset & Anthracnose, powdery mildew, and healthy mango leaf images & Classification & Kaggle \\
-    \hline
-    Eggplant Pathogen Dataset & Eggplant-specific disease images including phomopsis blight & Classification & Kaggle \\
-    \hline
-    Custom Segmentation Masks & Pixel-level binary masks constructed on top of classified leaf images & Segmentation & In-house annotation \\
-    \hline
-  \end{tabularx}
-\end{table}
+Developed using React.js, this layer provides all graphical interfaces including disease diagnosis, crop recommendation, irrigation recommendation, analytics dashboards, authentication, historical records, subscriptions, and AI consultation.
 
-\subsection{Detection-Specific Corpus: PlantDoc Enhancement}
-\label{subsec:plantdoc}
+\item \textbf{Application Layer}
 
-The PlantDoc dataset~\cite{plantdoc2020} was selected as the primary training source for the YOLOv8 object detection model due to its outdoor, unconstrained photographic conditions. Raw PlantDoc annotations were manually reviewed and significantly enhanced: bounding box coordinates were refined using a combination of semi-automated annotation tools and manual correction to ensure tight, accurate ROI boundaries. Images with excessive motion blur, severe occlusion, or ambiguous ground truth labels were removed from the training split to prevent noise injection into the detection model's weight optimisation.
+Implemented using FastAPI, this layer exposes RESTful APIs that coordinate requests between users and the deployed artificial intelligence models while handling authentication, validation, and response generation.
 
-\subsection{Segmentation Mask Construction}
-\label{subsec:seg_masks}
+\item \textbf{Artificial Intelligence Layer}
 
-No off-the-shelf pixel-level segmentation dataset aligned precisely with the species distribution required by \nabta. Consequently, a custom set of binary segmentation masks was constructed by the project team. The mask creation workflow proceeded as follows: a subset of classified leaf images was selected from the combined corpus; each image was processed through a combination of GrabCut background subtraction and manual polygon annotation to produce a clean binary mask isolating the leaf body from background content. The resulting mask set was used exclusively for U-Net training, with the leaf foreground designated as the positive class and all background pixels designated as the negative class.
-
-\section{Data Preprocessing}
-\label{sec:preprocessing}
-
-\subsection{Image Resizing and Normalisation}
-\label{subsec:resize_norm}
-
-All images in the classification training corpus were resized to a uniform spatial resolution of $224 \times 224$ pixels to match the input dimensionality requirements of the custom CNN architecture. Images for the U-Net segmentation model were resized to $256 \times 256$ pixels. YOLOv8 accepts variable resolution inputs; training images were resized to $640 \times 640$ pixels with letterboxing to preserve aspect ratios.
-
-Pixel intensity values were normalised to the $[0, 1]$ range via division by 255. Channel-wise mean subtraction and standard deviation scaling were applied using the ImageNet mean ($\mu = [0.485, 0.456, 0.406]$) and standard deviation ($\sigma = [0.229, 0.224, 0.225]$) for transfer-learning compatibility.
-
-\subsection{Data Integrity Filtering}
-\label{subsec:integrity}
-
-Before training, the full combined corpus was subjected to an automated data integrity scan. Images were rejected if they met any of the following disqualification criteria:
+The AI layer integrates all intelligent modules developed throughout this project:
 
 \begin{itemize}[leftmargin=*]
-  \item File corruption or incomplete read (zero-byte or truncated files).
-  \item Laplacian variance below a blur threshold of 50.0, indicating excessive motion blur or defocus.
-  \item Aspect ratio exceeding 5:1 in either dimension, suggesting severely non-standard capture conditions.
-  \item Class label mismatch identified during cross-dataset harmonisation.
+\item YOLOv8x object detection
+\item U-Net semantic segmentation
+\item CNN disease classification
+\item Grad-CAM explainability
+\item Random Forest crop recommendation
+\item Random Forest irrigation decision model
+\item Random Forest water requirement regression model
+\item Cohere Retrieval-Augmented Generation chatbot
 \end{itemize}
 
-Approximately 3.2\% of the raw combined corpus was removed during this stage, yielding a clean working corpus of 116,218 images for the classification model.
+\item \textbf{Cloud Services Layer}
 
-\subsection{Data Augmentation}
-\label{subsec:augmentation}
+Firebase Authentication manages user accounts, while Firebase Cloud Functions provide scheduled services, API key protection, backend automation, and notification services.
 
-To prevent overfitting to the photographic styles of individual source datasets and to improve model robustness against the variability of real field conditions, a comprehensive augmentation pipeline was applied stochastically during training. \tabref{tab:augmentation} summarises the augmentation operations and their applied probabilities.
+\item \textbf{Data Layer}
+
+The data layer stores user accounts, disease analysis history, chatbot conversations, generated PDF reports, agricultural knowledge resources, and AI model outputs.
+
+\end{enumerate}
+
+The modular architecture allows every AI component to be independently trained, evaluated, updated, and deployed without affecting the remaining system components.
+
+%==============================================================================
+\section{Overall AI Pipeline}
+\label{sec:overall_pipeline}
+
+The proposed plant disease diagnosis framework consists of six sequential computer vision stages beginning with object detection and ending with disease severity estimation.
+
+Figure~\ref{fig:overall_pipeline} illustrates the complete workflow adopted in the NABTA platform.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{assets/diagrams/end_to_end_plant_disease_pipeline.png}
+\caption{Overall AI Pipeline of the Proposed NABTA Platform}
+\label{fig:overall_pipeline}
+\end{figure}
+
+The complete disease diagnosis workflow proceeds as follows:
+
+\begin{enumerate}[leftmargin=*,label=\textbf{Step \arabic*.}]
+
+\item The uploaded plant image is analyzed using the YOLOv8x detector to localize infected leaf regions.
+
+\item The detected leaf region is cropped from the original image.
+
+\item The cropped image is passed to the U-Net segmentation model with an EfficientNet-B0 encoder to isolate the leaf from its surrounding background.
+
+\item The segmented leaf is resized and forwarded to the proposed CNN classifier, which predicts one of 102 healthy or diseased plant classes.
+
+\item Grad-CAM generates a visual explanation highlighting the regions that contributed most strongly to the prediction.
+
+\item Disease severity is estimated using the segmented leaf together with the generated Grad-CAM activation map.
+
+\end{enumerate}
+
+Beyond disease diagnosis, the same platform integrates machine learning models for crop recommendation and irrigation recommendation, together with a Retrieval-Augmented Generation chatbot that provides evidence-based agricultural consultation.
+
+%==============================================================================
+\section{Dataset Collection}
+\label{sec:dataset_collection}
+
+Developing reliable artificial intelligence models requires large and diverse datasets capable of representing real agricultural environments. Since no single publicly available dataset provides sufficient diversity in plant species, disease categories, imaging conditions, and environmental variations, multiple complementary datasets were combined throughout this project.
+
+Different datasets were prepared for the three computer vision tasks, namely object detection, semantic segmentation, and disease classification.
+
+%==============================================================================
+\subsection{Plant Disease Classification Dataset}
+
+The classification model was trained using a unified dataset assembled from nine publicly available repositories. The dataset construction process involved collecting healthy and diseased plant images from different agricultural datasets covering multiple crop species and environmental conditions.
+
+The nine datasets are summarized in Table~\ref{tab:classification_datasets}.
 
 \begin{table}[H]
-  \centering
-  \caption{Data Augmentation Parameters Applied During Training}
-  \label{tab:augmentation}
-  \renewcommand{\arraystretch}{1.4}
-  \begin{tabularx}{\textwidth}{|Y|L{3cm}|L{2.4cm}|}
-    \hline
-    \textbf{Augmentation Operation} & \textbf{Parameters} & \textbf{Probability} \\
-    \hline
-    Random Horizontal Flip & --- & 0.50 \\
-    \hline
-    Random Vertical Flip & --- & 0.30 \\
-    \hline
-    Random Rotation & $\pm 45^{\circ}$ & 0.40 \\
-    \hline
-    Random Zoom (Crop and Resize) & Scale: 0.8--1.2 & 0.40 \\
-    \hline
-    Colour Jitter (Brightness) & $\pm 30\%$ & 0.50 \\
-    \hline
-    Colour Jitter (Contrast) & $\pm 30\%$ & 0.50 \\
-    \hline
-    Colour Jitter (Saturation) & $\pm 20\%$ & 0.30 \\
-    \hline
-    Gaussian Blur & Kernel: $3 \times 3$ & 0.20 \\
-    \hline
-    Random Grayscale & --- & 0.10 \\
-    \hline
-    Cutout / Random Erasing & Area: 2--10\% & 0.20 \\
-    \hline
-  \end{tabularx}
+\centering
+\caption{Classification Dataset Sources}
+\label{tab:classification_datasets}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{4.4cm}X>{\raggedright\arraybackslash}p{2.2cm}}
+\toprule
+\textbf{Dataset} & \textbf{Description} & \textbf{Source}\\
+\midrule
+
+PlantVillage &
+Benchmark dataset containing healthy and diseased crop images collected under controlled laboratory conditions. &
+Kaggle\\
+
+Plant Diseases Training Dataset &
+Large multi-crop disease dataset used to increase class diversity. &
+Kaggle\\
+
+Bangladesh Crop Disease Dataset &
+Field-acquired crop disease images collected under practical agricultural environments. &
+Mendeley\\
+
+Eggplant Leaf Disease Dataset &
+Natural field images representing multiple eggplant diseases. &
+Kaggle\\
+
+Eggplant Disease Dataset &
+Additional eggplant disease images used to improve robustness. &
+Mendeley\\
+
+Rice Leaf Diseases Dataset &
+Rice disease images including blast, bacterial blight, and tungro. &
+Kaggle\\
+
+Cotton Disease Dataset &
+Healthy and diseased cotton leaf images collected from agricultural fields. &
+Kaggle\\
+
+Mango Leaf Disease Dataset &
+Images covering multiple mango diseases and healthy leaves. &
+Kaggle\\
+
+Ricey Dataset &
+Rice disease images collected under real-world farming conditions. &
+Mendeley\\
+
+\bottomrule
+\end{tabularx}
 \end{table}
 
-\section{Feature Engineering}
-\label{sec:feature_engineering}
+After cleaning, duplicate removal, class harmonization, and integrity verification, the final unified dataset contained more than \textbf{120,000} images representing \textbf{102} healthy and diseased plant classes.
 
-The \nabta pipeline relies on end-to-end learned feature representations rather than handcrafted feature engineering in the classical sense. However, several domain-informed preprocessing choices function as implicit feature engineering steps:
+%==============================================================================
+\subsection{Object Detection Dataset}
+
+The YOLOv8x detector was trained using an enhanced version of the PlantDoc dataset. Unlike laboratory datasets, PlantDoc contains images captured directly in agricultural fields under varying illumination conditions, cluttered backgrounds, partial occlusions, and multiple leaves within the same image.
+
+To improve annotation quality, the original bounding boxes were manually reviewed and refined before training.
+
+%==============================================================================
+\subsection{Segmentation Dataset}
+
+Semantic segmentation requires pixel-level annotations rather than image-level labels. Since publicly available segmentation datasets remain limited for plant disease applications, custom binary masks were generated specifically for this work.
+
+Each mask identifies only the leaf pixels while excluding soil, stems, surrounding vegetation, and background objects, enabling accurate supervised training of the U-Net segmentation model.
+
+%==============================================================================
+\section{Data Preparation}
+\label{sec:data_preparation}
+
+Before training, all datasets underwent several preprocessing stages to improve data quality and ensure consistency across multiple data sources.
+
+The preprocessing pipeline consisted of the following stages:
+
+\begin{enumerate}[leftmargin=*,label=\textbf{P\arabic*.}]
+\item Removal of corrupted or unreadable images.
+\item Duplicate image removal.
+\item Disease label standardization.
+\item Class harmonization across datasets.
+\item Image integrity verification.
+\item Image resizing.
+\item Dataset splitting into training, validation, and testing subsets.
+\end{enumerate}
+
+All classification images were resized to an input resolution of
+
+\[
+224 \times 224
+\]
+
+pixels before normalization into the range
+
+\[
+[0,1].
+\]
+
+Online data augmentation was applied during training to improve generalization and reduce overfitting. The augmentation strategy included random rotation, horizontal flipping, zooming, brightness adjustment, and minor geometric transformations.
+
+%==============================================================================
+\section{YOLOv8x Object Detection}
+\label{sec:yolo_methodology}
+
+Object detection represents the first stage of the proposed computer vision pipeline. Instead of directly classifying the entire image, the system first identifies the infected leaf region using YOLOv8x. This significantly reduces background noise and improves the subsequent segmentation and classification stages.
+
+Among all YOLOv8 variants, the YOLOv8x model was selected because it provides the highest localization accuracy while maintaining practical inference speed suitable for deployment.
+
+%==============================================================================
+\subsection{YOLOv8x Architecture}
+
+YOLOv8 is a one-stage object detector that simultaneously predicts object locations and class probabilities during a single forward pass through the network.
+
+The architecture consists of three principal components:
 
 \begin{itemize}[leftmargin=*]
-  \item \textbf{ROI Extraction via Detection:} The YOLOv8 detection stage functions as a spatial feature engineering step, discarding all image content outside the bounding box of the infected leaf region. This eliminates background-specific features (soil texture, sky gradients, shadows) that would otherwise corrupt the classification signal.
-
-  \item \textbf{Mask Refinement via Segmentation:} The U-Net segmentation stage further isolates the leaf foreground, removing stem, pot, or background pixels that fall within the bounding box. This constitutes a second-order spatial feature purification step.
-
-  \item \textbf{Infection Percentage Computation:} Following segmentation, the ratio of pathology-attributed pixels (identified from the Grad-CAM attention map) to total leaf pixels is computed as a scalar severity metric and included in the diagnostic output.
+\item Backbone for hierarchical feature extraction.
+\item Neck based on Feature Pyramid Networks (FPN) and Path Aggregation Networks (PAN).
+\item Detection Head responsible for predicting bounding boxes, confidence scores, and class probabilities.
 \end{itemize}
 
-\section{Model Development}
-\label{sec:model_dev}
+Figure~\ref{fig:yolo_architecture} presents the overall architecture of the adopted YOLOv8x model.
 
-\subsection{YOLOv8 Object Detection Model}
-\label{subsec:yolo_dev}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{assets/diagrams/yolov8x4_architecture.png}
+\caption{YOLOv8x Architecture Used for Plant Leaf Detection}
+\label{fig:yolo_architecture}
+\end{figure}
 
-YOLOv8~\cite{jocher2023yolov8}, developed by Ultralytics, was selected as the detection backbone due to its state-of-the-art balance of inference speed and detection accuracy. The model architecture employs a CSPNet-based backbone for feature extraction, a Path Aggregation Feature Pyramid Network (PAFPN) neck for multi-scale feature fusion, and a decoupled detection head for bounding box regression and class prediction.
+%==============================================================================
+\subsection{YOLOv8x Training Configuration}
 
-For the \nabta application, the \textbf{YOLOv8n} (nano) variant was selected to minimise inference latency while maintaining adequate detection precision for single-class leaf region detection. The model was initialised from COCO-pretrained weights and fine-tuned on the enhanced PlantDoc dataset with the following training configuration:
+The YOLOv8x detector was initialized using pretrained weights and fine-tuned on the enhanced PlantDoc dataset. Transfer learning significantly reduced training time while improving convergence and localization performance.
 
-\begin{table}[H]
-  \centering
-  \caption{YOLOv8 Training Hyperparameters}
-  \label{tab:yolo_hp}
-  \renewcommand{\arraystretch}{1.4}
-  \begin{tabular}{|l|l|}
-    \hline
-    \textbf{Hyperparameter} & \textbf{Value} \\
-    \hline
-    Input Resolution & $640 \times 640$ \\
-    \hline
-    Batch Size & 16 \\
-    \hline
-    Optimiser & AdamW \\
-    \hline
-    Initial Learning Rate & $1 \times 10^{-3}$ \\
-    \hline
-    Weight Decay & $5 \times 10^{-4}$ \\
-    \hline
-    Epochs & 100 \\
-    \hline
-    Warmup Epochs & 3 \\
-    \hline
-    \gls{iou} Threshold (NMS) & 0.45 \\
-    \hline
-    Confidence Threshold & 0.25 \\
-    \hline
-  \end{tabular}
-\end{table}
-
-\subsection{U-Net Semantic Segmentation Model}
-\label{subsec:unet_dev}
-
-The \unet architecture~\cite{ronneberger2015}, originally proposed for biomedical image segmentation, was adopted for leaf tissue isolation owing to its proven capacity for precise boundary delineation even with limited annotated training data. An \textbf{EfficientNet-B0} encoder backbone was substituted for the original contracting path to leverage ImageNet-pretrained feature representations and accelerate convergence.
-
-The network was trained in binary segmentation mode (leaf foreground versus background) using a combined Dice loss and Binary Cross-Entropy loss:
-
-\begin{equation}
-  \mathcal{L}_{\text{seg}} = \lambda_{1} \cdot \mathcal{L}_{\text{Dice}} + \lambda_{2} \cdot \mathcal{L}_{\text{BCE}}
-  \label{eq:seg_loss}
-\end{equation}
-
-where $\lambda_{1} = \lambda_{2} = 0.5$.
+Table~\ref{tab:yolo_parameters} summarizes the training configuration adopted for the detector.
 
 \begin{table}[H]
-  \centering
-  \caption{U-Net Training Hyperparameters}
-  \label{tab:unet_hp}
-  \renewcommand{\arraystretch}{1.4}
-  \begin{tabular}{|l|l|}
-    \hline
-    \textbf{Hyperparameter} & \textbf{Value} \\
-    \hline
-    Encoder Backbone & EfficientNet-B0 (ImageNet pretrained) \\
-    \hline
-    Input Resolution & $256 \times 256$ \\
-    \hline
-    Batch Size & 8 \\
-    \hline
-    Optimiser & Adam \\
-    \hline
-    Initial Learning Rate & $1 \times 10^{-4}$ \\
-    \hline
-    Scheduler & ReduceLROnPlateau (patience=5) \\
-    \hline
-    Epochs & 50 \\
-    \hline
-    Loss Function & Dice + BCE (equal weighting) \\
-    \hline
-  \end{tabular}
+\centering
+\caption{YOLOv8x Training Configuration}
+\label{tab:yolo_parameters}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{lc}
+\toprule
+\textbf{Hyperparameter} & \textbf{Value}\\
+\midrule
+Model & YOLOv8x\\
+Input Resolution & $640 \times 640$\\
+Epochs & 40\\
+Batch Size & 16\\
+Optimizer & Adam\\
+Initial Learning Rate & 0.01\\
+Pretrained Weights & Yes\\
+Framework & Ultralytics YOLOv8\\
+\bottomrule
+\end{tabular}
 \end{table}
 
-\subsection{Custom CNN Classification Model}
-\label{subsec:cnn_dev}
+%==============================================================================
+\subsection{YOLOv8 Loss Function}
 
-The classification model is a custom \gls{cnn} architecture optimised for the 102-class plant disease identification task. The architecture follows a progressive feature extraction paradigm:
+The optimization objective of YOLOv8 combines three complementary loss functions,
 
-\begin{equation}
-  \mathbf{y} = \text{Softmax}\!\left(W_{\text{fc}} \cdot \text{GAP}\!\left(\phi(\mathbf{x})\right)\right)
-  \label{eq:cnn_forward}
-\end{equation}
+\[
+L_{total}=L_{box}+L_{cls}+L_{dfl}
+\]
 
-where $\phi(\cdot)$ denotes the convolutional feature extractor, $\text{GAP}(\cdot)$ is global average pooling, and $W_{\text{fc}}$ is the fully connected classification head.
+where
 
-The architecture comprises four convolutional blocks, each containing two $3 \times 3$ convolutions with batch normalisation and ReLU activation, followed by $2 \times 2$ max pooling. The number of filters doubles across blocks: 64, 128, 256, and 512 channels respectively. A global average pooling layer replaces the conventional flattening operation to reduce parameter count and improve spatial invariance. The classification head comprises two fully connected layers (512 $\rightarrow$ 256, then 256 $\rightarrow$ 102) with dropout ($p = 0.5$) applied between them.
+\begin{itemize}[leftmargin=*]
 
-Cross-entropy loss with label smoothing ($\epsilon = 0.1$) was used as the training objective:
+\item $L_{box}$ minimizes the localization error of predicted bounding boxes.
 
-\begin{equation}
-  \mathcal{L}_{\text{cls}} = -\sum_{c=1}^{102} \tilde{y}_{c} \log\!\left(\hat{y}_{c}\right), \quad
-  \tilde{y}_{c} = \begin{cases} 1 - \epsilon & \text{if } c = y_{\text{true}} \\ \frac{\epsilon}{101} & \text{otherwise} \end{cases}
-  \label{eq:cls_loss}
-\end{equation}
+\item $L_{cls}$ minimizes the object classification error.
+
+\item $L_{dfl}$ represents Distribution Focal Loss, which improves bounding-box localization accuracy by modeling coordinate distributions.
+
+\end{itemize}
+
+Optimizing these three losses simultaneously enables the detector to accurately localize infected leaf regions under challenging field conditions.
+
+%==============================================================================
+\subsection{Detection Workflow}
+
+The complete detection process consists of four sequential stages.
+
+\begin{enumerate}[leftmargin=*,label=\textbf{D\arabic*.}]
+
+\item Image preprocessing and resizing.
+
+\item Feature extraction using the YOLOv8x backbone.
+
+\item Prediction of candidate bounding boxes.
+
+\item Non-Maximum Suppression (NMS) to remove duplicate detections.
+
+\end{enumerate}
+
+The final detected leaf region is forwarded directly to the segmentation stage.
+
+%==============================================================================
+\section{Leaf Segmentation using U-Net}
+\label{sec:unet_methodology}
+
+Although YOLO successfully localizes infected leaves, the detected region may still contain soil, stems, neighboring leaves, shadows, or other background objects. Such information may negatively affect disease classification.
+
+To overcome this limitation, a semantic segmentation stage was introduced to isolate the leaf at the pixel level before classification.
+
+The proposed segmentation module is based on the U-Net architecture with an EfficientNet-B0 encoder.
+
+%==============================================================================
+\subsection{U-Net Architecture}
+
+U-Net is a fully convolutional neural network originally developed for biomedical image segmentation. Its encoder-decoder architecture enables accurate pixel-level segmentation while preserving fine spatial information through skip connections.
+
+The encoder gradually extracts hierarchical visual features, whereas the decoder progressively reconstructs the segmentation mask at the original image resolution.
+
+Skip connections transfer high-resolution spatial information from the encoder to the decoder, allowing the network to preserve fine object boundaries.
+
+Figure~\ref{fig:unet_architecture} illustrates the adopted segmentation architecture.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{assets/diagrams/unet_efficientnetb0_architecture.png}
+\caption{U-Net Architecture with EfficientNet-B0 Encoder}
+\label{fig:unet_architecture}
+\end{figure}
+
+The EfficientNet-B0 encoder was selected because it provides an excellent balance between segmentation accuracy, computational efficiency, and model complexity.
+
+%==============================================================================
+\subsection{Segmentation Workflow}
+
+The segmentation process consists of the following stages:
+
+\begin{enumerate}[leftmargin=*,label=\textbf{S\arabic*.}]
+
+\item Receive the cropped image from the YOLO detector.
+
+\item Extract hierarchical visual features using EfficientNet-B0.
+
+\item Decode feature maps through the U-Net decoder.
+
+\item Generate a binary segmentation mask.
+
+\item Remove the image background.
+
+\item Produce a clean leaf image for disease classification.
+
+\end{enumerate}
+
+This preprocessing stage significantly reduces irrelevant visual information while preserving disease symptoms present on the leaf surface.
+
+%==============================================================================
+\subsection{Training Configuration}
+
+The segmented leaf images were resized to an input resolution of
+\(224 \times 224\) pixels before being forwarded to the classification network.
+
+Table~\ref{tab:cnn_parameters} summarizes the training configuration adopted for the proposed CNN model.
 
 \begin{table}[H]
-  \centering
-  \caption{Custom CNN Classification Model Training Hyperparameters}
-  \label{tab:cnn_hp}
-  \renewcommand{\arraystretch}{1.4}
-  \begin{tabular}{|l|l|}
-    \hline
-    \textbf{Hyperparameter} & \textbf{Value} \\
-    \hline
-    Input Resolution & $224 \times 224 \times 3$ \\
-    \hline
-    Number of Classes & 102 \\
-    \hline
-    Batch Size & 32 \\
-    \hline
-    Optimiser & Adam \\
-    \hline
-    Initial Learning Rate & $3 \times 10^{-4}$ \\
-    \hline
-    Scheduler & CosineAnnealingLR ($T_{\max}=50$) \\
-    \hline
-    Epochs & 100 \\
-    \hline
-    Dropout Rate & 0.50 \\
-    \hline
-    Label Smoothing ($\epsilon$) & 0.10 \\
-    \hline
-    Weight Initialisation & He (Kaiming) Normal \\
-    \hline
-  \end{tabular}
+\centering
+\caption{CNN Training Configuration}
+\label{tab:cnn_parameters}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{lc}
+\toprule
+\textbf{Hyperparameter} & \textbf{Value}\\
+\midrule
+Architecture & Custom CNN\\
+Input Size & $224 \times 224$\\
+Output Classes & 102\\
+Activation Function & ReLU (Hidden Layers)\\
+Output Activation & Softmax\\
+Loss Function & Categorical Crossentropy\\
+Optimizer & Adam\\
+Initial Learning Rate & $1 \times 10^{-4}$\\
+Dataset Size & 120,000+ Images\\
+Training Strategy & Transfer Learning with Data Augmentation\\
+\bottomrule
+\end{tabular}
 \end{table}
 
-\section{Grad-CAM Explainability Module}
-\label{sec:gradcam_method}
+%==============================================================================
+\section{Plant Disease Classification}
+\label{sec:cnn_methodology}
 
-\gls{gradcam}~\cite{selvaraju2017gradcam} is a post-hoc explainability technique that produces a class-discriminative localisation map by computing the gradient of the classification score with respect to the feature maps of a target convolutional layer. Given the final convolutional feature maps $A^k$ and the score $y^c$ for class $c$:
+Following leaf segmentation, the extracted leaf region is forwarded to a custom Convolutional Neural Network (CNN) responsible for disease recognition.
 
-\begin{equation}
-  \alpha_k^c = \frac{1}{Z} \sum_i \sum_j \frac{\partial y^c}{\partial A^k_{ij}}
-  \label{eq:gradcam_alpha}
-\end{equation}
+Unlike conventional image classifiers trained on a single dataset, the proposed CNN was developed using a unified dataset assembled from nine publicly available repositories. The diversity of plant species, disease categories, and imaging environments enables the model to generalize effectively to practical agricultural conditions.
 
-\begin{equation}
-  L^c_{\text{Grad-CAM}} = \text{ReLU}\!\left(\sum_k \alpha_k^c A^k\right)
-  \label{eq:gradcam_map}
-\end{equation}
+The classifier predicts one of \textbf{102} healthy or diseased plant classes and produces a confidence score for every category.
 
-The resulting heatmap $L^c_{\text{Grad-CAM}}$ is upsampled to the input image resolution and overlaid as a translucent colour map (jet colormap, $\alpha = 0.4$) on the original image before transmission to the frontend.
+%==============================================================================
+\subsection{CNN Architecture}
 
-\section{RAG-Augmented Consultation Pipeline}
-\label{sec:rag_method}
+Convolutional Neural Networks automatically learn hierarchical visual representations directly from image pixels through multiple convolutional layers.
 
-The consultation module implements a standard retrieve-then-read \gls{rag} architecture~\cite{lewis2020rag}. A curated knowledge base of agronomist-reviewed treatment documents was converted into dense vector embeddings using the Cohere \code{embed-multilingual-v3.0} model and indexed in a vector database supporting approximate nearest-neighbour search.
+Lower layers capture simple visual patterns such as edges and textures, whereas deeper layers progressively learn complex disease characteristics including lesions, discoloration, necrosis, and fungal infections.
 
-At query time, the user's message is embedded using the same model, and the top-$k$ ($k=5$) documents are retrieved by cosine similarity. The retrieved documents are prepended to the user query as contextual grounding material within a structured system prompt that enforces domain restriction and specifies the required response format: overview, cause, infection analysis, severity status, organic treatment, chemical treatment, prevention guidelines, and warning signs. The assembled prompt is submitted to the Cohere \code{command-r-plus} model for final response generation.
+The proposed CNN architecture was specifically designed for large-scale multi-class plant disease classification rather than relying entirely on existing transfer-learning architectures.
 
-\section{Validation Strategy}
-\label{sec:validation}
+Figure~\ref{fig:cnn_architecture} illustrates the architecture adopted in this work.
 
-The classification model training corpus was partitioned into training (70\%), validation (15\%), and test (15\%) splits using stratified sampling to preserve class distribution proportions across all three sets. The validation set was used exclusively for hyperparameter tuning and early stopping decisions; the test set was held out until final evaluation and never influenced any training decision.
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{assets/diagrams/cnn_architecture.png}
+\caption{Custom CNN Architecture for Plant Disease Classification}
+\label{fig:cnn_architecture}
+\end{figure}
 
-For the detection model, the standard COCO evaluation protocol was adopted, computing mean Average Precision (\gls{map}) at IoU thresholds of 0.50 and 0.50:0.95.
+%==============================================================================
+\subsection{Classification Workflow}
 
-For the segmentation model, the primary evaluation metric was the mean Intersection over Union (\gls{iou}) computed on the held-out test split of the custom mask dataset.
+The disease classification process consists of five sequential stages.
 
-Model selection across training epochs was governed by the following criteria: for classification, maximum validation accuracy; for detection, maximum validation mAP@0.50; for segmentation, maximum validation mean IoU.
+\begin{enumerate}[leftmargin=*,label=\textbf{C\arabic*.}]
+
+\item Receive the segmented leaf produced by the U-Net model.
+
+\item Resize the image to $224 \times 224$ pixels.
+
+\item Extract hierarchical visual features through successive convolutional layers.
+
+\item Generate probability scores for all disease classes using the Softmax layer.
+
+\item Select the class with the highest prediction probability as the final diagnosis.
+
+\end{enumerate}
+
+The predicted disease together with its confidence score is subsequently forwarded to the explainability module.
+
+%==============================================================================
+\section{Explainable Artificial Intelligence using Grad-CAM}
+\label{sec:gradcam_methodology}
+
+Deep learning models often operate as black-box predictors, making it difficult for users to understand the reasoning behind their decisions.
+
+To improve transparency and increase user trust, NABTA incorporates Gradient-weighted Class Activation Mapping (Grad-CAM), an explainable artificial intelligence technique that visualizes the image regions responsible for each prediction.
+
+Instead of simply presenting a disease label, the system highlights the infected regions that contributed most strongly to the CNN decision.
+
+%==============================================================================
+\subsection{Grad-CAM Workflow}
+
+The Grad-CAM algorithm follows the sequence below.
+
+\begin{enumerate}[leftmargin=*,label=\textbf{G\arabic*.}]
+
+\item Perform a forward pass through the CNN.
+
+\item Extract feature maps from the final convolutional layers.
+
+\item Compute the gradients with respect to the predicted class.
+
+\item Apply global average pooling to obtain neuron importance weights.
+
+\item Compute a weighted combination of feature maps.
+
+\item Generate the final activation heatmap.
+
+\item Overlay the heatmap onto the original leaf image.
+
+\end{enumerate}
+
+The resulting visualization clearly identifies the regions that influenced the prediction, allowing users to verify that the model focuses on biologically meaningful disease symptoms rather than irrelevant background information.
+
+%==============================================================================
+\subsection{Disease Severity Estimation}
+
+Beyond visual explanation, Grad-CAM is also employed to estimate disease severity.
+
+The activation heatmap is combined with the segmentation mask generated by the U-Net model. Pixels exhibiting high activation values are interpreted as infected tissue, while low-activation regions correspond to healthy leaf areas.
+
+The proportion of infected pixels is then calculated to estimate disease severity, which is categorized into three levels:
+
+\begin{itemize}[leftmargin=*]
+
+\item Low
+
+\item Moderate
+
+\item Severe
+
+\end{itemize}
+
+This additional analysis transforms the CNN from a conventional image classifier into a practical decision-support system capable of providing more informative disease assessments for farmers and agricultural specialists.
+
+%==============================================================================
+\section{Crop Recommendation Model}
+\label{sec:crop_methodology}
+
+Beyond plant disease diagnosis, NABTA incorporates a machine learning-based crop recommendation system that assists farmers in selecting the most suitable crop according to soil characteristics and environmental conditions.
+
+The recommendation model was implemented using a Random Forest classifier due to its robustness, high predictive accuracy, resistance to overfitting, and ability to model complex nonlinear relationships among agricultural variables.
+
+The input feature vector consists of:
+
+\begin{itemize}[leftmargin=*]
+\item Nitrogen (N)
+\item Phosphorus (P)
+\item Potassium (K)
+\item Soil Type
+\item Soil pH
+\item Temperature
+\item Humidity
+\item Rainfall
+\end{itemize}
+
+Prior to training, the agricultural dataset was regenerated using crop--soil suitability rules derived from agronomic knowledge. This process established realistic relationships between crop species and preferred soil types, improving the practical usefulness of the recommendation model.
+
+The Random Forest classifier predicts the most suitable crop while providing probability scores for all candidate crops.
+
+%==============================================================================
+\subsection{Training Procedure}
+
+The dataset was randomly divided into training and testing subsets while preserving class distributions.
+
+Model performance was evaluated using:
+
+\begin{itemize}[leftmargin=*]
+\item Accuracy
+\item Precision
+\item Recall
+\item F1-score
+\item Five-fold Cross Validation
+\end{itemize}
+
+Random Forest was selected because it consistently achieved superior generalization performance compared with alternative machine learning algorithms evaluated during preliminary experiments.
+
+%==============================================================================
+\section{Smart Irrigation Recommendation}
+\label{sec:irrigation_methodology}
+
+Efficient irrigation management is essential for sustainable agriculture and water conservation. Therefore, NABTA incorporates two complementary machine learning models that support irrigation decision making.
+
+The first model determines whether irrigation is currently required, whereas the second estimates the amount of water required under the current environmental conditions.
+
+%==============================================================================
+\subsection{Irrigation Decision Model}
+
+The irrigation decision model was implemented using a Random Forest classifier.
+
+The model receives environmental and soil measurements including soil moisture, temperature, humidity, rainfall, crop type, and soil type, then predicts whether irrigation should be performed.
+
+The output consists of a binary decision:
+
+\begin{itemize}[leftmargin=*]
+\item Irrigation Required
+\item Irrigation Not Required
+\end{itemize}
+
+%==============================================================================
+\subsection{Water Requirement Estimation}
+
+To estimate the amount of irrigation water required, a Random Forest regressor was developed.
+
+The regression model predicts the expected crop water requirement measured in millimeters (mm), enabling farmers to optimize irrigation scheduling while reducing unnecessary water consumption.
+
+Model performance was evaluated using:
+
+\begin{itemize}[leftmargin=*]
+\item Coefficient of Determination ($R^2$)
+\item Mean Absolute Error (MAE)
+\end{itemize}
+
+The combination of the irrigation classifier and regression model enables both irrigation decision support and quantitative water requirement estimation.
+
+%==============================================================================
+\section{AI Agricultural Assistant}
+\label{sec:rag_methodology}
+
+To provide intelligent agricultural consultation beyond predictive analytics, NABTA integrates a conversational assistant based on Retrieval-Augmented Generation (RAG).
+
+Unlike conventional chatbots that rely solely on large language models, the proposed assistant retrieves relevant agricultural knowledge before generating responses.
+
+The consultation workflow consists of the following stages:
+
+\begin{enumerate}[leftmargin=*,label=\textbf{R\arabic*.}]
+
+\item Receive the user's agricultural question.
+
+\item Retrieve relevant agricultural documents from the knowledge base.
+
+\item Construct an augmented prompt combining the retrieved information with the user's query.
+
+\item Generate the final response using the Cohere Large Language Model.
+
+\item Return an evidence-based recommendation to the user.
+
+\end{enumerate}
+
+This retrieval mechanism reduces hallucinations while improving factual consistency and domain-specific response quality.
+
+%==============================================================================
+\section{System Integration}
+\label{sec:system_integration}
+
+All intelligent modules were integrated through a unified FastAPI backend exposing RESTful APIs.
+
+The integration workflow follows these stages:
+
+\begin{enumerate}[leftmargin=*,label=\textbf{I\arabic*.}]
+
+\item User uploads a plant image through the React.js interface.
+
+\item FastAPI forwards the image to the YOLOv8x detection service.
+
+\item The detected leaf is segmented using U-Net.
+
+\item The segmented image is classified using the CNN.
+
+\item Grad-CAM generates the visual explanation and disease severity estimation.
+
+\item Crop recommendation and irrigation services are executed whenever requested.
+
+\item The RAG chatbot provides agricultural consultation.
+
+\item Results are stored within Firebase and displayed through the analytics dashboard.
+
+\end{enumerate}
+
+The modular architecture allows each artificial intelligence component to operate independently while communicating through standardized RESTful interfaces.
+
+%==============================================================================
+\section{Chapter Summary}
+\label{sec:chapter3_summary}
+
+This chapter presented the complete methodology adopted for developing the NABTA platform. The overall workflow covered dataset preparation, YOLOv8x object detection, U-Net semantic segmentation, CNN-based disease classification, Grad-CAM explainability, crop recommendation, irrigation recommendation, Retrieval-Augmented Generation, and full system integration.
+
+The proposed methodology combines multiple artificial intelligence techniques within a unified production-ready architecture, forming a complete decision-support platform for modern precision agriculture. The implementation details and experimental evaluation of these modules are presented in the following chapters.
