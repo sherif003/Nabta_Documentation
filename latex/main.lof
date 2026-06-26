@@ -3,28 +3,28 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces High-Level Three-Tier System Architecture of NABTA}}{37}{figure.caption.30}%
-\contentsline {figure}{\numberline {4.2}{\ignorespaces NABTA Use Case Diagram}}{38}{figure.caption.31}%
-\contentsline {figure}{\numberline {4.3}{\ignorespaces NABTA Activity Diagram}}{39}{figure.caption.32}%
-\contentsline {figure}{\numberline {4.4}{\ignorespaces NABTA Sequence Diagram}}{40}{figure.caption.33}%
-\contentsline {figure}{\numberline {4.5}{\ignorespaces NABTA Class Diagram}}{41}{figure.caption.34}%
-\contentsline {figure}{\numberline {4.6}{\ignorespaces NABTA Entity Relationship Diagram}}{42}{figure.caption.35}%
-\contentsline {figure}{\numberline {4.7}{\ignorespaces NABTA Component Diagram}}{43}{figure.caption.36}%
-\contentsline {figure}{\numberline {4.8}{\ignorespaces NABTA Deployment Diagram}}{43}{figure.caption.37}%
-\contentsline {figure}{\numberline {4.9}{\ignorespaces NABTA Main Analysis Dashboard Interface}}{44}{figure.caption.38}%
-\contentsline {figure}{\numberline {4.10}{\ignorespaces NABTA Smart Analysis Center Dashboard}}{45}{figure.caption.39}%
-\contentsline {figure}{\numberline {4.11}{\ignorespaces NABTA AI Chat Assistant Interface}}{46}{figure.caption.40}%
+\contentsline {figure}{\numberline {4.1}{\ignorespaces High-Level Three-Tier System Architecture of NABTA}}{40}{figure.caption.32}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces NABTA Use Case Diagram}}{41}{figure.caption.33}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces NABTA Activity Diagram}}{42}{figure.caption.34}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces NABTA Sequence Diagram}}{43}{figure.caption.35}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces NABTA Class Diagram}}{44}{figure.caption.36}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces NABTA Entity Relationship Diagram}}{45}{figure.caption.37}%
+\contentsline {figure}{\numberline {4.7}{\ignorespaces NABTA Component Diagram}}{46}{figure.caption.38}%
+\contentsline {figure}{\numberline {4.8}{\ignorespaces NABTA Deployment Diagram}}{46}{figure.caption.39}%
+\contentsline {figure}{\numberline {4.9}{\ignorespaces NABTA Main Analysis Dashboard Interface}}{47}{figure.caption.40}%
+\contentsline {figure}{\numberline {4.10}{\ignorespaces NABTA Smart Analysis Center Dashboard}}{48}{figure.caption.41}%
+\contentsline {figure}{\numberline {4.11}{\ignorespaces NABTA AI Chat Assistant Interface}}{49}{figure.caption.42}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces NABTA Login and Welcome Screen}}{63}{figure.caption.50}%
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Analysis Results Screen with Detection, Segmentation, and Grad-CAM Panels}}{64}{figure.caption.51}%
-\contentsline {figure}{\numberline {5.3}{\ignorespaces Crop Recommendation and Irrigation Management Screens}}{64}{figure.caption.52}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces NABTA Login and Welcome Screen}}{66}{figure.caption.52}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Analysis Results Screen with Detection, Segmentation, and Grad-CAM Panels}}{67}{figure.caption.53}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Crop Recommendation and Irrigation Management Screens}}{67}{figure.caption.54}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {6.1}{\ignorespaces Training and Validation Accuracy and Loss Curves of the CNN Classification Model}}{68}{figure.caption.55}%
-\contentsline {figure}{\numberline {6.2}{\ignorespaces YOLOv8x Training Results}}{70}{figure.caption.57}%
-\contentsline {figure}{\numberline {6.3}{\ignorespaces Representative YOLOv8 Detection Results}}{71}{figure.caption.58}%
-\contentsline {figure}{\numberline {6.4}{\ignorespaces Training Performance of the U-Net Segmentation Model}}{73}{figure.caption.60}%
-\contentsline {figure}{\numberline {6.5}{\ignorespaces Representative U-Net Segmentation Results}}{74}{figure.caption.61}%
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Training and Validation Accuracy and Loss Curves of the CNN Classification Model}}{71}{figure.caption.57}%
+\contentsline {figure}{\numberline {6.2}{\ignorespaces YOLOv8x Training Results}}{73}{figure.caption.59}%
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Representative YOLOv8 Detection Results}}{74}{figure.caption.60}%
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Training Performance of the U-Net Segmentation Model}}{76}{figure.caption.62}%
+\contentsline {figure}{\numberline {6.5}{\ignorespaces Representative U-Net Segmentation Results}}{77}{figure.caption.63}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {A.1}{\ignorespaces Distribution of Images Across Crop Categories in the Combined Training Corpus}}{91}{figure.caption.70}%
+\contentsline {figure}{\numberline {A.1}{\ignorespaces Distribution of Images Across Crop Categories in the Combined Training Corpus}}{94}{figure.caption.72}%
 \contentsfinish 
