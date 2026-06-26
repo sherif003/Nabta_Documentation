@@ -1,0 +1,44 @@
+\babel@toc {english}{}\relax 
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Overall AI Pipeline of the Proposed NABTA Platform}}{30}{figure.caption.27}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces YOLOv8x Architecture Used for Plant Leaf Detection}}{35}{figure.caption.29}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces U-Net Architecture with EfficientNet-B0 Encoder}}{38}{figure.caption.31}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Custom CNN Architecture for Plant Disease Classification}}{40}{figure.caption.33}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Overall Workflow of the NABTA Platform}}{49}{figure.caption.34}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Detailed Service Workflow of the NABTA Platform}}{51}{figure.caption.35}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Use Case Diagram of the NABTA Platform}}{53}{figure.caption.36}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Activity Diagram of the Plant Disease Diagnosis Process}}{54}{figure.caption.37}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Sequence Diagram of the NABTA Platform}}{56}{figure.caption.38}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Class Diagram of the NABTA Platform}}{57}{figure.caption.39}%
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Entity Relationship Diagram of the NABTA Platform}}{58}{figure.caption.40}%
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Component Diagram of the NABTA Platform}}{61}{figure.caption.42}%
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Deployment Diagram of the NABTA Platform}}{63}{figure.caption.43}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces NABTA Landing Page}}{71}{figure.caption.46}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces User Authentication Interface}}{72}{figure.caption.47}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Password Recovery Interface}}{73}{figure.caption.48}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Plant Analysis Upload Interface}}{74}{figure.caption.49}%
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Integrated Plant Disease Analysis Interface Showing the Outputs of YOLOv8x Detection, U-Net Segmentation, CNN Classification, Confidence Score, and Disease Severity Estimation}}{75}{figure.caption.50}%
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Disease Analysis Report}}{76}{figure.caption.51}%
+\contentsline {figure}{\numberline {5.7}{\ignorespaces AI Agricultural Assistant}}{77}{figure.caption.52}%
+\contentsline {figure}{\numberline {5.8}{\ignorespaces AI-Based Agricultural Recommendations}}{78}{figure.caption.53}%
+\contentsline {figure}{\numberline {5.9}{\ignorespaces Automatically Generated PDF Disease Report}}{79}{figure.caption.54}%
+\contentsline {figure}{\numberline {5.10}{\ignorespaces Analysis Dashboard}}{80}{figure.caption.55}%
+\contentsline {figure}{\numberline {5.11}{\ignorespaces Plant and Disease Analytics Dashboard}}{81}{figure.caption.56}%
+\contentsline {figure}{\numberline {5.12}{\ignorespaces Analysis History Interface}}{82}{figure.caption.57}%
+\contentsline {figure}{\numberline {5.13}{\ignorespaces Smart Irrigation Management Interface}}{83}{figure.caption.58}%
+\contentsline {figure}{\numberline {5.14}{\ignorespaces Crop Recommendation Interface}}{84}{figure.caption.59}%
+\contentsline {figure}{\numberline {5.15}{\ignorespaces Custom Data Management Interface}}{85}{figure.caption.60}%
+\contentsline {figure}{\numberline {5.16}{\ignorespaces User Profile Interface}}{86}{figure.caption.61}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Training and Validation Accuracy and Loss Curves of the CNN Classification Model}}{92}{figure.caption.64}%
+\contentsline {figure}{\numberline {6.2}{\ignorespaces YOLOv8x Training Results}}{94}{figure.caption.66}%
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Representative YOLOv8 Detection Results}}{95}{figure.caption.67}%
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Training Performance of the U-Net Segmentation Model}}{97}{figure.caption.69}%
+\contentsline {figure}{\numberline {6.5}{\ignorespaces Representative U-Net Segmentation Results}}{98}{figure.caption.70}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsfinish 

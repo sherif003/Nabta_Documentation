@@ -42,7 +42,7 @@ The defining design decision behind NABTA is that it does not rely on a single e
 \item \textbf{Explainability (Grad-CAM):} Gradient-weighted Class Activation Mapping (Grad-CAM) is applied to the classifier's decision to generate a heatmap overlay on the original leaf image, visually highlighting exactly which pixels most influenced the predicted disease label.
 \end{enumerate}
 
-Beyond plant disease analysis, NABTA integrates three additional machine learning models. The Crop Recommendation module predicts the most suitable crop based on soil nutrients, soil type, and environmental conditions. The Smart Irrigation module consists of two complementary models: a Random Forest classifier that determines whether irrigation is required and a Random Forest regressor that estimates the amount of water required by the crop. Together with the AI Assistant, these intelligent services transform NABTA from a plant disease diagnosis tool into a comprehensive smart agriculture platform. The Crop Recommendation module predicts the most suitable crop based on soil nutrients, weather conditions, and environmental factors, while the Smart Irrigation module estimates crop water requirements to improve irrigation efficiency and support sustainable farming practices. Together with the AI Assistant, these intelligent services transform NABTA from a plant disease diagnosis tool into a comprehensive smart agriculture platform.
+Beyond plant disease analysis, NABTA integrates three additional machine learning models. The Crop Recommendation module predicts the most suitable crop based on soil nutrients, soil type, weather conditions, and environmental factors. The Smart Irrigation module consists of two complementary models: a Random Forest classifier that determines whether irrigation is required and a Random Forest regressor that estimates the amount of water required by the crop. Together with the AI Assistant, these intelligent services transform NABTA from a plant disease diagnosis tool into a comprehensive smart agriculture platform.
 
 This pipeline is not exposed as a bare API or research script -- it is wrapped inside a production-grade web product designed for real end users:
 
@@ -55,7 +55,7 @@ This pipeline is not exposed as a bare API or research script -- it is wrapped i
 \item \textbf{Premium tier:} introduced as part of the platform's subscription model to let advanced users -- larger farms, agricultural businesses, or researchers -- upload custom datasets for future model customization and training.
 \end{itemize}
 
-The completed system is deployed and publicly accessible at nabta-system.tech, with its source code hosted on GitHub across three repositories and its development lifecycle tracked and managed through Jira across six structured agile sprints.
+The completed system is deployed and publicly accessible at \url{https://nabta-system.tech/}. Its implementation is organized across four GitHub repositories covering the React frontend, the computer vision models, the plant disease analysis API, and the agricultural recommendation API, while the deployed inference services are hosted through Hugging Face Spaces.
 
 %==============================================================================
 \section{Project Scope}

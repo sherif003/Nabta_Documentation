@@ -1,0 +1,157 @@
+\babel@toc {english}{}\relax 
+\contentsline {chapter}{Dedication}{xvi}{Doc-Start}%
+\contentsline {chapter}{Acknowledgement}{xvii}{chapter*.1}%
+\contentsline {chapter}{Abstract}{xviii}{chapter*.2}%
+\contentsline {chapter}{Table of Figures}{xxvii}{section*.4}%
+\contentsline {chapter}{List of Tables}{xxix}{section*.6}%
+\contentsline {chapter}{List of Abbreviations}{xxxi}{section*.8}%
+\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Background}{1}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Project Idea}{3}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Project Scope}{5}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Business Problem}{7}{section.1.4}%
+\contentsline {section}{\numberline {1.5}Project Objectives}{8}{section.1.5}%
+\contentsline {section}{\numberline {1.6}Related Work and Comparative Study}{9}{section.1.6}%
+\contentsline {section}{\numberline {1.7}Project Contribution}{10}{section.1.7}%
+\contentsline {chapter}{\numberline {2}Literature Review and System Analysis}{11}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Related Work}{11}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Overview}{12}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Stakeholder Analysis}{13}{section.2.3}%
+\contentsline {section}{\numberline {2.4}User Roles}{14}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Free-Tier User}{15}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}Pro-Tier User}{15}{subsection.2.4.2}%
+\contentsline {subsection}{\numberline {2.4.3}System Administrator}{15}{subsection.2.4.3}%
+\contentsline {section}{\numberline {2.5}Functional Requirements}{15}{section.2.5}%
+\contentsline {subsection}{\numberline {2.5.1}Authentication and Account Management}{16}{subsection.2.5.1}%
+\contentsline {subsection}{\numberline {2.5.2}Plant Image Analysis}{17}{subsection.2.5.2}%
+\contentsline {subsection}{\numberline {2.5.3}Crop Recommendation and Smart Irrigation}{18}{subsection.2.5.3}%
+\contentsline {subsection}{\numberline {2.5.4}AI Consultation Chatbot}{19}{subsection.2.5.4}%
+\contentsline {subsection}{\numberline {2.5.5}Analytics Dashboard}{20}{subsection.2.5.5}%
+\contentsline {section}{\numberline {2.6}Non-Functional Requirements}{20}{section.2.6}%
+\contentsline {section}{\numberline {2.7}Use Cases}{22}{section.2.7}%
+\contentsline {subsection}{\numberline {2.7.1}UC-01: User Registration}{22}{subsection.2.7.1}%
+\contentsline {subsection}{\numberline {2.7.2}UC-02: Plant Disease Analysis}{23}{subsection.2.7.2}%
+\contentsline {subsection}{\numberline {2.7.3}UC-03: Crop Recommendation}{23}{subsection.2.7.3}%
+\contentsline {subsection}{\numberline {2.7.4}UC-04: Smart Irrigation Recommendation}{24}{subsection.2.7.4}%
+\contentsline {subsection}{\numberline {2.7.5}UC-05: AI Agricultural Consultation}{24}{subsection.2.7.5}%
+\contentsline {subsection}{\numberline {2.7.6}UC-06: PDF Report Generation}{25}{subsection.2.7.6}%
+\contentsline {subsection}{\numberline {2.7.7}UC-07: Subscription Upgrade}{25}{subsection.2.7.7}%
+\contentsline {section}{\numberline {2.8}System Test Cases}{25}{section.2.8}%
+\contentsline {section}{\numberline {2.9}Chapter Summary}{27}{section.2.9}%
+\contentsline {chapter}{\numberline {3}System Methodology}{28}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Overview}{28}{section.3.1}%
+\contentsline {section}{\numberline {3.2}System Architecture}{28}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Overall AI Pipeline}{29}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Dataset Collection}{31}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Plant Disease Classification Dataset}{31}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}Object Detection Dataset}{33}{subsection.3.4.2}%
+\contentsline {subsection}{\numberline {3.4.3}Segmentation Dataset}{33}{subsection.3.4.3}%
+\contentsline {section}{\numberline {3.5}Data Preparation}{33}{section.3.5}%
+\contentsline {section}{\numberline {3.6}YOLOv8x Object Detection}{34}{section.3.6}%
+\contentsline {subsection}{\numberline {3.6.1}YOLOv8x Architecture}{34}{subsection.3.6.1}%
+\contentsline {subsection}{\numberline {3.6.2}YOLOv8x Training Configuration}{35}{subsection.3.6.2}%
+\contentsline {subsection}{\numberline {3.6.3}YOLOv8 Loss Function}{36}{subsection.3.6.3}%
+\contentsline {subsection}{\numberline {3.6.4}Detection Workflow}{36}{subsection.3.6.4}%
+\contentsline {section}{\numberline {3.7}Leaf Segmentation using U-Net}{37}{section.3.7}%
+\contentsline {subsection}{\numberline {3.7.1}U-Net Architecture}{37}{subsection.3.7.1}%
+\contentsline {subsection}{\numberline {3.7.2}Segmentation Workflow}{38}{subsection.3.7.2}%
+\contentsline {subsection}{\numberline {3.7.3}Training Configuration}{39}{subsection.3.7.3}%
+\contentsline {section}{\numberline {3.8}Plant Disease Classification}{39}{section.3.8}%
+\contentsline {subsection}{\numberline {3.8.1}CNN Architecture}{40}{subsection.3.8.1}%
+\contentsline {subsection}{\numberline {3.8.2}Classification Workflow}{40}{subsection.3.8.2}%
+\contentsline {section}{\numberline {3.9}Explainable Artificial Intelligence using Grad-CAM}{41}{section.3.9}%
+\contentsline {subsection}{\numberline {3.9.1}Grad-CAM Workflow}{41}{subsection.3.9.1}%
+\contentsline {subsection}{\numberline {3.9.2}Disease Severity Estimation}{42}{subsection.3.9.2}%
+\contentsline {section}{\numberline {3.10}Crop Recommendation Model}{42}{section.3.10}%
+\contentsline {subsection}{\numberline {3.10.1}Training Procedure}{43}{subsection.3.10.1}%
+\contentsline {section}{\numberline {3.11}Smart Irrigation Recommendation}{44}{section.3.11}%
+\contentsline {subsection}{\numberline {3.11.1}Irrigation Decision Model}{44}{subsection.3.11.1}%
+\contentsline {subsection}{\numberline {3.11.2}Water Requirement Estimation}{44}{subsection.3.11.2}%
+\contentsline {section}{\numberline {3.12}AI Agricultural Assistant}{45}{section.3.12}%
+\contentsline {section}{\numberline {3.13}System Integration}{45}{section.3.13}%
+\contentsline {section}{\numberline {3.14}Chapter Summary}{46}{section.3.14}%
+\contentsline {chapter}{\numberline {4}System Design}{47}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Overview}{47}{section.4.1}%
+\contentsline {section}{\numberline {4.2}System Workflow}{48}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Use Case Diagram}{52}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Activity Diagram}{54}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Sequence Diagram}{55}{section.4.5}%
+\contentsline {section}{\numberline {4.6}Class Diagram}{57}{section.4.6}%
+\contentsline {section}{\numberline {4.7}Entity Relationship Diagram}{57}{section.4.7}%
+\contentsline {section}{\numberline {4.8}Database Design}{59}{section.4.8}%
+\contentsline {subsection}{\numberline {4.8.1}Database Relationships}{60}{subsection.4.8.1}%
+\contentsline {section}{\numberline {4.9}Component Diagram}{60}{section.4.9}%
+\contentsline {section}{\numberline {4.10}Deployment Diagram}{62}{section.4.10}%
+\contentsline {section}{\numberline {4.11}REST API Design}{64}{section.4.11}%
+\contentsline {section}{\numberline {4.12}Security Architecture}{65}{section.4.12}%
+\contentsline {subsection}{\numberline {4.12.1}Authentication and Authorization}{65}{subsection.4.12.1}%
+\contentsline {subsection}{\numberline {4.12.2}Secure API Communication}{65}{subsection.4.12.2}%
+\contentsline {subsection}{\numberline {4.12.3}API Key Protection}{66}{subsection.4.12.3}%
+\contentsline {subsection}{\numberline {4.12.4}Cloud Security}{66}{subsection.4.12.4}%
+\contentsline {section}{\numberline {4.13}Design Principles}{66}{section.4.13}%
+\contentsline {section}{\numberline {4.14}Design Decisions}{67}{section.4.14}%
+\contentsline {section}{\numberline {4.15}Chapter Summary}{68}{section.4.15}%
+\contentsline {chapter}{\numberline {5}System Implementation}{69}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Overview}{69}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Frontend Implementation}{70}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Home Page}{71}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}User Authentication}{71}{subsection.5.2.2}%
+\contentsline {subsection}{\numberline {5.2.3}Password Recovery}{72}{subsection.5.2.3}%
+\contentsline {subsection}{\numberline {5.2.4}Plant Analysis Interface}{73}{subsection.5.2.4}%
+\contentsline {subsection}{\numberline {5.2.5}Plant Disease Analysis Results}{74}{subsection.5.2.5}%
+\contentsline {subsection}{\numberline {5.2.6}Disease Diagnosis Report}{75}{subsection.5.2.6}%
+\contentsline {subsection}{\numberline {5.2.7}AI Agricultural Assistant}{76}{subsection.5.2.7}%
+\contentsline {subsection}{\numberline {5.2.8}AI Recommendations}{77}{subsection.5.2.8}%
+\contentsline {subsection}{\numberline {5.2.9}PDF Disease Report}{78}{subsection.5.2.9}%
+\contentsline {subsection}{\numberline {5.2.10}Analysis Dashboard}{79}{subsection.5.2.10}%
+\contentsline {subsection}{\numberline {5.2.11}Plant and Disease Analytics}{80}{subsection.5.2.11}%
+\contentsline {subsection}{\numberline {5.2.12}Analysis History}{81}{subsection.5.2.12}%
+\contentsline {subsection}{\numberline {5.2.13}Irrigation Management}{82}{subsection.5.2.13}%
+\contentsline {subsection}{\numberline {5.2.14}Crop Recommendation}{83}{subsection.5.2.14}%
+\contentsline {subsection}{\numberline {5.2.15}Custom Data Management}{84}{subsection.5.2.15}%
+\contentsline {subsection}{\numberline {5.2.16}User Profile}{85}{subsection.5.2.16}%
+\contentsline {section}{\numberline {5.3}Backend Implementation}{86}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Artificial Intelligence Integration}{86}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Cloud Services Integration}{87}{section.5.5}%
+\contentsline {section}{\numberline {5.6}Chapter Summary}{87}{section.5.6}%
+\contentsline {chapter}{\numberline {6}Results and Evaluation}{89}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Overview}{89}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Classification Model Performance}{89}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}Overall Performance}{89}{subsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.2.2}Representative Per-Class Performance}{90}{subsection.6.2.2}%
+\contentsline {subsection}{\numberline {6.2.3}Training Convergence}{91}{subsection.6.2.3}%
+\contentsline {section}{\numberline {6.3}YOLOv8 Detection Model Performance}{92}{section.6.3}%
+\contentsline {subsection}{\numberline {6.3.1}Overall Detection Performance}{92}{subsection.6.3.1}%
+\contentsline {subsection}{\numberline {6.3.2}Training Convergence}{93}{subsection.6.3.2}%
+\contentsline {subsection}{\numberline {6.3.3}Detection Examples}{94}{subsection.6.3.3}%
+\contentsline {section}{\numberline {6.4}U-Net Segmentation Model Performance}{95}{section.6.4}%
+\contentsline {subsection}{\numberline {6.4.1}Overall Segmentation Performance}{95}{subsection.6.4.1}%
+\contentsline {subsection}{\numberline {6.4.2}Training Convergence}{96}{subsection.6.4.2}%
+\contentsline {subsection}{\numberline {6.4.3}Segmentation Quality}{97}{subsection.6.4.3}%
+\contentsline {section}{\numberline {6.5}Crop Recommendation Model Performance}{98}{section.6.5}%
+\contentsline {subsection}{\numberline {6.5.1}Overall Performance}{98}{subsection.6.5.1}%
+\contentsline {subsection}{\numberline {6.5.2}Agronomic Validation}{99}{subsection.6.5.2}%
+\contentsline {section}{\numberline {6.6}Irrigation Recommendation Model Performance}{100}{section.6.6}%
+\contentsline {subsection}{\numberline {6.6.1}Irrigation Decision Model}{100}{subsection.6.6.1}%
+\contentsline {subsection}{\numberline {6.6.2}Water Requirement Estimation}{101}{subsection.6.6.2}%
+\contentsline {section}{\numberline {6.7}Chapter Summary}{102}{section.6.7}%
+\contentsline {chapter}{\numberline {7}Conclusion and Future Work}{103}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Known Limitations}{105}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Future Work}{106}{section.7.2}%
+\contentsline {subsection}{\numberline {7.2.1}Expansion of Plant Disease Coverage}{106}{subsection.7.2.1}%
+\contentsline {subsection}{\numberline {7.2.2}Advanced Computer Vision Models}{107}{subsection.7.2.2}%
+\contentsline {subsection}{\numberline {7.2.3}IoT-Based Smart Agriculture}{107}{subsection.7.2.3}%
+\contentsline {subsection}{\numberline {7.2.4}Weather Forecast Integration}{107}{subsection.7.2.4}%
+\contentsline {subsection}{\numberline {7.2.5}Satellite and Drone Imagery}{107}{subsection.7.2.5}%
+\contentsline {subsection}{\numberline {7.2.6}Mobile Application Development}{107}{subsection.7.2.6}%
+\contentsline {subsection}{\numberline {7.2.7}Edge AI Deployment}{108}{subsection.7.2.7}%
+\contentsline {subsection}{\numberline {7.2.8}Continuous Learning}{108}{subsection.7.2.8}%
+\contentsline {subsection}{\numberline {7.2.9}Smart Farm Integration}{108}{subsection.7.2.9}%
+\contentsline {section}{\numberline {7.3}Closing Remarks}{108}{section.7.3}%
+\contentsline {chapter}{Bibliography}{110}{section*.75}%
+\contentsline {chapter}{\numberline {A}Dataset Details and Class Taxonomy}{113}{appendix.A}%
+\contentsline {section}{\numberline {A.1}Dataset Sources}{113}{section.A.1}%
+\contentsline {section}{\numberline {A.2}Class Distribution}{114}{section.A.2}%
+\contentsline {section}{\numberline {A.3}Complete Class Taxonomy}{116}{section.A.3}%
+\contentsline {chapter}{Glossary}{121}{section*.77}%
+\contentsfinish 

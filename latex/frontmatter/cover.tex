@@ -10,13 +10,46 @@
   \draw[draw=green!55!black,line width=0.45pt]
     ([xshift=0.78cm,yshift=-0.78cm]current page.north west) rectangle
     ([xshift=-0.78cm,yshift=0.78cm]current page.south east);
+
+  % Subtle botanical watermark for the plant-health theme.
+  \begin{scope}[shift={([xshift=-0.25cm,yshift=-0.1cm]current page.center)},opacity=0.055]
+    \draw[line width=1.2pt] (0,-6.1) .. controls (-0.55,-3.9) and (0.5,-1.4) .. (0,1.5);
+    \foreach \y/\s/\r in {-5.15/1.15/-28,-4.35/1.0/24,-3.45/1.18/-26,-2.5/1.02/25,-1.55/1.08/-23,-0.65/0.92/25,0.2/0.86/-22,0.95/0.68/24}{
+      \begin{scope}[shift={(0,\y)},rotate=\r,scale=\s]
+        \draw[line width=0.8pt] (0,0) .. controls (0.95,0.5) and (1.45,1.12) .. (2.22,0.12)
+          .. controls (1.45,-0.52) and (0.85,-0.45) .. (0,0);
+        \draw[line width=0.45pt] (0.2,0.02) -- (1.85,0.08);
+      \end{scope}
+    }
+  \end{scope}
+
+  % Formal leaf sprigs in the corners.
+  \foreach \anchor/\x/\y/\rot in {north west/1.38/-1.38/-35,north east/-1.38/-1.38/215,south west/1.38/1.38/35,south east/-1.38/1.38/145}{
+    \begin{scope}[shift={([xshift=\x cm,yshift=\y cm]current page.\anchor)},rotate=\rot,opacity=0.28]
+      \draw[line width=0.5pt] (0,0) .. controls (0.9,0.15) and (1.55,0.65) .. (2.15,1.25);
+      \foreach \p/\a in {0.36/32,0.78/-28,1.17/30,1.55/-25}{
+        \begin{scope}[shift={(\p,\p*0.5)},rotate=\a,scale=0.28]
+          \draw[line width=0.45pt] (0,0) .. controls (0.75,0.38) and (1.12,0.82) .. (1.65,0.1)
+            .. controls (1.0,-0.28) and (0.55,-0.25) .. (0,0);
+        \end{scope}
+      }
+    \end{scope}
+  }
 \end{tikzpicture}
 
 \begin{tikzpicture}[remember picture,overlay]
-  \node[anchor=south,text=black,font=\scriptsize] at
-    ([yshift=0.95cm]current page.south)
-    {Capital University\quad $\bullet$\quad Academic Year 2025--2026\quad
-     $\bullet$\quad Cairo, Egypt};
+  \node[
+    anchor=south,
+    text=black,
+    font=\small\bfseries
+  ] at ([yshift=1.05cm]current page.south)
+  {
+    Capital University
+    \quad $\bullet$ \quad
+    Academic Year 2025--2026
+    \quad $\bullet$ \quad
+    Cairo, Egypt
+  };
 \end{tikzpicture}
 
 \vspace*{-0.95cm}
@@ -30,7 +63,8 @@
   \centering
   {\large\bfseries Capital University}\\[0.2cm]
   {\small Faculty of Science}\\[0.08cm]
-  {\small Department of Computer Science and Statistics}
+  {\small Department of Mathematics}\\[0.08cm]
+  {\small Statistics \& Computer Science Program}
 \end{minipage}
 \hfill
 \begin{minipage}[c]{0.19\textwidth}
@@ -40,10 +74,27 @@
 \end{minipage}
 
 \vspace{0.45cm}
-{\small\bfseries FINAL YEAR GRADUATION PROJECT}\\[0.55cm]
-\coverlogo[4.35cm]{assets/logos/project_logo.png}{Project\\Logo}\\[0.35cm]
-{\Large Plant Disease Analysis System}\\[0.3cm]
-{\small An End-to-End Artificial Intelligence Platform for Plant Health Analysis}\\[0.8cm]
+{\large\bfseries FINAL YEAR GRADUATION PROJECT}\\[1cm]
+\coverlogo[6cm]{assets/logos/project_logo.png}{Project\\Logo}\\[1cm]
+
+\begin{tikzpicture}
+  \node[inner xsep=0.45cm,inner ysep=0.22cm,align=center] (title) {%
+    {\Large\bfseries Plant Disease Analysis System}\\[0.18cm]
+    {\small An End-to-End Artificial Intelligence Platform for Plant Health Analysis}
+  };
+  \draw[line width=0.45pt] ([xshift=-0.15cm]title.north west) -- ([xshift=0.15cm]title.north east);
+  \draw[line width=0.45pt] ([xshift=-0.15cm]title.south west) -- ([xshift=0.15cm]title.south east);
+  \draw[line width=0.35pt] ([xshift=-0.35cm]title.west) -- ++(-1.15cm,0);
+  \draw[line width=0.35pt] ([xshift=0.35cm]title.east) -- ++(1.15cm,0);
+  \begin{scope}[shift={([xshift=-1.72cm]title.west)},scale=0.28,opacity=0.7]
+    \draw[line width=0.45pt] (0,0) .. controls (0.7,0.35) and (1.1,0.8) .. (1.65,0.08)
+      .. controls (1.02,-0.28) and (0.55,-0.26) .. (0,0);
+  \end{scope}
+  \begin{scope}[shift={([xshift=1.72cm]title.east)},xscale=-0.28,yscale=0.28,opacity=0.7]
+    \draw[line width=0.45pt] (0,0) .. controls (0.7,0.35) and (1.1,0.8) .. (1.65,0.08)
+      .. controls (1.02,-0.28) and (0.55,-0.26) .. (0,0);
+  \end{scope}
+\end{tikzpicture}\\[0.72cm]
 
 {\normalsize\bfseries TEAM MEMBERS}\\[0.25cm]
 \begin{tabular}{@{}l@{\hspace{1.1cm}}r@{}}
@@ -56,10 +107,13 @@ Peter Bolbol Sefin & 352250738 \\
 Salsabel Esmail Hussin & 352250787 \\
 \end{tabular}
 
-\vspace{0.65cm}
-{\small\bfseries SUPERVISED BY}\\[0.18cm]
-{\large\bfseries Dr. Mourad Raafat}
+\vspace{0.75cm}
+
+{\large\bfseries SUPERVISED BY}\\[0.35cm]
+
+{\Large\bfseries Dr. Mourad Raafat}\\[0.18cm]
+
+{\normalsize Professor of Mathematical Statistics}
 
 \vfill
-
 \end{titlepage}

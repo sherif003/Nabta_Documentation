@@ -1,0 +1,44 @@
+\babel@toc {english}{}\relax 
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {1.1}{\ignorespaces Project Scope Summary}}{6}{table.caption.10}%
+\contentsline {table}{\numberline {1.2}{\ignorespaces Comparative Study of Plant Disease Applications}}{9}{table.caption.11}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {2.1}{\ignorespaces Stakeholder Groups and Their Primary Interests}}{14}{table.caption.12}%
+\contentsline {table}{\numberline {2.2}{\ignorespaces Functional Requirements: Authentication and Account Management}}{16}{table.caption.13}%
+\contentsline {table}{\numberline {2.3}{\ignorespaces Functional Requirements: Plant Image Analysis}}{17}{table.caption.14}%
+\contentsline {table}{\numberline {2.4}{\ignorespaces Functional Requirements: Crop Recommendation and Smart Irrigation}}{18}{table.caption.15}%
+\contentsline {table}{\numberline {2.5}{\ignorespaces Functional Requirements: AI Consultation Chatbot}}{19}{table.caption.16}%
+\contentsline {table}{\numberline {2.6}{\ignorespaces Functional Requirements: Analytics Dashboard}}{20}{table.caption.17}%
+\contentsline {table}{\numberline {2.7}{\ignorespaces Non-Functional Requirements}}{21}{table.caption.18}%
+\contentsline {table}{\numberline {2.8}{\ignorespaces Use Case: User Registration}}{22}{table.caption.19}%
+\contentsline {table}{\numberline {2.9}{\ignorespaces Use Case: Plant Disease Analysis}}{23}{table.caption.20}%
+\contentsline {table}{\numberline {2.10}{\ignorespaces Use Case: Crop Recommendation}}{23}{table.caption.21}%
+\contentsline {table}{\numberline {2.11}{\ignorespaces Use Case: Smart Irrigation Recommendation}}{24}{table.caption.22}%
+\contentsline {table}{\numberline {2.12}{\ignorespaces Use Case: AI Agricultural Consultation}}{24}{table.caption.23}%
+\contentsline {table}{\numberline {2.13}{\ignorespaces Use Case: PDF Report Generation}}{25}{table.caption.24}%
+\contentsline {table}{\numberline {2.14}{\ignorespaces Use Case: Subscription Upgrade}}{25}{table.caption.25}%
+\contentsline {table}{\numberline {2.15}{\ignorespaces Representative System Test Cases}}{26}{table.caption.26}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {3.1}{\ignorespaces Classification Dataset Sources}}{32}{table.caption.28}%
+\contentsline {table}{\numberline {3.2}{\ignorespaces YOLOv8x Training Configuration}}{36}{table.caption.30}%
+\contentsline {table}{\numberline {3.3}{\ignorespaces CNN Training Configuration}}{39}{table.caption.32}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {4.1}{\ignorespaces Firestore Collections}}{59}{table.caption.41}%
+\contentsline {table}{\numberline {4.2}{\ignorespaces Main REST API Endpoints}}{64}{table.caption.44}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {5.1}{\ignorespaces Implementation Repositories and Deployed Services}}{70}{table.caption.45}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {6.1}{\ignorespaces CNN Classification Model -- Overall Test Performance}}{90}{table.caption.62}%
+\contentsline {table}{\numberline {6.2}{\ignorespaces Representative CNN Classification Results}}{91}{table.caption.63}%
+\contentsline {table}{\numberline {6.3}{\ignorespaces YOLOv8x Detection Performance}}{93}{table.caption.65}%
+\contentsline {table}{\numberline {6.4}{\ignorespaces U-Net Segmentation Performance}}{96}{table.caption.68}%
+\contentsline {table}{\numberline {6.5}{\ignorespaces Crop Recommendation Model Performance}}{99}{table.caption.71}%
+\contentsline {table}{\numberline {6.6}{\ignorespaces Representative Crop Recommendation Validation}}{100}{table.caption.72}%
+\contentsline {table}{\numberline {6.7}{\ignorespaces Irrigation Decision Model Performance}}{101}{table.caption.73}%
+\contentsline {table}{\numberline {6.8}{\ignorespaces Water Requirement Regression Performance}}{101}{table.caption.74}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {A.1}{\ignorespaces Public Dataset Sources Used for Plant Disease Classification}}{113}{table.A.1}%
+\contentsline {table}{\numberline {A.2}{\ignorespaces Class Distribution by Plant Species}}{114}{table.A.2}%
+\contentsline {table}{\numberline {A.3}{\ignorespaces Complete 102-Class Plant Disease Classification Taxonomy}}{116}{table.A.3}%
+\contentsfinish 

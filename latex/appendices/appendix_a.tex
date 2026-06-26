@@ -1,202 +1,218 @@
 %==============================================================================
-% APPENDIX A --- DATASET DETAILS AND CLASS LISTING
+% APPENDIX A --- DATASET DETAILS AND CLASS TAXONOMY
 %==============================================================================
 
 \chapter{Dataset Details and Class Taxonomy}
 \label{app:datasets}
 
-\section{Complete List of 102 Target Classes}
+\section{Dataset Sources}
+\label{sec:app_dataset_sources}
+
+The plant disease classification dataset used in \nabta was constructed by merging nine public datasets. These sources were selected to increase plant-species coverage, include both controlled and field-acquired images, and improve the diversity of disease symptoms represented during model training. The source datasets are summarized in Table~\ref{tab:dataset_sources}.
+
+{\scriptsize
+\begin{longtable}{@{}L{2.8cm} L{1.8cm} L{5.0cm} L{1.7cm} L{3.7cm}@{}}
+\caption{Public Dataset Sources Used for Plant Disease Classification}
+\label{tab:dataset_sources}\\
+\toprule
+\textbf{Dataset Name} & \textbf{Source} & \textbf{Description} & \textbf{Reference} & \textbf{Access Link} \\
+\midrule
+\endfirsthead
+\caption[]{Public Dataset Sources Used for Plant Disease Classification (continued)}\\
+\toprule
+\textbf{Dataset Name} & \textbf{Source} & \textbf{Description} & \textbf{Reference} & \textbf{Access Link} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{5}{r}{\textit{Continued on next page}}\\
+\endfoot
+\bottomrule
+\endlastfoot
+PlantVillage & Kaggle & Benchmark collection of healthy and diseased crop leaf images commonly used for plant disease classification. & \cite{dataset_plantvillage_kaggle} & \href{https://www.kaggle.com/datasets/mohitsingh1804/plantvillage}{Kaggle link} \\
+Plant Diseases Training Dataset & Kaggle & Multi-crop plant disease image dataset used to extend disease coverage and class diversity. & \cite{dataset_plant_diseases_training} & \href{https://www.kaggle.com/datasets/nirmalsankalana/plant-diseases-training-dataset}{Kaggle link} \\
+Bangladesh Plant Disease Dataset & Mendeley Data & Field-oriented plant disease dataset containing crop images collected under practical agricultural conditions. & \cite{dataset_bangladesh_plant_disease} & \href{https://data.mendeley.com/datasets/n67gctmjyj/3}{Mendeley link} \\
+Eggplant Leaf Disease Dataset & Kaggle & Eggplant leaf disease images representing multiple visual symptoms and healthy samples. & \cite{dataset_eggplant_leaf_kaggle} & \href{https://www.kaggle.com/datasets/researchforus/eggplant-leaf-disease-dataset}{Kaggle link} \\
+Eggplant Disease Dataset & Mendeley Data & Additional eggplant disease images used to improve robustness for eggplant-related classes. & \cite{dataset_eggplant_mendeley} & \href{https://data.mendeley.com/datasets/pvsv534ccg/1}{Mendeley link} \\
+Rice Leaf Diseases Dataset & Kaggle & Rice leaf disease dataset covering major rice disease symptoms and healthy conditions. & \cite{dataset_rice_leaf_kaggle} & \href{https://www.kaggle.com/datasets/vbookshelf/rice-leaf-diseases}{Kaggle link} \\
+Cotton Disease Dataset & Kaggle & Cotton leaf images containing healthy and diseased samples collected for crop disease recognition. & \cite{dataset_cotton_kaggle} & \href{https://www.kaggle.com/datasets/janmejaybhoi/cotton-disease-dataset}{Kaggle link} \\
+Mango Leaf Disease Dataset & Kaggle & Mango leaf disease dataset covering several mango disease categories and healthy leaves. & \cite{dataset_mango_kaggle} & \href{https://www.kaggle.com/datasets/aryashah2k/mango-leaf-disease-dataset}{Kaggle link} \\
+Ricey Leaf Disease Dataset & Mendeley Data & Rice leaf disease dataset collected for real-world rice disease classification research. & \cite{dataset_ricey_mendeley} & \href{https://data.mendeley.com/datasets/t46kkgh2yw/1}{Mendeley link} \\
+\end{longtable}
+}
+
+\section{Class Distribution}
+\label{sec:app_class_distribution}
+
+The final classification taxonomy contains 102 output classes grouped by plant species. Table~\ref{tab:class_distribution} summarizes the number of healthy and diseased classes per species. Overall, the taxonomy contains 24 healthy classes and 78 disease classes.
+
+\begin{longtable}{@{}L{4.4cm} C{2.6cm} C{2.6cm} C{2.6cm}@{}}
+\caption{Class Distribution by Plant Species}
+\label{tab:class_distribution}\\
+\toprule
+\textbf{Plant Species} & \textbf{Healthy Classes} & \textbf{Disease Classes} & \textbf{Total Classes} \\
+\midrule
+\endfirsthead
+\caption[]{Class Distribution by Plant Species (continued)}\\
+\toprule
+\textbf{Plant Species} & \textbf{Healthy Classes} & \textbf{Disease Classes} & \textbf{Total Classes} \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+Apple & 1 & 6 & 7 \\
+Bitter Gourd & 1 & 3 & 4 \\
+Blueberry & 1 & 0 & 1 \\
+Bottle Gourd & 1 & 2 & 3 \\
+Cassava & 1 & 3 & 4 \\
+Cauliflower & 1 & 2 & 3 \\
+Cherry (Including Sour) & 1 & 1 & 2 \\
+Coffee & 1 & 1 & 2 \\
+Corn (Maize) & 1 & 3 & 4 \\
+Cotton & 1 & 1 & 2 \\
+Cucumber & 1 & 2 & 3 \\
+Eggplant & 1 & 8 & 9 \\
+Grape & 1 & 3 & 4 \\
+Mango & 1 & 7 & 8 \\
+Orange & 0 & 1 & 1 \\
+Peach & 1 & 1 & 2 \\
+Pepper (Bell) & 1 & 1 & 2 \\
+Potato & 1 & 7 & 8 \\
+Raspberry & 1 & 0 & 1 \\
+Rice & 1 & 9 & 10 \\
+Rose & 1 & 2 & 3 \\
+Soybean & 1 & 0 & 1 \\
+Squash & 0 & 1 & 1 \\
+Strawberry & 1 & 1 & 2 \\
+Tomato & 1 & 10 & 11 \\
+Watermelon & 1 & 3 & 4 \\
+\midrule
+\textbf{Total} & \textbf{24} & \textbf{78} & \textbf{102} \\
+\end{longtable}
+
+The distribution in Table~\ref{tab:class_distribution} shows that the taxonomy intentionally emphasizes disease categories while preserving healthy reference classes for most supported plant species. Species such as tomato, rice, eggplant, mango, and potato contain the largest disease coverage because they are represented by multiple public datasets and contain several visually distinct disease symptoms.
+
+\section{Complete Class Taxonomy}
 \label{sec:app_classes}
 
-The following table enumerates all 102 target classes in the \nabta classification model, organised by host crop species. The prefix \textit{Healthy} denotes a non-diseased class label for the corresponding crop species.
+Table~\ref{tab:class_taxonomy} lists the complete set of 102 model output classes. The class identifiers correspond to the output indices produced by the plant disease classification model.
 
-\begin{table}[p]
-  \centering
-  \caption{Complete 102-Class Label Taxonomy (Part 1 of 4)}
-  \label{tab:class_list}
-  \footnotesize
-  \begin{tabularx}{\textwidth}{@{}L{1.7cm} L{3.0cm} Y@{}}
-  \toprule
-  \textbf{Class ID} & \textbf{Plant Species} & \textbf{Disease / Condition} \\
-  \midrule
-
-  C-001  & Tomato      & Early Blight (\textit{Alternaria solani}) \\
-  C-002  & Tomato      & Late Blight (\textit{Phytophthora infestans}) \\
-  C-003  & Tomato      & Leaf Miner \\
-  C-004  & Tomato      & Leaf Mold (\textit{Cladosporium fulvum}) \\
-  C-005  & Tomato      & Mosaic Virus \\
-  C-006  & Tomato      & Septoria Leaf Spot \\
-  C-007  & Tomato      & Spider Mite (Two-Spotted Spider Mite) \\
-  C-008  & Tomato      & Target Spot \\
-  C-009  & Tomato      & Yellow Leaf Curl Virus \\
-  C-010  & Tomato      & Healthy \\
-  C-011  & Potato      & Early Blight (\textit{Alternaria solani}) \\
-  C-012  & Potato      & Late Blight (\textit{Phytophthora infestans}) \\
-  C-013  & Potato      & Healthy \\
-  C-014  & Pepper Bell & Bacterial Spot (\textit{Xanthomonas campestris}) \\
-  C-015  & Pepper Bell & Healthy \\
-  C-016  & Apple       & Apple Scab (\textit{Venturia inaequalis}) \\
-  C-017  & Apple       & Black Rot (\textit{Botryosphaeria obtusa}) \\
-  C-018  & Apple       & Cedar Apple Rust (\textit{Gymnosporangium juniperi-virginianae}) \\
-  C-019  & Apple       & Healthy \\
-  C-020  & Grape       & Black Rot (\textit{Guignardia bidwellii}) \\
-  C-021  & Grape       & Esca (Black Measles) \\
-  C-022  & Grape       & Leaf Blight (Isariopsis Leaf Spot) \\
-  C-023  & Grape       & Healthy \\
-  C-024  & Corn (Maize) & Cercospora Leaf Spot (Grey Leaf Spot) \\
-  C-025  & Corn (Maize) & Common Rust (\textit{Puccinia sorghi}) \\
-  \bottomrule
-  \end{tabularx}
-\end{table}
-\clearpage
-
-\begin{table}[p]
-  \centering
-  \caption{Complete 102-Class Label Taxonomy (Part 2 of 4)}
-  \footnotesize
-  \begin{tabularx}{\textwidth}{@{}L{1.7cm} L{3.0cm} Y@{}}
-  \toprule
-  \textbf{Class ID} & \textbf{Plant Species} & \textbf{Disease / Condition} \\
-  \midrule
-  C-026  & Corn (Maize) & Northern Leaf Blight (\textit{Exserohilum turcicum}) \\
-  C-027  & Corn (Maize) & Healthy \\
-  C-028  & Strawberry  & Leaf Scorch (\textit{Diplocarpon earliana}) \\
-  C-029  & Strawberry  & Healthy \\
-  C-030  & Orange      & Huanglongbing / Citrus Greening (\textit{Candidatus Liberibacter}) \\
-  C-031  & Orange      & Healthy \\
-  C-032  & Peach       & Bacterial Spot (\textit{Xanthomonas arboricola}) \\
-  C-033  & Peach       & Healthy \\
-  C-034  & Cherry      & Powdery Mildew (\textit{Podosphaera clandestina}) \\
-  C-035  & Cherry      & Healthy \\
-  C-036  & Soybean     & Frogeye Leaf Spot (\textit{Cercospora sojina}) \\
-  C-037  & Soybean     & Healthy \\
-  C-038  & Squash      & Powdery Mildew (\textit{Podosphaera xanthii}) \\
-  C-039  & Blueberry   & Healthy \\
-  C-040  & Raspberry   & Healthy \\
-  C-041  & Rice        & Bacterial Blight (\textit{Xanthomonas oryzae}) \\
-  C-042  & Rice        & Blast (\textit{Magnaporthe oryzae}) \\
-  C-043  & Rice        & Brown Spot (\textit{Cochliobolus miyabeanus}) \\
-  C-044  & Rice        & Tungro Virus \\
-  C-045  & Rice        & Healthy \\
-  C-046  & Cotton      & Bacterial Blight (\textit{Xanthomonas citri subsp. malvacearum}) \\
-  C-047  & Cotton      & Leaf Curl Virus \\
-  C-048  & Cotton      & Target Spot \\
-  C-049  & Cotton      & Healthy \\
-  C-050  & Mango       & Anthracnose (\textit{Colletotrichum gloeosporioides}) \\
-  C-051  & Mango       & Bacterial Canker (\textit{Xanthomonas campestris}) \\
-  \bottomrule
-  \end{tabularx}
-\end{table}
-\clearpage
-
-\begin{table}[p]
-  \centering
-  \caption{Complete 102-Class Label Taxonomy (Part 3 of 4)}
-  \footnotesize
-  \begin{tabularx}{\textwidth}{@{}L{1.7cm} L{3.0cm} Y@{}}
-  \toprule
-  \textbf{Class ID} & \textbf{Plant Species} & \textbf{Disease / Condition} \\
-  \midrule
-  C-052  & Mango       & Gall Midge \\
-  C-053  & Mango       & Powdery Mildew (\textit{Oidium mangiferae}) \\
-  C-054  & Mango       & Sooty Mould \\
-  C-055  & Mango       & Healthy \\
-  C-056  & Eggplant    & Cercospora Leaf Spot \\
-  C-057  & Eggplant    & Phomopsis Blight (\textit{Phomopsis vexans}) \\
-  C-058  & Eggplant    & Phytophthora Blight \\
-  C-059  & Eggplant    & Healthy \\
-  C-060  & Cucumber    & Downy Mildew (\textit{Pseudoperonospora cubensis}) \\
-  C-061  & Cucumber    & Powdery Mildew (\textit{Sphaerotheca fuliginea}) \\
-  C-062  & Cucumber    & Target Spot \\
-  C-063  & Cucumber    & Healthy \\
-  C-064  & Cauliflower & Bacterial Spot \\
-  C-065  & Cauliflower & Black Rot (\textit{Xanthomonas campestris}) \\
-  C-066  & Cauliflower & Downy Mildew \\
-  C-067  & Cauliflower & Healthy \\
-  C-068  & Jute        & Stem Rot (\textit{Macrophomina phaseolina}) \\
-  C-069  & Jute        & Healthy \\
-  C-070  & Wheat       & Leaf Rust (\textit{Puccinia triticina}) \\
-  C-071  & Wheat       & Stem Rust (\textit{Puccinia graminis}) \\
-  C-072  & Wheat       & Yellow Rust (Stripe Rust, \textit{Puccinia striiformis}) \\
-  C-073  & Wheat       & Powdery Mildew (\textit{Blumeria graminis}) \\
-  C-074  & Wheat       & Healthy \\
-  C-075  & Garlic      & Downy Mildew (\textit{Peronospora destructor}) \\
-  C-076  & Garlic      & Healthy \\
-  C-077  & Onion       & Botrytis Leaf Blight (\textit{Botrytis squamosa}) \\
-  \bottomrule
-  \end{tabularx}
-\end{table}
-\clearpage
-
-\begin{table}[p]
-  \centering
-  \caption{Complete 102-Class Label Taxonomy (Part 4 of 4)}
-  \footnotesize
-  \begin{tabularx}{\textwidth}{@{}L{1.7cm} L{3.0cm} Y@{}}
-  \toprule
-  \textbf{Class ID} & \textbf{Plant Species} & \textbf{Disease / Condition} \\
-  \midrule
-  C-078  & Onion       & Purple Blotch (\textit{Alternaria porri}) \\
-  C-079  & Onion       & Healthy \\
-  C-080  & Lemon       & Canker (\textit{Xanthomonas axonopodis}) \\
-  C-081  & Lemon       & Greening (Huanglongbing) \\
-  C-082  & Lemon       & Healthy \\
-  C-083  & Pomegranate & Anthracnose (\textit{Colletotrichum gloeosporioides}) \\
-  C-084  & Pomegranate & Bacterial Blight (\textit{Xanthomonas axonopodis}) \\
-  C-085  & Pomegranate & Healthy \\
-  C-086  & Banana      & Black Sigatoka (\textit{Mycosphaerella fijiensis}) \\
-  C-087  & Banana      & Panama Disease (\textit{Fusarium oxysporum}) \\
-  C-088  & Banana      & Healthy \\
-  C-089  & Sugarcane   & Red Rot (\textit{Colletotrichum falcatum}) \\
-  C-090  & Sugarcane   & Rust (\textit{Puccinia melanocephala}) \\
-  C-091  & Sugarcane   & Yellow Leaf Disease \\
-  C-092  & Sugarcane   & Healthy \\
-  C-093  & Guava       & Anthracnose \\
-  C-094  & Guava       & Fruit Canker \\
-  C-095  & Guava       & Healthy \\
-  C-096  & Papaya      & Ring Spot Virus \\
-  C-097  & Papaya      & Powdery Mildew \\
-  C-098  & Papaya      & Healthy \\
-  C-099  & Cassava     & Brown Streak Disease \\
-  C-100  & Cassava     & Mosaic Disease \\
-  C-101  & Cassava     & Healthy \\
-  C-102  & General     & Unknown / Out-of-Distribution (flagged for expert review) \\
-  \bottomrule
-  \end{tabularx}
-\end{table}
-\clearpage
-
-\section{Dataset Class Distribution}
-\label{sec:app_distribution}
-
-\figref{fig:class_dist} illustrates the class frequency distribution across the combined training corpus. Class imbalance was addressed through stratified sampling during dataset splitting and through class-weighted loss computation during training.
-
-\begin{figure}[H]
-  \centering
-  \begin{tikzpicture}
-    \begin{axis}[
-      xbar,
-      width=0.84\textwidth,
-      height=12cm,
-      xlabel={Number of Images},
-      ylabel={Crop Category},
-      ytick={1,...,12},
-      yticklabels={Cassava, Papaya, Guava, Sugarcane, Banana, Pomegranate,
-                   Lemon, Onion, Wheat, Rice, Tomato, Multi-Crop},
-      xmin=0, xmax=24000,
-      bar width=0.4cm,
-      grid=major, grid style=dashed,
-      nodes near coords,
-      nodes near coords align={horizontal},
-      every node near coord/.append style={font=\footnotesize},
-      title={Training Corpus Image Count by Crop Category}
-    ]
-      \addplot[fill=NabtaGreen!70] coordinates {
-        (4200,1)(3800,2)(2900,3)(5100,4)(4600,5)(3200,6)
-        (4000,7)(3500,8)(6800,9)(9400,10)(18500,11)(14800,12)
-      };
-    \end{axis}
-  \end{tikzpicture}
-  \caption{Distribution of Images Across Crop Categories in the Combined Training Corpus}
-  \label{fig:class_dist}
-\end{figure}
+\begin{longtable}{@{}C{1.6cm} L{4.2cm} L{8.1cm}@{}}
+\caption{Complete 102-Class Plant Disease Classification Taxonomy}
+\label{tab:class_taxonomy}\\
+\toprule
+\textbf{Class ID} & \textbf{Plant Species} & \textbf{Disease / Condition} \\
+\midrule
+\endfirsthead
+\caption[]{Complete 102-Class Plant Disease Classification Taxonomy (continued)}\\
+\toprule
+\textbf{Class ID} & \textbf{Plant Species} & \textbf{Disease / Condition} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{3}{r}{\textit{Continued on next page}}\\
+\endfoot
+\bottomrule
+\endlastfoot
+0 & Apple & Apple Scab \\
+1 & Apple & Black Rot \\
+2 & Apple & Cedar Apple Rust \\
+3 & Apple & Alternaria Leaf Spot \\
+4 & Apple & Brown Spot \\
+5 & Apple & Gray Spot \\
+6 & Apple & Healthy \\
+7 & Bitter Gourd & Downy Mildew \\
+8 & Bitter Gourd & Fusarium Wilt \\
+9 & Bitter Gourd & Healthy \\
+10 & Bitter Gourd & Mosaic Virus \\
+11 & Blueberry & Healthy \\
+12 & Bottle Gourd & Anthracnose \\
+13 & Bottle Gourd & Downy Mildew \\
+14 & Bottle Gourd & Healthy \\
+15 & Cassava & Brown Streak Disease \\
+16 & Cassava & Green Mottle \\
+17 & Cassava & Healthy \\
+18 & Cassava & Mosaic Disease \\
+19 & Cauliflower & Black Rot \\
+20 & Cauliflower & Downy Mildew \\
+21 & Cauliflower & Healthy \\
+22 & Cherry (Including Sour) & Powdery Mildew \\
+23 & Cherry (Including Sour) & Healthy \\
+24 & Coffee & Healthy \\
+25 & Coffee & Rust \\
+26 & Corn (Maize) & Cercospora Leaf Spot (Gray Leaf Spot) \\
+27 & Corn (Maize) & Common Rust \\
+28 & Corn (Maize) & Northern Leaf Blight \\
+29 & Corn (Maize) & Healthy \\
+30 & Cotton & Diseased Leaf \\
+31 & Cotton & Healthy Leaf \\
+32 & Cucumber & Anthracnose \\
+33 & Cucumber & Downy Mildew \\
+34 & Cucumber & Healthy \\
+35 & Eggplant & Cercospora Leaf Spot \\
+36 & Eggplant & Hadda Beetles \\
+37 & Eggplant & Healthy \\
+38 & Eggplant & Insect Pest Disease \\
+39 & Eggplant & Leaf Spot \\
+40 & Eggplant & Mosaic Virus \\
+41 & Eggplant & Phomopsis Blight \\
+42 & Eggplant & Tobacco Caterpillar \\
+43 & Eggplant & Wilt \\
+44 & Grape & Black Rot \\
+45 & Grape & Esca (Black Measles) \\
+46 & Grape & Leaf Blight (Isariopsis Leaf Spot) \\
+47 & Grape & Healthy \\
+48 & Mango & Anthracnose \\
+49 & Mango & Bacterial Canker \\
+50 & Mango & Cutting Weevil \\
+51 & Mango & Die Back \\
+52 & Mango & Gall Midge \\
+53 & Mango & Healthy \\
+54 & Mango & Powdery Mildew \\
+55 & Mango & Sooty Mould \\
+56 & Orange & Huanglongbing (Citrus Greening) \\
+57 & Peach & Bacterial Spot \\
+58 & Peach & Healthy \\
+59 & Pepper (Bell) & Bacterial Spot \\
+60 & Pepper (Bell) & Healthy \\
+61 & Potato & Early Blight \\
+62 & Potato & Late Blight \\
+63 & Potato & Bacterial Wilt \\
+64 & Potato & Healthy \\
+65 & Potato & Leafroll Virus \\
+66 & Potato & Mosaic Virus \\
+67 & Potato & Pests \\
+68 & Potato & Phytophthora \\
+69 & Raspberry & Healthy \\
+70 & Rice & Bacterial Blight \\
+71 & Rice & Blast \\
+72 & Rice & Brown Spot \\
+73 & Rice & Healthy \\
+74 & Rice & Leaf Scald \\
+75 & Rice & Leaf Smut \\
+76 & Rice & Narrow Brown Leaf Spot \\
+77 & Rice & Rice Hispa \\
+78 & Rice & Sheath Blight \\
+79 & Rice & Tungro \\
+80 & Rose & Healthy \\
+81 & Rose & Rust \\
+82 & Rose & Slug Sawfly \\
+83 & Soybean & Healthy \\
+84 & Squash & Powdery Mildew \\
+85 & Strawberry & Leaf Scorch \\
+86 & Strawberry & Healthy \\
+87 & Tomato & Bacterial Spot \\
+88 & Tomato & Early Blight \\
+89 & Tomato & Late Blight \\
+90 & Tomato & Leaf Mold \\
+91 & Tomato & Septoria Leaf Spot \\
+92 & Tomato & Spider Mites (Two-Spotted Spider Mite) \\
+93 & Tomato & Target Spot \\
+94 & Tomato & Tomato Yellow Leaf Curl Virus \\
+95 & Tomato & Tomato Mosaic Virus \\
+96 & Tomato & Healthy \\
+97 & Tomato & Spotted Wilt \\
+98 & Watermelon & Anthracnose \\
+99 & Watermelon & Downy Mildew \\
+100 & Watermelon & Healthy \\
+101 & Watermelon & Mosaic Virus \\
+\end{longtable}

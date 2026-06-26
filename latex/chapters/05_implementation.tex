@@ -11,11 +11,34 @@
 \section{Overview}
 \label{sec:implementation_overview}
 
-This chapter presents the implementation details of the proposed NABTA platform. Following the system methodology presented in Chapter~3 and the architectural design described in Chapter~5, this chapter demonstrates how the proposed solution was transformed into a fully functional smart agriculture platform.
+This chapter presents the implementation details of the proposed NABTA platform. Following the system methodology presented in Chapter~\ref{chap:methodology} and the architectural design described in Chapter~\ref{chap:design}, this chapter demonstrates how the proposed solution was transformed into a fully functional smart agriculture platform.
 
 The implementation integrates modern web technologies, deep learning models, machine learning algorithms, cloud services, and explainable artificial intelligence within a unified production-ready application. The platform consists of a React.js frontend, a FastAPI backend, multiple AI models for image analysis and agricultural recommendation, Firebase cloud services, and a Retrieval-Augmented Generation (RAG) chatbot powered by the Cohere API.
 
 The implementation workflow follows the same sequence adopted by the deployed system. First, the graphical user interfaces are presented, followed by the backend implementation, AI model integration, cloud services, and finally the complete system workflow.
+
+The principal implementation artifacts and deployed services are summarized in Table~\ref{tab:implementation_artifacts}.
+
+\begin{table}[H]
+\centering
+\caption{Implementation Repositories and Deployed Services}
+\label{tab:implementation_artifacts}
+\renewcommand{\arraystretch}{1.25}
+\small
+\begin{tabularx}{\textwidth}{L{3.4cm} L{3.2cm} Y}
+\toprule
+\textbf{Artifact} & \textbf{Role} & \textbf{Location} \\
+\midrule
+React-Plant-Analysis & Frontend web application & \url{https://github.com/Armia-Gamal/React-Plant-Analysis} \\
+YOLO-U-Net-CNN-Plant-Disease & Computer vision model training and experiments & \url{https://github.com/Armia-Gamal/YOLO-U-Net-CNN-Plant-Disease} \\
+Nabta-AI-Plant-Disease-API & Plant disease analysis backend API & \url{https://github.com/Armia-Gamal/Nabta-AI-Plant-Disease-API} \\
+AgriTech-API & Crop recommendation, irrigation, and agricultural API services & \url{https://github.com/Armia-Gamal/AgriTech-API} \\
+Plant Leaf Detection API & Hugging Face inference deployment & \url{https://huggingface.co/spaces/Armia-Gamal/Plant-Leaf-Detection-API} \\
+AgriTech API Space & Hugging Face recommendation API deployment & \url{https://huggingface.co/spaces/Armia-Gamal/AgriTech-API} \\
+NABTA Website & Public production website & \url{https://nabta-system.tech/} \\
+\bottomrule
+\end{tabularx}
+\end{table}
 
 %==============================================================================
 \section{Frontend Implementation}
@@ -355,7 +378,7 @@ These cloud services improve scalability, reliability, and security while minimi
 
 %==============================================================================
 \section{Chapter Summary}
-\label{sec:chapter4_summary}
+\label{sec:chapter5_summary}
 
 This chapter presented the implementation of the NABTA smart agriculture platform, including the frontend interfaces, backend services, artificial intelligence integration, and cloud infrastructure.
 
