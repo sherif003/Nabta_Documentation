@@ -17,7 +17,7 @@
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {5.1}{\ignorespaces NABTA Login and Welcome Screen}}{63}{figure.caption.50}%
 \contentsline {figure}{\numberline {5.2}{\ignorespaces Analysis Results Screen with Detection, Segmentation, and Grad-CAM Panels}}{64}{figure.caption.51}%
-\contentsline {figure}{\numberline {5.3}{\ignorespaces Subscription Tier Selection Screen}}{64}{figure.caption.52}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Crop Recommendation and Irrigation Management Screens}}{64}{figure.caption.52}%
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {6.1}{\ignorespaces Training and Validation Accuracy and Loss Curves of the CNN Classification Model}}{68}{figure.caption.55}%
 \contentsline {figure}{\numberline {6.2}{\ignorespaces YOLOv8x Training Results}}{70}{figure.caption.57}%
@@ -27,8 +27,4 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {A.1}{\ignorespaces Distribution of Images Across Crop Categories in the Combined Training Corpus}}{91}{figure.caption.70}%
-\addvspace {10\p@ }
-\contentsline {figure}{\numberline {B.1}{\ignorespaces Database Schema Diagram}}{92}{figure.caption.71}%
-\contentsline {figure}{\numberline {B.2}{\ignorespaces User Interface Screenshot Set}}{92}{figure.caption.72}%
-\contentsline {figure}{\numberline {B.3}{\ignorespaces Model Performance Comparison}}{93}{figure.caption.73}%
 \contentsfinish 

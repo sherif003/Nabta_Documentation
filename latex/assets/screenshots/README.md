@@ -5,7 +5,8 @@ Expected screenshot files:
 - `ai_chat.png`
 - `upload_screen.png`
 - `results_screen.png`
-- `subscription_screen.png`
+- `crop_recomendation.png`
+- `irrigation_management.png`
 - `ui_overview.png`
 
 Use PNG for interface screenshots. Crop browser chrome unless it is relevant,

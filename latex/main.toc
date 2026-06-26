@@ -1,10 +1,10 @@
 \babel@toc {english}{}\relax 
-\contentsline {chapter}{Dedication}{xvii}{Doc-Start}%
-\contentsline {chapter}{Acknowledgement}{xviii}{chapter*.1}%
-\contentsline {chapter}{Abstract}{xix}{chapter*.2}%
-\contentsline {chapter}{Table of Figures}{xxviii}{section*.4}%
-\contentsline {chapter}{List of Tables}{xxx}{section*.6}%
-\contentsline {chapter}{List of Abbreviations}{xxxii}{section*.8}%
+\contentsline {chapter}{Dedication}{xvi}{Doc-Start}%
+\contentsline {chapter}{Acknowledgement}{xvii}{chapter*.1}%
+\contentsline {chapter}{Abstract}{xviii}{chapter*.2}%
+\contentsline {chapter}{Table of Figures}{xxvi}{section*.4}%
+\contentsline {chapter}{List of Tables}{xxvii}{section*.6}%
+\contentsline {chapter}{List of Abbreviations}{xxix}{section*.8}%
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Background}{1}{section.1.1}%
 \contentsline {section}{\numberline {1.2}Project Idea}{3}{section.1.2}%
@@ -142,7 +142,6 @@
 \contentsline {chapter}{\numberline {A}Dataset Details and Class Taxonomy}{86}{appendix.A}%
 \contentsline {section}{\numberline {A.1}Complete List of 102 Target Classes}{86}{section.A.1}%
 \contentsline {section}{\numberline {A.2}Dataset Class Distribution}{91}{section.A.2}%
-\contentsline {chapter}{\numberline {B}Project Visual Evidence Placeholders}{92}{appendix.B}%
-\contentsline {chapter}{Bibliography}{94}{section*.74}%
-\contentsline {chapter}{Glossary}{96}{section*.76}%
+\contentsline {chapter}{Bibliography}{92}{section*.71}%
+\contentsline {chapter}{Glossary}{94}{section*.73}%
 \contentsfinish 
