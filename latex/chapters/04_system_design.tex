@@ -74,19 +74,64 @@ This chapter presents the complete architectural specification of the \nabta sys
   \label{fig:system_arch}
 \end{figure}
 
-\section{Design Artefact Placeholders}
-\label{sec:design_placeholders}
+\section{UML and Data Design Artefacts}
+\label{sec:design_uml}
 
-The following placeholders reserve space for final exported diagrams that should be inserted before submission.
+The system design was documented using complementary UML and data-modelling artefacts. Each diagram captures a different design viewpoint: functional scope, workflow logic, service interaction, static software structure, component deployment, and persistent data relationships. Together, these artefacts bridge the gap between stakeholder requirements and implementation-level decisions.
 
-% TODO: Replace this placeholder with the final workflow diagram.
-\projectfigure{assets/diagrams/workflow_diagram.png}{8cm}{System Workflow Diagram}{fig:workflow_placeholder}
+\subsection{Use Case View}
+\label{subsec:use_case_view}
 
-% TODO: Replace this placeholder with the final model/pipeline diagram.
-\projectfigure{assets/diagrams/model_pipeline.png}{8cm}{Model and Inference Pipeline}{fig:model_pipeline_placeholder}
+The use case diagram in \figref{fig:use_case_diagram} captures the functional requirements of the \nabta system from the perspective of external actors. It separates account-management functions from the core AI analysis pipeline, chatbot assistance, smart irrigation, and crop recommendation modules. External dependencies such as Firebase Authentication, Cohere, Hugging Face, Email Service, and WeatherAPI are shown as actors because the platform relies on them to complete user-facing features.
 
-% TODO: Replace this placeholder with the final database schema diagram.
-\projectfigure{assets/diagrams/database_schema.png}{8cm}{Database Schema Diagram}{fig:database_schema_placeholder}
+\projectfigure[0.98\textwidth]{assets/diagrams/use_case_diagram.png}{8.2cm}{NABTA Use Case Diagram}{fig:use_case_diagram}
+
+The system boundary identifies which behaviours belong to the application itself and which are delegated to external services. Mandatory behaviours such as detection, segmentation, classification, Grad-CAM generation, PDF report generation, and result storage are modelled using include relationships, while premium behaviours such as custom dataset upload are represented as optional extensions.
+
+\subsection{Activity View}
+\label{subsec:activity_view}
+
+The activity diagram in \figref{fig:activity_diagram} models the main user journey and business process logic. It includes both the successful path and failure branches, such as invalid login attempts that loop back for correction. The swimlane structure makes responsibility explicit: user actions remain in the user lane, while authentication, image analysis, irrigation prediction, crop recommendation, and result generation are handled by the system.
+
+\projectfigure[0.88\textwidth]{assets/diagrams/activity_diagram.png}{13cm}{NABTA Activity Diagram}{fig:activity_diagram}
+
+The workflow documents the sequential AI pipeline after image upload: object detection, segmentation, classification, confidence calculation, and result display. It also shows the parallel decision branch for irrigation and crop recommendation, where environmental and soil inputs are processed before the final results are presented.
+
+\subsection{Sequence View}
+\label{subsec:sequence_view}
+
+The sequence diagram in \figref{fig:sequence_diagram} describes runtime interactions across the principal system participants: user, frontend, backend, CNN engine, LLM chatbot engine, database, report generator, and irrigation engine. This view clarifies that the frontend does not communicate directly with the database or AI engines; all requests pass through the backend, which acts as the orchestration and security gateway.
+
+\projectfigure[0.98\textwidth]{assets/diagrams/sequence_diagram.png}{9cm}{NABTA Sequence Diagram}{fig:sequence_diagram}
+
+The interaction flow covers authentication, chatbot queries, plant diagnosis, report generation, irrigation prediction, and crop recommendation. It also documents the ordering constraint that diagnosis results must be stored before report generation can use them.
+
+\subsection{Class View}
+\label{subsec:class_view}
+
+The class diagram in \figref{fig:class_diagram} captures the implementation-oriented object structure. Data classes such as \code{User}, \code{ChatMessage}, and \code{UploadedImage} are separated from processing classes such as \code{ImageProcessor} and \code{MLManager}. The \code{MLManager} functions as a facade for detection, classification, and segmentation models, enabling new model types to be added without disrupting higher-level application logic.
+
+\projectfigure[0.92\textwidth]{assets/diagrams/class_diagram.png}{8.6cm}{NABTA Class Diagram}{fig:class_diagram}
+
+The class view also includes the irrigation and crop recommendation subsystem. The \code{IrrigationSystem} class depends on WeatherAPI for real-time conditions and exposes prediction and recommendation operations, while \code{CropRecommendation} stores the top recommended crops and confidence values.
+
+\subsection{Data View}
+\label{subsec:data_view}
+
+The entity relationship diagram in \figref{fig:erd_diagram} describes the persistent data model. The \code{User} entity is the central owner of uploaded images, predictions, reports, chatbot conversations, subscriptions, custom datasets, irrigation records, and crop recommendations. This structure supports per-user privacy, history tracking, and premium functionality.
+
+\projectfigure[0.98\textwidth]{assets/diagrams/entity_relationship_diagram.png}{8.7cm}{NABTA Entity Relationship Diagram}{fig:erd_diagram}
+
+The most important design decision is the many-to-many relationship between predictions and diseases through \code{Prediction\_Disease}. This allows a single analysis to record multiple disease findings while preserving disease-level reference knowledge, such as causes, treatment plans, and prevention strategies, in one reusable catalogue.
+
+\subsection{Component and Deployment Views}
+\label{subsec:component_deployment}
+
+The component diagram and deployment diagram provide additional architectural views of how the system is assembled and hosted. \figref{fig:component_diagram} shows how frontend, backend, AI, database, reporting, and external-service components are connected, while \figref{fig:deployment_diagram} summarises the physical deployment arrangement.
+
+\projectfigure[0.96\textwidth]{assets/diagrams/component_diagram.jpeg}{9cm}{NABTA Component Diagram}{fig:component_diagram}
+
+\projectfigure[0.86\textwidth]{assets/diagrams/deployment_diagram.jpeg}{8cm}{NABTA Deployment Diagram}{fig:deployment_diagram}
 
 \section{Frontend Design}
 \label{sec:frontend_design}
@@ -154,17 +199,26 @@ The backend is organised into independent FastAPI routers, each encapsulating a 
   \caption{FastAPI Router Structure}
   \label{tab:routers}
   \renewcommand{\arraystretch}{1.4}
-  \begin{tabularx}{\textwidth}{l l X}
-    \toprule
+  \begin{tabularx}{\textwidth}{|L{3cm}|L{2.5cm}|Y|}
+    \hline
     \textbf{Router Module} & \textbf{Prefix} & \textbf{Responsibilities} \\
-    \midrule
+    \hline
     \code{auth\_router}     & \texttt{/auth}     & Token validation middleware; user profile fetch \\
+    \hline
     \code{analysis\_router} & \texttt{/analyze}  & Image upload, pipeline orchestration, result retrieval \\
+    \hline
     \code{chat\_router}     & \texttt{/chat}     & Query intake, RAG pipeline invocation, response delivery \\
+    \hline
     \code{history\_router}  & \texttt{/history}  & User historical analysis log retrieval with pagination \\
+    \hline
     \code{report\_router}   & \texttt{/report}   & PDF report generation and download \\
+    \hline
+    \code{irrigation\_router} & \texttt{/predict} & Irrigation decision and water requirement prediction \\
+    \hline
+    \code{recommendation\_router} & \texttt{/get\_recommendation} & Top-3 crop recommendation based on soil, NPK, crop, and weather features \\
+    \hline
     \code{admin\_router}    & \texttt{/admin}    & User management, system health monitoring (admin only) \\
-    \bottomrule
+    \hline
   \end{tabularx}
 \end{table}
 
@@ -207,15 +261,22 @@ The \code{MLManager} class implements the sequential orchestration logic connect
   \caption{Firestore Collection Schema}
   \label{tab:firestore}
   \renewcommand{\arraystretch}{1.5}
-  \begin{tabularx}{\textwidth}{l X l}
-    \toprule
+  \begin{tabularx}{\textwidth}{|L{2.7cm}|Y|L{3.3cm}|}
+    \hline
     \textbf{Collection} & \textbf{Key Fields} & \textbf{Subcollections} \\
-    \midrule
+    \hline
     \texttt{users}          & \code{uid}, \code{email}, \code{displayName}, \code{tier}, \code{createdAt} & \texttt{analyses}, \texttt{chatHistory} \\
+    \hline
     \texttt{analyses}       & \code{analysisId}, \code{userId}, \code{imageUrl}, \code{classLabel}, \code{confidence}, \code{gradcamUrl}, \code{maskUrl}, \code{timestamp} & --- \\
+    \hline
     \texttt{chatHistory}    & \code{messageId}, \code{userId}, \code{role}, \code{content}, \code{timestamp} & --- \\
+    \hline
     \texttt{subscriptions}  & \code{userId}, \code{tier}, \code{startDate}, \code{expiryDate}, \code{paymentRef} & --- \\
-    \bottomrule
+    \hline
+    \texttt{irrigationRecords} & \code{recordId}, \code{userId}, \code{cropType}, \code{soilType}, \code{soilMoisture}, \code{temperature}, \code{decision}, \code{waterAmountMm}, \code{createdAt} & --- \\
+    \hline
+    \texttt{cropRecommendations} & \code{recId}, \code{userId}, \code{soilType}, \code{nVal}, \code{pVal}, \code{kVal}, \code{topCrop1}, \code{topCrop2}, \code{topCrop3}, \code{createdAt} & --- \\
+    \hline
   \end{tabularx}
 \end{table}
 
@@ -233,19 +294,30 @@ The \gls{rag} knowledge base is indexed in a vector database. Each document reco
   \label{tab:api_endpoints}
   \small
   \setlength{\tabcolsep}{4pt}
-  \begin{tabularx}{\textwidth}{@{}L{1.55cm} L{3.7cm} L{1.7cm} Y@{}}
-    \toprule
+  \begin{tabularx}{\textwidth}{|L{1.55cm}|L{3.7cm}|L{1.7cm}|Y|}
+    \hline
     \textbf{Method} & \textbf{Endpoint} & \textbf{Auth} & \textbf{Description} \\
-    \midrule
+    \hline
     POST & \texttt{/analyze/upload} & JWT & Accepts an image and returns the pipeline result as JSON \\
+    \hline
     GET & \texttt{/analyze/\{id\}} & JWT & Retrieves an analysis by identifier \\
+    \hline
     POST & \texttt{/chat/query} & JWT & Returns a RAG-augmented response to a user query \\
+    \hline
+    POST & \texttt{/predict} & JWT & Returns irrigation decision and recommended water amount from soil, crop, and weather inputs \\
+    \hline
+    POST & \texttt{/get\_recommendation} & JWT & Returns top-3 crop recommendations with confidence values from NPK, soil, and city inputs \\
+    \hline
     GET & \texttt{/history/} & JWT & Returns the user's paginated analysis history \\
+    \hline
     GET & \texttt{/report/\{id\}} & JWT & Generates and streams a PDF analysis report \\
+    \hline
     POST & \texttt{/auth/verify} & JWT & Validates a Firebase token and returns the user profile \\
+    \hline
     POST & \texttt{/admin/user/\{uid\}} & Admin JWT & Updates a user's tier or account status \\
+    \hline
     GET & \texttt{/admin/health} & Admin JWT & Returns CPU, GPU-memory, and model-health metrics \\
-    \bottomrule
+    \hline
   \end{tabularx}
 \end{table}
 

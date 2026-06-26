@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.12) (preloaded format=xelatex 2026.6.18)  25 JUN 2026 21:58
+This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.12) (preloaded format=xelatex 2026.6.18)  26 JUN 2026 03:50
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -2175,7 +2175,7 @@ Requested font "cmex10" at 10.95pt
 Requested font "msam10" at 10.95pt
 Requested font "msbm10" at 10.95pt
 
-Overfull \hbox (12.60757pt too wide) in paragraph at lines 262--262
+Overfull \hbox (12.9076pt too wide) in paragraph at lines 262--262
  [][][][] 
  []
 
@@ -2402,40 +2402,55 @@ Overfull \hbox (4.90796pt too wide) detected at line 3
  \TU/XCharter(0)/b/n/12 xviii
  []
 
+
+Overfull \hbox (11.27997pt too wide) detected at line 5
+ \TU/XCharter(0)/b/n/12 xxviii
+ []
+
+
+Overfull \hbox (0.51596pt too wide) detected at line 6
+ \TU/XCharter(0)/b/n/12 xxx
+ []
+
+
+Overfull \hbox (7.83597pt too wide) detected at line 7
+ \TU/XCharter(0)/b/n/12 xxxii
+ []
+
 [21
 
 
 ]
 LaTeX Font Info:    Font shape `TU/XCharter(0)/m/it' will be
-(Font)              scaled to size 8.0pt on input line 48.
+(Font)              scaled to size 8.0pt on input line 47.
 Requested font "[XCharter-Italic.otf]/OT:script=latn;language=dflt;+tnum;+lnum;
 +cv01=0;mapping=tex-text;" at 8.0pt
  -> C:/Users/sheri/AppData/Roaming/MiKTeX/fonts/opentype/public/xcharter/XChart
 er-Italic.otf
 LaTeX Font Info:    Font shape `TU/XCharter(0)/b/n' will be
-(Font)              scaled to size 8.0pt on input line 48.
+(Font)              scaled to size 8.0pt on input line 47.
 Requested font "[XCharter-Bold.otf]/OT:script=latn;language=dflt;+tnum;+lnum;+c
 v01=0;mapping=tex-text;" at 8.0pt
  -> C:/Users/sheri/AppData/Roaming/MiKTeX/fonts/opentype/public/xcharter/XChart
 er-Bold.otf
 LaTeX Font Info:    Font shape `TU/XCharter(0)/b/sc' will be
-(Font)              scaled to size 8.0pt on input line 48.
+(Font)              scaled to size 8.0pt on input line 47.
 Requested font "[XCharter-Bold.otf]/OT:script=latn;language=dflt;+tnum;+lnum;+c
 v01=0;+smcp;mapping=tex-text;" at 8.0pt
  -> C:/Users/sheri/AppData/Roaming/MiKTeX/fonts/opentype/public/xcharter/XChart
 er-Bold.otf
- [22] [23] [24] [25])
+ [22] [23] [24] [25] [26])
 \tf@toc=\write5
 \openout5 = `main.toc'.
 
- [26] (main.lof)
+ [27] (main.lof [28
+
+
+])
 \tf@lof=\write6
 \openout6 = `main.lof'.
 
- [27
-
-
-] (main.lot [28
+ [29] (main.lot [30
 
 
 ])
@@ -2447,10 +2462,10 @@ er-Bold.otf
 Package glossaries Info: Preparing to sort glossary `acronym' (total number of
 (glossaries)             referenced entries: 40)
 
-[29] [30
+[31] [32
 
 
-] [31]) (chapters/01_introduction.tex
+] [33]) (chapters/01_introduction.tex
 Chapter 1.
 LaTeX Font Info:    Font shape `TU/XCharter(0)/m/it' will be
 (Font)              scaled to size 12.0pt on input line 9.
@@ -2842,9 +2857,6 @@ LaTeX Warning: Citation `plantix_website' on page 9 undefined on input line 160
 
 [9] [10]) (chapters/02_literature_review.tex [11]
 Chapter 2.
-
-LaTeX Warning: Citation `mohanty2016' on page 12 undefined on input line 13.
-
 [12
 
 ]
@@ -2878,22 +2890,9 @@ $ \TU/XCharter(0)/m/n/12 Query processed by RAG[]
 Chapter 3.
 [26
 
-]
-
-LaTeX Warning: Citation `plantdoc2020' on page 27 undefined on input line 55.
-
-[27] [28] [29] [30]
-
-LaTeX Warning: Citation `jocher2023yolov8' on page 31 undefined on input line 1
-33.
-
-
-LaTeX Warning: Citation `ronneberger2015' on page 31 undefined on input line 16
-2.
-
-[31]
+] [27] [28] [29] [30] [31]
 LaTeX Font Info:    Font shape `TU/XCharter(0)/m/n' will be
-(Font)              scaled to size 6.0pt on input line 167.
+(Font)              scaled to size 6.0pt on input line 192.
 Requested font "[XCharter-Roman.otf]/OT:script=latn;language=dflt;+tnum;+lnum;+
 cv01=0;mapping=tex-text;" at 6.0pt
  -> C:/Users/sheri/AppData/Roaming/MiKTeX/fonts/opentype/public/xcharter/XChart
@@ -2901,22 +2900,15 @@ er-Roman.otf
 Requested font "cmbx12" at 12.0pt
 Requested font "cmbx8" at 8.0pt
 Requested font "cmbx6" at 6.0pt
- [32] [33]
-
-LaTeX Warning: Citation `selvaraju2017gradcam' on page 34 undefined on input li
-ne 242.
-
-[34]
-
-LaTeX Warning: Citation `lewis2020rag' on page 35 undefined on input line 259.
-
+ [32] [33] [34]
 Requested font "[lmmono12-regular]:" at 12.0pt
  -> C:/Program Files/MiKTeX/fonts/opentype/public/lm/lmmono12-regular.otf
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `lmtt' (encoding: TU).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-) (chapters/04_system_design.tex [35]
+) (chapters/04_system_design.tex
+[35]
 Chapter 4.
 LaTeX Font Info:    Font shape `TU/XCharter(0)/m/n' will be
 (Font)              scaled to size 10.0pt on input line 34.
@@ -2926,77 +2918,140 @@ cv01=0;mapping=tex-text;" at 10.0pt
 er-Roman.otf
 [36
 
-] [37] [38] [39] [40] [41]
-
-LaTeX Warning: Citation `fastapi2023' on page 42 undefined on input line 145.
-
-[42]
-Underfull \hbox (badness 10000) in paragraph at lines 219--219
-[][]|\TU/lmtt/m/n/12 userId\TU/XCharter(0)/m/n/12 , \TU/lmtt/m/n/12 tier\TU/XCh
-arter(0)/m/n/12 , \TU/lmtt/m/n/12 startDate\TU/XCharter(0)/m/n/12 , \TU/lmtt/m/
-n/12 expiryDate\TU/XCharter(0)/m/n/12 ,[]
+] [37]
+File: assets/diagrams/use_case_diagram.png Graphic file (type bmp)
+<assets/diagrams/use_case_diagram.png>
+File: assets/diagrams/activity_diagram.png Graphic file (type bmp)
+<assets/diagrams/activity_diagram.png>
+ [38]
+File: assets/diagrams/sequence_diagram.png Graphic file (type bmp)
+<assets/diagrams/sequence_diagram.png>
+ [39]
+File: assets/diagrams/class_diagram.png Graphic file (type bmp)
+<assets/diagrams/class_diagram.png>
+ [40]
+Underfull \hbox (badness 1466) in paragraph at lines 116--117
+[]\TU/lmtt/m/n/12 IrrigationSystem \TU/XCharter(0)/m/n/12 class depends on Weat
+herAPI for real-time conditions and exposes[]
  []
 
-[43]
+
+Underfull \hbox (badness 1552) in paragraph at lines 116--117
+[]\TU/XCharter(0)/m/n/12 prediction and recommendation operations, while \TU/lm
+tt/m/n/12 CropRecommendation \TU/XCharter(0)/m/n/12 stores the top[]
+ []
+
+File: assets/diagrams/entity_relationship_diagram.png Graphic file (type bmp)
+<assets/diagrams/entity_relationship_diagram.png>
+[41]
+File: assets/diagrams/component_diagram.jpeg Graphic file (type bmp)
+<assets/diagrams/component_diagram.jpeg>
+ [42]
+File: assets/diagrams/deployment_diagram.jpeg Graphic file (type bmp)
+<assets/diagrams/deployment_diagram.jpeg>
+ [43] [44] [45]
+Overfull \hbox (7.34174pt too wide) in paragraph at lines 222--222
+[][]|\TU/lmtt/m/n/12 analysis_router|[] 
+ []
+
+
+Overfull \hbox (1.16174pt too wide) in paragraph at lines 222--222
+[][]|\TU/lmtt/m/n/12 history_router|[] 
+ []
+
+
+Overfull \hbox (19.70174pt too wide) in paragraph at lines 222--222
+[][]|\TU/lmtt/m/n/12 irrigation_router|[] 
+ []
+
+
+Overfull \hbox (44.42174pt too wide) in paragraph at lines 222--222
+[][]|\TU/lmtt/m/n/12 recommendation_router|[] 
+ []
+
+
+Overfull \hbox (46.28812pt too wide) in paragraph at lines 222--222
+[][]|\TU/lmtt/m/n/12 /get_recommendation|[] 
+ []
+
+[46] [47]
+Overfull \hbox (3.51765pt too wide) in paragraph at lines 280--280
+[][]|\TU/lmtt/m/n/12 subscriptions|[] 
+ []
+
+
+Overfull \hbox (28.23766pt too wide) in paragraph at lines 280--280
+[][]|\TU/lmtt/m/n/12 irrigationRecords|[] 
+ []
+
+
+Overfull \hbox (40.59766pt too wide) in paragraph at lines 280--280
+[][]|\TU/lmtt/m/n/12 cropRecommendations|[] 
+ []
+
+[48]
 Requested font "cmbx10" at 10.95pt
 Requested font "[lmmono10-regular]:" at 10.95pt
  -> C:/Program Files/MiKTeX/fonts/opentype/public/lm/lmmono10-regular.otf
- [44] [45]) (chapters/05_implementation.tex [46]
-Chapter 5.
 
-Underfull \hbox (badness 7186) in paragraph at lines 41--41
-[][]|\TU/XCharter(0)/m/n/12 Numerical array operations throughout the[]
+Overfull \hbox (3.95113pt too wide) in paragraph at lines 321--321
+[][]|\TU/lmtt/m/n/10.95 /get_recommendation|[] 
  []
 
-[47
+[49] [50]) (chapters/05_implementation.tex [51]
+Chapter 5.
+[52
 
-] [48] [49] [50] [51]
+] [53] [54] [55] [56] [57]
 (C:\Program Files\MiKTeX\tex/latex/listings\lstlang1.sty
 File: lstlang1.sty 2025/11/14 1.11b listings language file
 )
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 144.
+nput line 211.
 Requested font "[lmmono10-regular]:" at 10.0pt
  -> C:/Program Files/MiKTeX/fonts/opentype/public/lm/lmmono10-regular.otf
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 145.
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 212.
 Requested font "[lmmonolt10-bold]:" at 10.0pt
  -> C:/Program Files/MiKTeX/fonts/opentype/public/lm/lmmonolt10-bold.otf
- [52]
+ [58]
 Requested font "[lmmono10-italic]:" at 10.0pt
  -> C:/Program Files/MiKTeX/fonts/opentype/public/lm/lmmono10-italic.otf
- [53] [54]
-[55]) (chapters/06_results.tex [56]
+ [59] [60]
+[61] [62]
+File: assets/screenshots/login_welcome_screen.png Graphic file (type bmp)
+<assets/screenshots/login_welcome_screen.png>
+ [63]) (chapters/06_results.tex [64]
 Chapter 6.
-[57
+[65
 
-] [58]
+] [66]
 File: assets/diagrams/cnn_accuracy_curve.png Graphic file (type bmp)
 <assets/diagrams/cnn_accuracy_curve.png>
 File: assets/diagrams/cnn_loss_curve.png Graphic file (type bmp)
 <assets/diagrams/cnn_loss_curve.png>
- [59] [60]
+ [67] [68]
 File: assets/diagrams/yolo_training_results.png Graphic file (type bmp)
 <assets/diagrams/yolo_training_results.png>
- [61]
+ [69]
 File: assets/diagrams/predictions.jpg Graphic file (type bmp)
 <assets/diagrams/predictions.jpg>
- [62] [63]
+ [70] [71]
 File: assets/diagrams/accuracy_curve.png Graphic file (type bmp)
 <assets/diagrams/accuracy_curve.png>
 File: assets/diagrams/loss_curve.png Graphic file (type bmp)
 <assets/diagrams/loss_curve.png>
 File: assets/diagrams/iou_curve.png Graphic file (type bmp)
 <assets/diagrams/iou_curve.png>
- [64]
+ [72]
 File: assets/diagrams/sample_2.png Graphic file (type bmp)
 <assets/diagrams/sample_2.png>
- [65] [66] [67] [68] [69])
-(chapters/07_conclusion.tex [70]
+ [73] [74] [75] [76] [77])
+(chapters/07_conclusion.tex [78]
 Chapter 7.
-[71
+[79
 
-] [72] [73] [74] [75] [76]) (appendices/appendix_a.tex [77]
+] [80] [81] [82] [83] [84]) (appendices/appendix_a.tex [85]
 Appendix A.
 Requested font "cmex7" at 7.0pt
 Requested font "cmbx10" at 10.0pt
@@ -3014,18 +3069,18 @@ Requested font "[XCharter-Italic.otf]/OT:script=latn;language=dflt;+tnum;+lnum;
 +cv01=0;mapping=tex-text;" at 10.0pt
  -> C:/Users/sheri/AppData/Roaming/MiKTeX/fonts/opentype/public/xcharter/XChart
 er-Italic.otf
-[78
+[86
 
-] [79] [80] [81] [82]) (appendices/appendix_b.tex [83
+] [87] [88] [89] [90]) (appendices/appendix_b.tex [91
 
 
 
 
 ]
 Appendix B.
-) [84
+) [92
 
-] [85] (main.bbl) [86
+] [93] (main.bbl) [94
 
 
 
@@ -3034,11 +3089,11 @@ Appendix B.
 Package glossaries Info: Preparing to sort glossary `main' (total number of
 (glossaries)             referenced entries: 15)
 
-[87
+[95
 
 
 
-] [88] (main.aux)
+] [96] (main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
@@ -3047,25 +3102,16 @@ L3 programming layer <2025-12-24>
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-
-Package rerunfilecheck Warning: File `main.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `main.out':
-(rerunfilecheck)             Before: 7C515878BDE09694634C9F230D98C7C6;26641
-(rerunfilecheck)             After:  FDD9F908059506B8B07796F47B71B9EE;26885.
+Package rerunfilecheck Info: File `main.out' has not changed.
+(rerunfilecheck)             Checksum: FF0D03468D9F29CA84A76C063E29C48B;28947.
  ) 
 Here is how much of TeX's memory you used:
- 63302 strings out of 402987
- 1459788 string characters out of 5452871
- 2454224 words of memory out of 5000000
- 90991 multiletter control sequences out of 15000+600000
+ 63401 strings out of 402987
+ 1463269 string characters out of 5452871
+ 2455720 words of memory out of 5000000
+ 91080 multiletter control sequences out of 15000+600000
  638809 words of font info for 126 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  89i,17n,134p,2577b,2393s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on main.pdf (120 pages).
+Output written on main.pdf (130 pages).

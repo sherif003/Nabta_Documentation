@@ -32,20 +32,28 @@ The combined dataset totals in excess of \textbf{120,000 annotated images} spann
   \small
   \renewcommand{\arraystretch}{1.35}
   \setlength{\tabcolsep}{4pt}
-  \begin{tabularx}{\textwidth}{L{2.7cm} Y L{2.5cm} L{2.4cm}}
-    \toprule
+  \begin{tabularx}{\textwidth}{|L{2.7cm}|Y|L{2.5cm}|L{2.4cm}|}
+    \hline
     \textbf{Dataset} & \textbf{Description} & \textbf{Focus} & \textbf{Source} \\
-    \midrule
+    \hline
     PlantVillage & Benchmark dataset of 54,305 images across 14 crops and 26 diseases; laboratory-controlled conditions & Classification & Kaggle / Penn State \\
+    \hline
     PlantDoc & 2,569 images collected under diverse outdoor conditions; includes 13 plant species and 17 disease classes & Detection \& Classification & Open Source \\
+    \hline
     Plant Diseases Training Dataset & Supplementary multi-crop collection for generalisation improvement & Classification & Kaggle \\
+    \hline
     Bangladesh Crop Dataset & Region-specific rice and jute crop images for geographic diversity & Classification & Kaggle \\
+    \hline
     Rice Leaf Disease Dataset & Dedicated collection for bacterial blight, blast, and tungro diseases in rice & Classification & Kaggle \\
+    \hline
     Cotton Dataset & Images of cotton leaf curl virus, bacterial blight, and healthy states & Classification & Kaggle \\
+    \hline
     Mango Plant Dataset & Anthracnose, powdery mildew, and healthy mango leaf images & Classification & Kaggle \\
+    \hline
     Eggplant Pathogen Dataset & Eggplant-specific disease images including phomopsis blight & Classification & Kaggle \\
+    \hline
     Custom Segmentation Masks & Pixel-level binary masks constructed on top of classified leaf images & Segmentation & In-house annotation \\
-    \bottomrule
+    \hline
   \end{tabularx}
 \end{table}
 
@@ -93,21 +101,30 @@ To prevent overfitting to the photographic styles of individual source datasets 
   \caption{Data Augmentation Parameters Applied During Training}
   \label{tab:augmentation}
   \renewcommand{\arraystretch}{1.4}
-  \begin{tabularx}{\textwidth}{X l l}
-    \toprule
+  \begin{tabularx}{\textwidth}{|Y|L{3cm}|L{2.4cm}|}
+    \hline
     \textbf{Augmentation Operation} & \textbf{Parameters} & \textbf{Probability} \\
-    \midrule
+    \hline
     Random Horizontal Flip & --- & 0.50 \\
+    \hline
     Random Vertical Flip & --- & 0.30 \\
+    \hline
     Random Rotation & $\pm 45^{\circ}$ & 0.40 \\
+    \hline
     Random Zoom (Crop and Resize) & Scale: 0.8--1.2 & 0.40 \\
+    \hline
     Colour Jitter (Brightness) & $\pm 30\%$ & 0.50 \\
+    \hline
     Colour Jitter (Contrast) & $\pm 30\%$ & 0.50 \\
+    \hline
     Colour Jitter (Saturation) & $\pm 20\%$ & 0.30 \\
+    \hline
     Gaussian Blur & Kernel: $3 \times 3$ & 0.20 \\
+    \hline
     Random Grayscale & --- & 0.10 \\
+    \hline
     Cutout / Random Erasing & Area: 2--10\% & 0.20 \\
-    \bottomrule
+    \hline
   \end{tabularx}
 \end{table}
 
@@ -139,20 +156,28 @@ For the \nabta application, the \textbf{YOLOv8n} (nano) variant was selected to 
   \caption{YOLOv8 Training Hyperparameters}
   \label{tab:yolo_hp}
   \renewcommand{\arraystretch}{1.4}
-  \begin{tabular}{ll}
-    \toprule
+  \begin{tabular}{|l|l|}
+    \hline
     \textbf{Hyperparameter} & \textbf{Value} \\
-    \midrule
+    \hline
     Input Resolution & $640 \times 640$ \\
+    \hline
     Batch Size & 16 \\
+    \hline
     Optimiser & AdamW \\
+    \hline
     Initial Learning Rate & $1 \times 10^{-3}$ \\
+    \hline
     Weight Decay & $5 \times 10^{-4}$ \\
+    \hline
     Epochs & 100 \\
+    \hline
     Warmup Epochs & 3 \\
+    \hline
     \gls{iou} Threshold (NMS) & 0.45 \\
+    \hline
     Confidence Threshold & 0.25 \\
-    \bottomrule
+    \hline
   \end{tabular}
 \end{table}
 
@@ -175,19 +200,26 @@ where $\lambda_{1} = \lambda_{2} = 0.5$.
   \caption{U-Net Training Hyperparameters}
   \label{tab:unet_hp}
   \renewcommand{\arraystretch}{1.4}
-  \begin{tabular}{ll}
-    \toprule
+  \begin{tabular}{|l|l|}
+    \hline
     \textbf{Hyperparameter} & \textbf{Value} \\
-    \midrule
+    \hline
     Encoder Backbone & EfficientNet-B0 (ImageNet pretrained) \\
+    \hline
     Input Resolution & $256 \times 256$ \\
+    \hline
     Batch Size & 8 \\
+    \hline
     Optimiser & Adam \\
+    \hline
     Initial Learning Rate & $1 \times 10^{-4}$ \\
+    \hline
     Scheduler & ReduceLROnPlateau (patience=5) \\
+    \hline
     Epochs & 50 \\
+    \hline
     Loss Function & Dice + BCE (equal weighting) \\
-    \bottomrule
+    \hline
   \end{tabular}
 \end{table}
 
@@ -218,21 +250,30 @@ Cross-entropy loss with label smoothing ($\epsilon = 0.1$) was used as the train
   \caption{Custom CNN Classification Model Training Hyperparameters}
   \label{tab:cnn_hp}
   \renewcommand{\arraystretch}{1.4}
-  \begin{tabular}{ll}
-    \toprule
+  \begin{tabular}{|l|l|}
+    \hline
     \textbf{Hyperparameter} & \textbf{Value} \\
-    \midrule
+    \hline
     Input Resolution & $224 \times 224 \times 3$ \\
+    \hline
     Number of Classes & 102 \\
+    \hline
     Batch Size & 32 \\
+    \hline
     Optimiser & Adam \\
+    \hline
     Initial Learning Rate & $3 \times 10^{-4}$ \\
+    \hline
     Scheduler & CosineAnnealingLR ($T_{\max}=50$) \\
+    \hline
     Epochs & 100 \\
+    \hline
     Dropout Rate & 0.50 \\
+    \hline
     Label Smoothing ($\epsilon$) & 0.10 \\
+    \hline
     Weight Initialisation & He (Kaiming) Normal \\
-    \bottomrule
+    \hline
   \end{tabular}
 \end{table}
 

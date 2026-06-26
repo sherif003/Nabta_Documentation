@@ -23,21 +23,36 @@ This chapter documents the practical realisation of the system design described 
   \caption{AI and Machine Learning Technologies Employed}
   \label{tab:ml_tech}
   \renewcommand{\arraystretch}{1.5}
-  \begin{tabularx}{\textwidth}{l l X}
-    \toprule
+  \begin{tabularx}{\textwidth}{|L{3.15cm}|L{2.05cm}|Y|}
+    \hline
     \textbf{Technology} & \textbf{Version} & \textbf{Role} \\
-    \midrule
+    \hline
     Python         & 3.11         & Primary programming language for all ML and backend code \\
+    \hline
     PyTorch        & 2.1          & Deep learning framework for CNN and U-Net model construction, training, and inference \\
+    \hline
     Ultralytics    & 8.0          & YOLOv8 model training, export, and inference API \\
+    \hline
     segmentation-models-pytorch & 0.3 & U-Net architecture with EfficientNet-B0 encoder \\
+    \hline
     torchvision    & 0.16         & Image transformation pipelines and pretrained weights \\
+    \hline
+    scikit-learn   & 1.4          & Classification, regression, stratified splitting, metric computation, and crop/irrigation modelling \\
+    \hline
+    TensorFlow     & 2.x          & Experimental notebook environment for baseline model prototyping \\
+    \hline
+    Joblib         & 1.x          & Serialisation of classical machine-learning models and preprocessing artefacts \\
+    \hline
     OpenCV         & 4.9          & Image I/O, colour space conversions, and Grad-CAM overlay compositing \\
+    \hline
     NumPy          & 1.26         & Numerical array operations throughout the pipeline \\
+    \hline
+    Pandas         & 2.x          & Tabular dataset preparation for irrigation and crop recommendation models \\
+    \hline
     Pillow         & 10.2         & Image decoding and format conversion \\
-    scikit-learn   & 1.4          & Dataset stratified splitting, metric computation, and confusion matrix generation \\
+    \hline
     Matplotlib     & 3.8          & Training curve visualisation and offline evaluation plots \\
-    \bottomrule
+    \hline
   \end{tabularx}
 \end{table}
 
@@ -49,21 +64,26 @@ This chapter documents the practical realisation of the system design described 
   \caption{Backend Technologies Employed}
   \label{tab:be_tech}
   \renewcommand{\arraystretch}{1.5}
-  \begin{tabularx}{\textwidth}{l l X}
-    \toprule
+  \begin{tabularx}{\textwidth}{|L{3.15cm}|L{2.05cm}|Y|}
+    \hline
     \textbf{Technology} & \textbf{Version} & \textbf{Role} \\
-    \midrule
+    \hline
     FastAPI        & 0.111        & Asynchronous REST API framework \\
+    \hline
     Uvicorn        & 0.29         & ASGI server for running FastAPI in production \\
+    \hline
     Gunicorn       & 22.0         & Process manager for multi-worker Uvicorn deployments \\
+    \hline
     Firebase Admin SDK & 6.4    & Server-side JWT token verification and Firestore access \\
-    Cohere Python SDK & 5.5     & LLM inference and embedding API calls \\
-    LangChain      & 0.2          & RAG pipeline orchestration and vector store abstraction \\
-    Chroma / FAISS & 0.5 / 1.8   & Vector database for knowledge base indexing and retrieval \\
+    \hline
+    Cohere    & 5.5     & LLM inference and embedding API calls \\
+    \hline
     ReportLab      & 4.1          & PDF report generation \\
-    Pydantic       & 2.7          & Request/response schema validation \\
+    \hline
     python-dotenv  & 1.0          & Environment variable management \\
-    \bottomrule
+    \hline
+    Requests       & 2.x          & WeatherAPI and external HTTP service integration \\
+    \hline
   \end{tabularx}
 \end{table}
 
@@ -75,19 +95,30 @@ This chapter documents the practical realisation of the system design described 
   \caption{Frontend Technologies Employed}
   \label{tab:fe_tech}
   \renewcommand{\arraystretch}{1.5}
-  \begin{tabularx}{\textwidth}{l l X}
-    \toprule
+  \begin{tabularx}{\textwidth}{|L{3.15cm}|L{2.05cm}|Y|}
+    \hline
     \textbf{Technology} & \textbf{Version} & \textbf{Role} \\
-    \midrule
+    \hline
     React.js          & 18.3  & Component-based SPA framework \\
+    \hline
     Vite              & 5.2   & Build tooling and hot-module replacement dev server \\
+    \hline
     Axios             & 1.7   & HTTP client for backend communication \\
+    \hline
     Firebase JS SDK   & 10.11 & Client-side authentication and Firestore real-time queries \\
+    \hline
     Recharts          & 2.12  & Disease distribution and infection timeline chart components \\
+    \hline
     React Dropzone    & 14.2  & Drag-and-drop file upload component \\
+    \hline
     Tailwind CSS      & 3.4   & Utility-first CSS framework for responsive layout \\
+    \hline
     i18next           & 23.11 & Internationalisation (Arabic / English) \\
-    \bottomrule
+    \hline
+    React Router      & 6.x   & Client-side route management and protected dashboard navigation \\
+    \hline
+    HTML5 / CSS3 / JavaScript & Current web standards & Page structure, styling, and browser-side interaction logic \\
+    \hline
   \end{tabularx}
 \end{table}
 
@@ -99,18 +130,34 @@ This chapter documents the practical realisation of the system design described 
   \caption{Infrastructure and DevOps Technologies}
   \label{tab:devops_tech}
   \renewcommand{\arraystretch}{1.5}
-  \begin{tabularx}{\textwidth}{l X}
-    \toprule
+  \begin{tabularx}{\textwidth}{|L{4cm}|Y|}
+    \hline
     \textbf{Technology} & \textbf{Role} \\
-    \midrule
+    \hline
     Docker \& Docker Compose & Containerisation of backend service and dependencies for reproducible deployment \\
+    \hline
     Nginx                    & Reverse proxy for HTTPS termination and static file serving \\
+    \hline
     Firebase Hosting         & CDN-based hosting for the React.js SPA \\
+    \hline
+    Vercel                   & Alternative frontend deployment platform used during testing and preview builds \\
+    \hline
+    Firebase Firestore       & Cloud-hosted NoSQL database for user records, analysis history, and chat history \\
+    \hline
+    Firebase Authentication  & Managed authentication for registration, login, password reset, and secure sessions \\
+    \hline
     Google Cloud Run         & Serverless container platform for backend deployment \\
+    \hline
     Git / GitHub             & Version control and collaborative development \\
+    \hline
     GitHub Actions           & CI/CD pipeline for automated testing and deployment \\
+    \hline
     Google Colab / Kaggle    & GPU-accelerated model training environment \\
-    \bottomrule
+    \hline
+    WeatherAPI               & External weather service used by irrigation and crop recommendation modules \\
+    \hline
+    Jupyter Notebook         & Model experimentation, data exploration, and training notebook environment \\
+    \hline
   \end{tabularx}
 \end{table}
 
@@ -120,6 +167,26 @@ This chapter documents the practical realisation of the system design described 
 Model training was performed on cloud GPU platforms (Google Colab Pro+ and Kaggle Notebooks) utilising NVIDIA A100 and T4 GPUs with 16GB and 40GB of VRAM respectively. The classification CNN training run of 100 epochs on the 116,000-image corpus required approximately 14 hours of wall-clock time on an A100 instance. U-Net training completed in approximately 4 hours, and YOLOv8 fine-tuning in approximately 2 hours.
 
 Local development was conducted on workstations running Ubuntu 22.04 and Windows 11 with Python 3.11 virtual environments. The backend was developed using \textbf{VS Code} with the Pylance language server and the REST Client extension for endpoint testing. Frontend development used VS Code with the ESLint and Prettier extensions to enforce code style consistency.
+
+\begin{table}[H]
+  \centering
+  \caption{Development Environment Summary}
+  \label{tab:dev_env_summary}
+  \renewcommand{\arraystretch}{1.35}
+  \begin{tabularx}{\textwidth}{|L{4cm}|Y|}
+    \hline
+    \textbf{Category} & \textbf{Environment Details} \\
+    \hline
+    Hardware & Intel Core i5/i7 or equivalent processor, minimum 8GB RAM, SSD storage recommended, and reliable internet connectivity for cloud APIs and hosted services. \\
+    \hline
+    Operating Systems & Windows 10/11 for local development and Ubuntu 22.04 for backend and deployment-oriented testing. \\
+    \hline
+    Development Tools & Visual Studio Code, Git, GitHub, Jupyter Notebook, Firebase Console, REST Client, ESLint, Prettier, and Pylance. \\
+    \hline
+    Runtime Platforms & Python virtual environments, Node.js tooling for the React frontend, Google Colab, and Kaggle Notebooks for GPU-enabled model training. \\
+    \hline
+  \end{tabularx}
+\end{table}
 
 \section{Key Implementation Details}
 \label{sec:impl_details}
@@ -196,6 +263,45 @@ class GradCAM:
 
 The knowledge base was constructed by collecting 847 agronomist-authored treatment documents spanning all 102 disease classes, converted from structured agricultural manuals and curated field guidelines. Each document was split into 512-token chunks with 64-token overlap using LangChain's \code{RecursiveCharacterTextSplitter}. Chunks were embedded using the Cohere \code{embed-multilingual-v3.0} model (1024-dimensional output) and indexed in a persistent Chroma vector store.
 
+\subsection{Smart Irrigation and Crop Recommendation Module}
+\label{subsec:irrigation_impl}
+
+The smart irrigation module extends \nabta beyond image-based disease analysis by combining soil information, weather data, and machine-learning models to support field-level decision-making. The module is implemented as a backend service that accepts crop type, soil type, soil moisture, and location context, then returns both an irrigation decision and an estimated water requirement.
+
+The irrigation decision model is implemented using a Random Forest classifier with 100 decision trees. Its feature vector includes temperature, humidity, rainfall, soil moisture, depletion ratio, crop type, soil type, field capacity (FC), and wilting point (WP). The trained model achieved approximately \textbf{98.5\%} test accuracy, making it suitable for rule-assisted operational recommendations.
+
+The water requirement model is implemented using a Random Forest regressor. It estimates the irrigation water amount in millimetres by combining model predictions with FAO-56 evapotranspiration concepts and crop coefficient (\(K_c\)) values. The model achieved \(R^2 = 0.952\) and a mean absolute error of approximately \textbf{13.5 mm}.
+
+The crop recommendation model predicts suitable crops from soil and environmental inputs. Feature engineering was applied to generate \code{N\_P\_ratio}, \code{N\_K\_ratio}, and \code{NPK\_total}. Instead of returning only a single class, the module returns the top three crop recommendations with confidence percentages, giving farmers more flexible decision support.
+
+\begin{table}[H]
+  \centering
+  \caption{Smart Irrigation and Crop Recommendation Models}
+  \label{tab:irrigation_models}
+  \renewcommand{\arraystretch}{1.35}
+  \begin{tabularx}{\textwidth}{|L{3.2cm}|L{3.4cm}|Y|}
+    \hline
+    \textbf{Model} & \textbf{Technique} & \textbf{Output} \\
+    \hline
+    Irrigation Decision & Random Forest Classifier & Binary decision indicating whether irrigation is currently required. \\
+    \hline
+    Water Requirement & Random Forest Regressor with FAO-56-inspired features & Recommended irrigation amount in millimetres. \\
+    \hline
+    Crop Recommendation & Multi-class machine-learning classifier with engineered NPK features & Top three suitable crops with confidence percentages. \\
+    \hline
+  \end{tabularx}
+\end{table}
+
+\subsection{WeatherAPI Integration}
+\label{subsec:weather_impl}
+
+WeatherAPI is integrated to retrieve real-time environmental values, including temperature, humidity, rainfall, and location-specific weather conditions. When the frontend provides city information or GPS-derived coordinates, the backend requests current weather data and normalises the returned values before passing them to the irrigation and crop recommendation models. This keeps irrigation decisions responsive to actual weather conditions rather than relying only on static soil inputs.
+
+\subsection{Firebase Integration}
+\label{subsec:firebase_impl}
+
+Firebase is used for authentication, user management, secure session handling, and cloud data storage. Registration, login, password reset, and session verification are handled through Firebase Authentication. The backend verifies Firebase tokens through the Firebase Admin SDK before protected endpoints are executed, while Firestore stores user profiles, analysis histories, chat records, and subscription-related data.
+
 \subsection{Internationalisation (i18n)}
 \label{subsec:i18n}
 
@@ -237,8 +343,7 @@ A GitHub Actions workflow automates the following pipeline on every push to the 
 \section{System Screenshots}
 \label{sec:screenshots}
 
-% TODO: Replace this placeholder with the final image upload screen screenshot.
-\projectfigure{assets/screenshots/upload_screen.png}{8cm}{Image Upload Screen with File Type and Size Indicators}{fig:ui_upload}
+\projectfigure[0.95\textwidth]{assets/screenshots/login_welcome_screen.png}{8cm}{NABTA Login and Welcome Screen}{fig:ui_login_welcome}
 
 % TODO: Replace this placeholder with the final analysis results screen screenshot.
 \projectfigure{assets/screenshots/results_screen.png}{8cm}{Analysis Results Screen with Detection, Segmentation, and Grad-CAM Panels}{fig:ui_results}
