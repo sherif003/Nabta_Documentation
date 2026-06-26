@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.12) (preloaded format=xelatex 2026.6.25)  26 JUN 2026 19:41
+This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.12) (preloaded format=xelatex 2026.6.25)  26 JUN 2026 22:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2264,8 +2264,13 @@ Requested font "[XCharter-Bold.otf]/OT:script=latn;language=dflt;+tnum;+lnum;+c
 v01=0;mapping=tex-text;" at 14.4pt
  -> C:/Users/Armia Gamal/AppData/Local/Programs/MiKTeX/fonts/opentype/public/xc
 harter/XCharter-Bold.otf
-File: assets/logos/faculty_logo.png Graphic file (type bmp)
-<assets/logos/faculty_logo.png>
+File: assets/logos/logo2.jpg Graphic file (type bmp)
+<assets/logos/logo2.jpg>
+
+Overfull \hbox (21.90022pt too wide) in paragraph at lines 49--50
+ [][][][] 
+ []
+
 File: assets/logos/project_logo.png Graphic file (type bmp)
 <assets/logos/project_logo.png>
 LaTeX Font Info:    Font shape `TU/XCharter(0)/m/n' will be
@@ -2286,7 +2291,7 @@ Requested font "[XCharter-Bold.otf]/OT:script=latn;language=dflt;+tnum;+lnum;+c
 v01=0;mapping=tex-text;" at 12.0pt
  -> C:/Users/Armia Gamal/AppData/Local/Programs/MiKTeX/fonts/opentype/public/xc
 harter/XCharter-Bold.otf
- [1
+[1
 
 
 
@@ -3163,11 +3168,11 @@ Package rerunfilecheck Info: File `main.out' has not changed.
  ) 
 Here is how much of TeX's memory you used:
  62604 strings out of 402987
- 1456602 string characters out of 5447282
- 2197774 words of memory out of 5000000
+ 1456539 string characters out of 5447282
+ 2197773 words of memory out of 5000000
  90282 multiletter control sequences out of 15000+600000
  635552 words of font info for 109 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  89i,17n,134p,2519b,1003s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on main.xdv (155 pages, 2356744 bytes).
+Output written on main.xdv (155 pages, 2356740 bytes).
